@@ -4,13 +4,14 @@ import org.flowable.engine.delegate.DelegateExecution;
 import org.flowable.engine.delegate.JavaDelegate;
 
 /**
- * @author 蒲韵键
- * @date 2019/10/30
+ * @author LDF
+ * @date 2020/6/18
  */
-public class SendRejectionMail implements JavaDelegate {
-    @Override
+public class CallExternalSystemDelegate1 implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) {
-        System.out.println("Send Mail "
+        System.out.println("TODO 完成其他服务任务。。。"
                 + delegateExecution.getVariable("employee"));
+        delegateExecution.setVariable("result", "过期产");
+        System.out.println("过期产");
     }
 }

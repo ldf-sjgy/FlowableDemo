@@ -2,10 +2,12 @@ server:
   port: 8080
 
 spring:
+  jmx:
+    enabled: false
   datasource:
-    url:
-    username:
-    password:
+    url: jdbc:mysql://localhost:3306/doctor?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&autoReconnect=true&failOverReadOnly=false&serverTimezone=GMT%2B8
+    username: root
+    password: eh@sjgy
     driverClassName: com.mysql.jdbc.Driver
   resources:
 #    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/static/flowable-modeler

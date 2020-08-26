@@ -5,9 +5,9 @@ import org.flowable.spring.boot.EngineConfigurationConfigurer;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author pyj
+ * @author LDF
  * 修改连线的名称格式，
- * @date 2019/10/30
+ * @date 2020/6/20
  */
 @Configuration
 public class FlowableConfig implements EngineConfigurationConfigurer<SpringProcessEngineConfiguration> {
