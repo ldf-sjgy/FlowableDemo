@@ -180,15 +180,15 @@ public class TestController {
             variables.put("parentHeight", Boolean.valueOf("false"));
         }
         taskService.complete(taskId, variables);
-        String retVal = "正常";
+        String tips = "正常";
         if ((variables.get("growthRate") == null || (Boolean) variables.get("growthRate")) && !((Boolean) variables.get("parentHeight"))) {
-            retVal = "家族矮小史";
+            tips = "家族矮小史";
         } else if (!(Boolean) variables.get("growthRate") && ((Boolean) variables.get("parentHeight"))) {
-            retVal = "年生长速率低";
+            tips = "年生长速率低";
         } else if (!(Boolean) variables.get("growthRate") && !((Boolean) variables.get("parentHeight"))) {
-            retVal = "年生长速率低且家族矮小史";
+            tips = "年生长速率低且家族矮小史";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess1")
@@ -211,15 +211,15 @@ public class TestController {
             variables.put("parentHeight", Boolean.valueOf("false"));
         }
         taskService.complete(taskId, variables);
-        String retVal = "";
+        String tips = "";
         if (a1 == null) {
-            retVal = "growthRate is null";
+            tips = "growthRate is null";
         } else if (a1.equals("是")) {
-            retVal = "ture";
+            tips = "ture";
         } else if (a1.equals("否")) {
-            retVal = "false";
+            tips = "false";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess2")
@@ -232,18 +232,18 @@ public class TestController {
         variables.put("pregnantWeek", a1);
         taskService.complete(taskId, variables);
         int pregnantWeek = Integer.parseInt(a1);
-        String retVal = "正常";
+        String tips = "正常";
         if (pregnantWeek < 37) {
-            retVal = "早产";
+            tips = "早产";
         } else if (pregnantWeek > 42) {
-            retVal = "过期产";
+            tips = "过期产";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess3")
     public String assessSGA(String taskId, String a1, String a2, String a3, String a4) {
-        String retVal = "正常";
+        String tips = "正常";
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         if (task == null) {
             return "流程不存在";
@@ -254,7 +254,7 @@ public class TestController {
         double weight = Double.parseDouble(a3);
         String gender = a4;
         boolean isSGA = false;
-        if (pregnantWeek == 21 && height <= 0.32) {
+        if (pregnantWeek == 21 && weight <= 0.32) {
             isSGA = true;
         } else if (pregnantWeek == 22 && weight <= 0.32) {
             isSGA = true;
@@ -294,9 +294,9 @@ public class TestController {
         variables.put("isSGA", isSGA);
         taskService.complete(taskId, variables);
         if (isSGA) {
-            retVal = "符合SGA，进一步确认是否追赶生长";
+            tips = "符合SGA，进一步确认是否追赶生长";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess4")
@@ -315,11 +315,11 @@ public class TestController {
         variables.put("isFamilyShort", isFamilyShort);
 
         taskService.complete(taskId, variables);
-        String retVal = "正常";
+        String tips = "正常";
         if (isFamilyShort) {
-            retVal = "家族矮小史";
+            tips = "家族矮小史";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess5")
@@ -334,11 +334,11 @@ public class TestController {
         variables.put("isChronicDisease", isChronicDisease);
 
         taskService.complete(taskId, variables);
-        String retVal = "正常";
+        String tips = "正常";
         if (isChronicDisease) {
-            retVal = "慢性病史";
+            tips = "慢性病史";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess6")
@@ -353,11 +353,11 @@ public class TestController {
         variables.put("isDrugAllerg", isDrugAllerg);
 
         taskService.complete(taskId, variables);
-        String retVal = "正常";
+        String tips = "正常";
         if (isDrugAllerg) {
-            retVal = "药物过敏史";
+            tips = "药物过敏史";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess7")
@@ -373,11 +373,13 @@ public class TestController {
         variables.put("hereditaryHeightDiff", hereditaryHeightDiff);
 
         taskService.complete(taskId, variables);
-        String retVal = "正常";
+        String tips = "正常";
         if (heightPercentile < 3) {
-            retVal = "身材矮小";
+            tips = "身材矮小";
+        } else if (heightPercentile > 10 && hereditaryHeightDiff < 30){
+            tips = "直接跳到assess10：上下部量";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess8")
@@ -391,11 +393,11 @@ public class TestController {
         isPerinatalInjury = a1.equals("是") ? true : false;
         variables.put("isPerinatalInjury", isPerinatalInjury);
         taskService.complete(taskId, variables);
-        String retVal = "正常";
+        String tips = "正常";
         if (isPerinatalInjury) {
-            retVal = "有围产期损伤";
+            tips = "有围产期损伤";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess9")
@@ -410,11 +412,11 @@ public class TestController {
         variables.put("isParentDevelopmentDelay", isParentDevelopmentDelay);
 
         taskService.complete(taskId, variables);
-        String retVal = "正常";
+        String tips = "正常";
         if (isParentDevelopmentDelay) {
-            retVal = "疑似体质性青春期延迟,进一步辅助检查判断";
+            tips = "疑似体质性青春期延迟,进一步辅助检查判断";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess10")
@@ -430,13 +432,13 @@ public class TestController {
         variables.put("down", down);
 
         taskService.complete(taskId, variables);
-        String retVal = "正常";
+        String tips = "正常";
         if (up > down) {
-            retVal = "疑似软骨发育不良/不全,成骨发育不全、骺软发育不良等";
+            tips = "疑似软骨发育不良/不全,成骨发育不全、骺软发育不良等";
         } else if (up < down) {
-            retVal = "疑似粘多糖病、脊椎骨骺发育不良等";
+            tips = "疑似粘多糖病、脊椎骨骺发育不良等";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess11")
@@ -451,11 +453,11 @@ public class TestController {
         variables.put("isNeedSSS", isNeedSSS);
 
         taskService.complete(taskId, variables);
-        String retVal = "不需要进行第二性征查体";
+        String tips = "不需要进行第二性征查体";
         if (isNeedSSS) {
-            retVal = "需要进行第二性征查体";
+            tips = "需要进行第二性征查体";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess12")
@@ -468,13 +470,13 @@ public class TestController {
         Map<String, Object> variables = new HashMap<>();
         variables.put("SSS", SSS);
         taskService.complete(taskId, variables);
-        String retVal = "正常";
+        String tips = "正常";
         if (SSS.equals("落后")) {
-            retVal = "青春发育延迟";
+            tips = "青春发育延迟";
         } else if (SSS.equals("提前")) {
-            retVal = "性早熟";
+            tips = "性早熟";
         }
-        return retVal;
+        return tips;
     }
 
     @GetMapping("assess13")
@@ -511,6 +513,7 @@ public class TestController {
         } else if (boneAgeDiff >= 1) {
             boneAgeStatus = "骨龄提前1岁及以上";
         }
+
         Map<String, Object> variables = new HashMap<>();
         variables.put("heightStatus", heightStatus);
         variables.put("isDevelopmentDelay", isDevelopmentDelay);
@@ -518,61 +521,62 @@ public class TestController {
         variables.put("isHereditaryHeightPercentile", isHereditaryHeightPercentile);
         variables.put("isBoneAgePercentile", isBoneAgePercentile);
         variables.put("boneAgeStatus", boneAgeStatus);
-
-        String retVal = "";
+        //骨龄提示信息
+        String tips = "";
         if (heightStatus.equals("正常") && !isDevelopmentDelay && isGrowthRate && isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄正常")) {
-            retVal = "1.正常人";
+            tips = "1.正常人";
             variables.put("result", "1");
         } else if (heightStatus.equals("正常") && !isDevelopmentDelay && isGrowthRate && !isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄正常")) {
-            retVal = "2.孩子生长正常，超过遗传身高，继续观察";
+            tips = "2.孩子生长正常，超过遗传身高，继续观察";
             variables.put("result", "2");
         } else if (heightStatus.equals("偏低") && !isDevelopmentDelay && isGrowthRate && isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄落后1-2岁")) {
-            retVal = "9.可能是晚长，可以考虑观察";
+            tips = "9.可能是晚长，可以考虑观察";
             variables.put("result", "9");
         } else if (heightStatus.equals("偏低") && !isDevelopmentDelay && !isGrowthRate && isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄落后1-2岁")) {
-            retVal = "10.若生长速度慢，那他的身高可能会越来越偏低生长曲线，身高会逐渐矮小，可能需要提前更多关注";
+            tips = "10.若生长速度慢，那他的身高可能会越来越偏低生长曲线，身高会逐渐矮小，可能需要提前更多关注";
             variables.put("result", "10");
         } else if (heightStatus.equals("偏低") && isDevelopmentDelay && isGrowthRate && isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄落后1-2岁")) {
-            retVal = "14.还要关注他的发育情况，尤其是青春期年龄段的，有部分是青春期发育延迟的，身高可能暂时偏矮";
+            tips = "14.还要关注他的发育情况，尤其是青春期年龄段的，有部分是青春期发育延迟的，身高可能暂时偏矮";
             variables.put("result", "14");
         } else if (heightStatus.equals("偏低") && !isDevelopmentDelay && isGrowthRate && isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄落后2岁及以上")) {
-            retVal = "11.考虑生长激素缺乏症等的可能，需进一步检查";
+            tips = "11.考虑生长激素缺乏症等的可能，需进一步检查";
             variables.put("result", "11");
         } else if (heightStatus.equals("正常") && !isDevelopmentDelay && !isGrowthRate && isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄正常")) {
-            retVal = "3.生长速度慢，可能是短暂的，需注意排除近期有无疾病、心理压力大等影响长个生物因素，若有尽量去除，下一步生长趋势可能不好，可观察一段时间，若生长速度持续慢，可能影响终身高";
+            tips = "3.生长速度慢，可能是短暂的，需注意排除近期有无疾病、心理压力大等影响长个生物因素，若有尽量去除，下一步生长趋势可能不好，可观察一段时间，若生长速度持续慢，可能影响终身高";
             variables.put("result", "3");
         } else if (heightStatus.equals("正常") && !isDevelopmentDelay && isGrowthRate && isHereditaryHeightPercentile && !isBoneAgePercentile && boneAgeStatus.equals("骨龄正常")) {
-            retVal = "4.孩子可能属于早长类型，注意青春发育情况，骨龄暂时不提前，下一步有可能出现骨龄加速，影响生长，导致终身高偏矮或矮小";
+            tips = "4.孩子可能属于早长类型，注意青春发育情况，骨龄暂时不提前，下一步有可能出现骨龄加速，影响生长，导致终身高偏矮或矮小";
             variables.put("result", "4");
         } else if (heightStatus.equals("正常") && !isDevelopmentDelay && isGrowthRate && isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄落后1-2岁")) {
-            retVal = "5.孩子的身高生长超过遗传身高，骨龄落后可能是临时的，或者存在骨骼系统疾病，建议观察，注意骨龄变化情况";
+            tips = "5.孩子的身高生长超过遗传身高，骨龄落后可能是临时的，或者存在骨骼系统疾病，建议观察，注意骨龄变化情况";
             variables.put("result", "5");
         } else if (heightStatus.equals("偏高") && !isDevelopmentDelay && isGrowthRate && isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄正常")) {
-            retVal = "6.遗传身高本身就高可能，考虑正常高个可能，观察";
+            tips = "6.遗传身高本身就高可能，考虑正常高个可能，观察";
             variables.put("result", "6");
         } else if (heightStatus.equals("偏高") && !isDevelopmentDelay && isGrowthRate && !isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄提前1岁及以上")) {
-            retVal = "7.早长个可能，需注意评估性发育情况，观察骨龄是否快速进展";
+            tips = "7.早长个可能，需注意评估性发育情况，观察骨龄是否快速进展";
             variables.put("result", "7");
         } else if (heightStatus.equals("偏高") && !isDevelopmentDelay && !isGrowthRate && isBoneAgePercentile && boneAgeStatus.equals("骨龄正常")) {
-            retVal = "8.这种情况常见于青春发育较早的孩子，青春期后期可能，需注意性腺发育情况";
+            tips = "8.这种情况常见于青春发育较早的孩子，青春期后期可能，需注意性腺发育情况";
             variables.put("result", "8");
         } else if (heightStatus.equals("偏低") && !isDevelopmentDelay && isGrowthRate && !isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄正常")) {
-            retVal = "12.遗传性矮小可能，可观察，或者进一步检查";
+            tips = "12.遗传性矮小可能，可观察，或者进一步检查";
             variables.put("result", "12");
         } else if (heightStatus.equals("偏低") && !isDevelopmentDelay && !isGrowthRate && isHereditaryHeightPercentile && !isBoneAgePercentile && boneAgeStatus.equals("骨龄正常")) {
-            retVal = "13.明确矮小原因";
+            tips = "13.明确矮小原因";
             variables.put("result", "13");
         } else if (heightStatus.equals("偏低") && isDevelopmentDelay && !isGrowthRate && isHereditaryHeightPercentile && !isBoneAgePercentile && boneAgeStatus.equals("骨龄落后1-2岁")) {
-            retVal = "15.性腺发育异常疾病可能";
+            tips = "15.性腺发育异常疾病可能";
             variables.put("result", "15");
         } else {
-            retVal = "骨龄检查的其他情况，建议继续观察";
+            tips = "骨龄检查的其他情况，建议继续观察";
             variables.put("result", "0");
         }
         taskService.complete(taskId, variables);
-        return retVal;
+        return tips;
     }
 
+    //判断身高百分位数是否正常[3, 97]--正常
     private boolean isPercentileNormal(String strPercentile) {
         int percentile = Integer.parseInt(strPercentile);
         boolean isNormal = false;
@@ -582,8 +586,33 @@ public class TestController {
         return isNormal;
     }
 
+    @GetMapping("assess13_2")
+    public String assessBoneAge(String taskId, String a1, String a2, String a3) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+        //骨龄初步诊断
+        String SSS = a1;//第二性征："落后"/"提前"
+        int boneAgePercentile = Integer.parseInt(a2);
+        double boneAgeDiff = Double.parseDouble(a3);
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("SSS", SSS);
+        variables.put("boneAgePercentile", boneAgePercentile);
+        variables.put("boneAgeDiff", boneAgeDiff);
+        String firstDiagnosis;
+        if(boneAgePercentile < 6 || boneAgeDiff <= -2){ //骨龄落后2岁及以上
+            firstDiagnosis = "考虑矮小，建议进一步检查。";
+        } else if(SSS.equals("提前") && boneAgeDiff >= 2){//骨龄提前2岁及以上
+            firstDiagnosis = "考虑性早熟，建议进一步检查。";
+        } else{
+            firstDiagnosis = "考虑非病理性问题，建议改善生活方式，定期复查。";
+        }
+        taskService.complete(taskId, variables);
+        return firstDiagnosis;
+    }
     @GetMapping("assess14")
-    public String assessCheck(String taskId, //
+    public Map assessCheck(String taskId, //
                               String tp, String alb, String glb, String ag, String alt, String ast, String op, String tbil, String dbil, String ibil, String alp, String y, String z,//肝功
                               String crea, String urea, String ua, String cys,//肾功能
                               String tsh, String t3, String t4, String ft3, String ft4,//甲功
@@ -593,14 +622,15 @@ public class TestController {
                               String brbc, String hgb, String wbc, String neut, //血常规
                               String rbc, String pro, String wbcc//尿常规
     ) {
+        Map<String, Object> variables = new HashMap<>();
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         if (task == null) {
-            return "流程不存在";
+            variables.put("msg", "流程不存在");
+            return variables;
         }
-        Map<String, Object> variables = new HashMap<>();
         //缺省值
         variables.put("checkResult", 0);
-        String retVal = "检验检查的其他情况，建议持续观察";
+        String tips = "检验检查的其他情况，建议持续观察";
         //肝功
         tp      = getStr(tp);
         alb     = getStr(alb);
@@ -701,7 +731,7 @@ public class TestController {
            pro .equals("正常") &&
            wbcc.equals("正常")
         ){
-            retVal = "1.营养不良";
+            tips = "1.营养不良";
             variables.put("checkResult", 1);
         }else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -749,7 +779,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "3.肝损害";
+            tips = "3.肝损害";
             variables.put("checkResult", 3);
         }else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -797,7 +827,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "4.肾功能不全";
+            tips = "4.肾功能不全";
             variables.put("checkResult", 4);
         }else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -845,7 +875,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "5.高尿酸血症";
+            tips = "5.高尿酸血症";
             variables.put("checkResult", 5);
         }else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -893,7 +923,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "6.常见于甲减";
+            tips = "6.常见于甲减";
             variables.put("checkResult", 6);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -941,7 +971,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "7.常见于甲亢";
+            tips = "7.常见于甲亢";
             variables.put("checkResult", 7);
         }else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -989,7 +1019,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "8.常见于甲减";
+            tips = "8.常见于甲减";
             variables.put("checkResult", 8);
         }else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1037,7 +1067,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "9.常见于甲亢";
+            tips = "9.常见于甲亢";
             variables.put("checkResult", 9);
         }else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1085,7 +1115,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "10.常见于甲减";
+            tips = "10.常见于甲减";
             variables.put("checkResult", 10);
         }else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1133,7 +1163,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "11.常见于甲亢";
+            tips = "11.常见于甲亢";
             variables.put("checkResult", 11);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1181,7 +1211,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "12.女孩要发育或已经发育";
+            tips = "12.女孩要发育或已经发育";
             variables.put("checkResult", 12);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1229,7 +1259,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "13.男孩要发育或已经发育";
+            tips = "13.男孩要发育或已经发育";
             variables.put("checkResult", 13);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1277,7 +1307,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "14.性腺轴启动";
+            tips = "14.性腺轴启动";
             variables.put("checkResult", 14);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1325,7 +1355,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "15.青春期后不升高，提示垂体功能减退";
+            tips = "15.青春期后不升高，提示垂体功能减退";
             variables.put("checkResult", 15);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1373,7 +1403,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "16.垂体疾病";
+            tips = "16.垂体疾病";
             variables.put("checkResult", 16);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1421,7 +1451,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "17.垂体疾病";
+            tips = "17.垂体疾病";
             variables.put("checkResult", 17);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1469,7 +1499,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "18.酸中毒";
+            tips = "18.酸中毒";
             variables.put("checkResult", 18);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1517,7 +1547,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "19.糖尿病或糖尿病前期";
+            tips = "19.糖尿病或糖尿病前期";
             variables.put("checkResult", 19);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1565,7 +1595,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "20.贫血";
+            tips = "20.贫血";
             variables.put("checkResult", 20);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1613,7 +1643,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "21.贫血";
+            tips = "21.贫血";
             variables.put("checkResult", 21);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1661,7 +1691,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "22.有感染";
+            tips = "22.有感染";
             variables.put("checkResult", 22);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1709,7 +1739,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "23.有感染";
+            tips = "23.有感染";
             variables.put("checkResult", 23);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1757,7 +1787,7 @@ public class TestController {
                 pro .equals("正常") &&
                 wbcc.equals("正常")
         ){
-            retVal = "24.有肾病";
+            tips = "24.有肾病";
             variables.put("checkResult", 24);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1805,7 +1835,7 @@ public class TestController {
                 (pro .equals("升高") || pro .equals("降低")) &&
                 wbcc.equals("正常")
         ){
-            retVal = "25.有肾病";
+            tips = "25.有肾病";
             variables.put("checkResult", 25);
         } else if(tp  .equals("正常") &&
                 alb .equals("正常") &&
@@ -1852,34 +1882,279 @@ public class TestController {
                 rbc .equals("正常") &&
                 pro .equals("正常") &&
                 (wbcc.equals("升高") || wbcc.equals("降低"))
-        ){
-            retVal = "26.尿路感染";
+                ){
+            tips = "26.尿路感染";
             variables.put("checkResult", 26);
+        } else if(tp  .equals("正常") &&
+                alb .equals("正常") &&
+                glb .equals("正常") &&
+                ag  .equals("正常") &&
+                alt .equals("正常") &&
+                ast .equals("正常") &&
+                op  .equals("正常") &&
+                tbil.equals("正常") &&
+                ibil.equals("正常") &&
+                alp .equals("正常") &&
+                y   .equals("正常") &&
+                z   .equals("正常") &&
+                crea.equals("正常") &&
+                urea.equals("正常") &&
+                ua  .equals("正常") &&
+                cys .equals("正常") &&
+                tsh .equals("正常") &&
+                t3  .equals("正常") &&
+                t4  .equals("正常") &&
+                ft3 .equals("正常") &&
+                ft4 .equals("正常") &&
+                e2  .equals("正常") &&
+                p   .equals("正常") &&
+                t   .equals("正常") &&
+                prl .equals("正常") &&
+                lh  .equals("正常") &&
+                fsh .equals("正常") &&
+                ca  .equals("正常") &&
+                mg  .equals("正常") &&
+                pa  .equals("正常") &&
+                k   .equals("正常") &&
+                na  .equals("正常") &&
+                cl  .equals("正常") &&
+                co2 .equals("正常") &&
+                bglu.equals("正常") &&
+                bc  .equals("正常") &&
+                igf_1  .equals("正常") &&
+                igfbp_3.equals("正常") &&
+                brbc.equals("正常") &&
+                hgb .equals("正常") &&
+                wbc .equals("正常") &&
+                neut.equals("正常") &&
+                rbc .equals("正常") &&
+                pro .equals("正常") &&
+                wbcc.equals("正常")
+                ){
+            tips = "30.所有指标全部正常";
+            variables.put("checkResult", 30);
+        } else if(tp  .equals("正常") &&
+                alb .equals("正常") &&
+                glb .equals("正常") &&
+                ag  .equals("正常") &&
+                alt .equals("正常") &&
+                ast .equals("正常") &&
+                op  .equals("正常") &&
+                tbil.equals("正常") &&
+                ibil.equals("正常") &&
+                alp .equals("正常") &&
+                y   .equals("正常") &&
+                z   .equals("正常") &&
+                crea.equals("正常") &&
+                urea.equals("正常") &&
+                ua  .equals("正常") &&
+                cys .equals("正常") &&
+                tsh .equals("正常") &&
+                t3  .equals("正常") &&
+                t4  .equals("正常") &&
+                ft3 .equals("正常") &&
+                ft4 .equals("正常") &&
+                e2  .equals("正常") &&
+                p   .equals("正常") &&
+                t   .equals("正常") &&
+                prl .equals("正常") &&
+                lh  .equals("正常") &&
+                fsh .equals("正常") &&
+                ca  .equals("正常") &&
+                mg  .equals("正常") &&
+                pa  .equals("正常") &&
+                k   .equals("正常") &&
+                na  .equals("正常") &&
+                cl  .equals("正常") &&
+                co2 .equals("正常") &&
+                bglu.equals("正常") &&
+                bc  .equals("正常") &&
+                igf_1  .equals("降低") &&
+                igfbp_3.equals("降低") &&
+                brbc.equals("正常") &&
+                hgb .equals("正常") &&
+                wbc .equals("正常") &&
+                neut.equals("正常") &&
+                rbc .equals("正常") &&
+                pro .equals("正常") &&
+                wbcc.equals("正常")
+                ){
+            tips = "31.IGF-1、IGFBP3降低";
+            variables.put("checkResult", 31);
+        } else if(tp  .equals("正常") &&
+                alb .equals("正常") &&
+                glb .equals("正常") &&
+                ag  .equals("正常") &&
+                alt .equals("正常") &&
+                ast .equals("正常") &&
+                op  .equals("正常") &&
+                tbil.equals("正常") &&
+                ibil.equals("正常") &&
+                alp .equals("正常") &&
+                y   .equals("正常") &&
+                z   .equals("正常") &&
+                crea.equals("正常") &&
+                urea.equals("正常") &&
+                ua  .equals("正常") &&
+                cys .equals("正常") &&
+                tsh .equals("正常") &&
+                t3  .equals("正常") &&
+                t4  .equals("正常") &&
+                ft3 .equals("正常") &&
+                ft4 .equals("正常") &&
+                e2  .equals("正常") &&
+                p   .equals("正常") &&
+                t   .equals("正常") &&
+                prl .equals("正常") &&
+                lh  .equals("降低") &&
+                fsh .equals("降低") &&
+                ca  .equals("正常") &&
+                mg  .equals("正常") &&
+                pa  .equals("正常") &&
+                k   .equals("正常") &&
+                na  .equals("正常") &&
+                cl  .equals("正常") &&
+                co2 .equals("正常") &&
+                bglu.equals("正常") &&
+                bc  .equals("正常") &&
+                igf_1  .equals("正常") &&
+                igfbp_3.equals("正常") &&
+                brbc.equals("正常") &&
+                hgb .equals("正常") &&
+                wbc .equals("正常") &&
+                neut.equals("正常") &&
+                rbc .equals("正常") &&
+                pro .equals("正常") &&
+                wbcc.equals("正常")
+                ){
+            tips = "32.LH、FSH降低";
+            variables.put("checkResult", 32);
+        } else if(tp  .equals("正常") &&
+                alb .equals("正常") &&
+                glb .equals("正常") &&
+                ag  .equals("正常") &&
+                alt .equals("正常") &&
+                ast .equals("正常") &&
+                op  .equals("正常") &&
+                tbil.equals("正常") &&
+                ibil.equals("正常") &&
+                alp .equals("正常") &&
+                y   .equals("正常") &&
+                z   .equals("正常") &&
+                crea.equals("正常") &&
+                urea.equals("正常") &&
+                ua  .equals("正常") &&
+                cys .equals("正常") &&
+                tsh .equals("正常") &&
+                t3  .equals("正常") &&
+                t4  .equals("正常") &&
+                ft3 .equals("正常") &&
+                ft4 .equals("正常") &&
+                (e2 .equals("升高") || e2 .equals("降低")) &&
+                p   .equals("正常") &&
+                (t  .equals("升高") || t  .equals("降低")) &&
+                prl .equals("正常") &&
+                (lh .equals("升高") || lh .equals("降低")) &&
+                (fsh.equals("升高") || fsh.equals("降低")) &&
+                ca  .equals("正常") &&
+                mg  .equals("正常") &&
+                pa  .equals("正常") &&
+                k   .equals("正常") &&
+                na  .equals("正常") &&
+                cl  .equals("正常") &&
+                co2 .equals("正常") &&
+                bglu.equals("正常") &&
+                bc  .equals("正常") &&
+                igf_1  .equals("正常") &&
+                igfbp_3.equals("正常") &&
+                brbc.equals("正常") &&
+                hgb .equals("正常") &&
+                wbc .equals("正常") &&
+                neut.equals("正常") &&
+                rbc .equals("正常") &&
+                pro .equals("正常") &&
+                wbcc.equals("正常")
+                ){
+            tips = "33.激素水平异常";
+            variables.put("checkResult", 33);
         }
+        String check1Case = tips.substring(0, tips.indexOf("."));
+        variables.put("check1Case", check1Case);
+        variables.put("tips", tips);
         taskService.complete(taskId, variables);
-        return retVal;
+        return variables;
     }
 
     private String getStr(String tp) {
         tp = (tp == null ? "正常" : tp);
         return tp;
     }
-
+    @GetMapping("assess15")
+    public Map assessCheck2(String taskId, String a1, String a2, String a3, String a4, String a5) {
+        Map<String, Object> variables = new HashMap<>();
+        String treatmentPlan = "";
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            variables.put("msg", "流程不存在");
+            return variables;
+        }
+        //骨龄初步诊断
+        String check1Case = a1;//30 31 32 33
+        String chromosomeExam = a2;
+        String ghTest = a3;
+        int boneAgePercentile = Integer.parseInt(a4);
+        boolean isFamilyShortHistory = a5.equals("是") ? true : false;//家族矮小史
+        variables.put("illnessResult", 0);
+        String illnessDiagnosis = "其他疾病，建议持续跟踪";
+        if(check1Case.equals("30") && chromosomeExam.equals("正常") && ghTest.equals("正常") &&boneAgePercentile < 3) {
+            illnessDiagnosis = "1. 特发性矮小ISS";
+            treatmentPlan = "治疗方案：1.特发性矮小ISS";
+            variables.put("illnessResult", 1);
+        } else if(check1Case.equals("30") && chromosomeExam.equals("正常") && ghTest.equals("正常") &&boneAgePercentile < 3 && isFamilyShortHistory) {
+            illnessDiagnosis = "2. 特发性矮小ISS";
+            treatmentPlan = "治疗方案：2.特发性矮小ISS";
+            variables.put("illnessResult", 2);
+        } else if(check1Case.equals("30") && chromosomeExam.equals("异常") && ghTest.equals("正常")) {
+            illnessDiagnosis = "3. 特纳综合症或21染色体";
+            treatmentPlan = "治疗方案：3. 特纳综合症或21染色体";
+            variables.put("illnessResult", 3);
+        } else if(check1Case.equals("31") && chromosomeExam.equals("正常") && ghTest.equals("异常")) {
+            illnessDiagnosis = "4. 生长激素缺乏症GHD";
+            treatmentPlan = "治疗方案：4. 生长激素缺乏症GHD";
+            variables.put("illnessResult", 4);
+        } else if(check1Case.equals("31") && chromosomeExam.equals("正常") && ghTest.equals("正常")) {
+            illnessDiagnosis = "5. 小于胎龄儿SGA";
+            treatmentPlan = "治疗方案：5. 小于胎龄儿SGA";
+            variables.put("illnessResult", 5);
+        } else if(check1Case.equals("32") && chromosomeExam.equals("正常") && ghTest.equals("正常")) {
+            illnessDiagnosis = "6. 体质性青春发育延迟CDGP";
+            treatmentPlan = "治疗方案：6. 体质性青春发育延迟CDGP";
+            variables.put("illnessResult", 6);
+        } else if(check1Case.equals("33") && chromosomeExam.equals("正常") && ghTest.equals("正常")) {
+            illnessDiagnosis = "7. 中枢性性早熟CPP";
+            treatmentPlan = "治疗方案：7. 中枢性性早熟CPP";
+            variables.put("illnessResult", 7);
+        }
+        variables.put("illnessDiagnosis", illnessDiagnosis);
+        variables.put("treatmentPlan", treatmentPlan);
+        taskService.complete(taskId, variables);
+        return variables;
+    }
     @GetMapping("assess0")
     public String assess0(String taskId, String a1, String tp) {
         tp = (tp == null ? "正常" : tp);
         System.out.println(tp);
-        String retVal = "";
+        String tips = "";
         if (a1 == null) {
-            retVal = "null";
+            tips = "null";
         } else if (a1.equals("是")) {
-            retVal = "true";
+            tips = "true";
         } else if (a1.equals("否")) {
-            retVal = "否";
+            tips = "否";
         }
 
 //        variables.put("a1", a1);
-        return retVal;
+        return tips;
     }
 
 
