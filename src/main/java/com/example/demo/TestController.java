@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ErrorMsg;
 import org.apache.commons.lang3.StringUtils;
 import org.flowable.bpmn.model.*;
 import org.flowable.engine.*;
@@ -22,16 +21,16 @@ import org.flowable.image.ProcessDiagramGenerator;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.Normalizer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author LDF
@@ -63,7 +62,7 @@ public class TestController {
      */
     @GetMapping("start")
     public String start() {
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("growth7");
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("growth8");
         return processInstance.getId();
     }
 
@@ -161,34 +160,83 @@ public class TestController {
     }
 
     @GetMapping("assess")
-    public String assess(String taskId, String a1, String a2, String a3) {
+    public String assess(String taskId, String age, Double growthRate, Double fatherHeight, Double motherHeight) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         if (task == null) {
             return "流程不存在";
         }
-        a1 = "是";
-        a2 = "是";
+
         Map<String, Object> variables = new HashMap<>();
-        if (StringUtils.isNotBlank(a1)) {
-            variables.put("growthRate", Boolean.valueOf("true"));
+        if (null != growthRate) {
+            variables.put("growthRate", this.getGrowthRateStatus(age, growthRate));
         } else {
-            variables.put("growthRate", Boolean.valueOf("false"));
+            variables.put("growthRate", true);
         }
-        if (a2.equals("是")) {
-            variables.put("parentHeight", Boolean.valueOf("true"));
-        } else {
-            variables.put("parentHeight", Boolean.valueOf("false"));
-        }
+        boolean isFatherHeightNormal = this.isPercentileNormal(fatherHeight.toString());
+        boolean isMotherHeightNormal = this.isPercentileNormal(motherHeight.toString());
+        boolean isParentHeightNormal = (isFatherHeightNormal && isMotherHeightNormal);
+        variables.put("parentHeight", isParentHeightNormal);
         taskService.complete(taskId, variables);
-        String tips = "正常";
-        if ((variables.get("growthRate") == null || (Boolean) variables.get("growthRate")) && !((Boolean) variables.get("parentHeight"))) {
-            tips = "家族矮小史";
-        } else if (!(Boolean) variables.get("growthRate") && ((Boolean) variables.get("parentHeight"))) {
+        String tips = "生长速率 --> 正常";
+        if ((growthRate == null || this.getGrowthRateStatus(age, growthRate)) && !isParentHeightNormal) {
+            tips = "有家族矮小史";
+        } else if ((growthRate != null && !this.getGrowthRateStatus(age, growthRate)) && isParentHeightNormal) {
             tips = "年生长速率低";
-        } else if (!(Boolean) variables.get("growthRate") && !((Boolean) variables.get("parentHeight"))) {
-            tips = "年生长速率低且家族矮小史";
+        } else if ((growthRate != null && !this.getGrowthRateStatus(age, growthRate)) && !isParentHeightNormal) {
+            tips = "年生长速率低且有家族矮小史";
         }
         return tips;
+    }
+
+    /**
+     * 判断生长速率是否正常
+     * @param age
+     * @param growthRate
+     * @return
+     */
+    private boolean getGrowthRateStatus(String age, double growthRate){
+        boolean isNormal = false;
+        String year;
+
+        int index = age.indexOf("岁");
+        if(index == -1){
+            //0-1岁
+            if(growthRate >= 25){
+                isNormal = true;
+            }
+        }else{
+            //1岁以上
+            year = age.substring(0, index);
+            switch(year){
+                case "1":
+                    if(growthRate >= 12){
+                        isNormal = true;
+                    }
+                    break;
+                case "2":
+                    if(10 >= growthRate && growthRate >= 8){
+                        isNormal = true;
+                    }
+                    break;
+                case "3":
+                case "4":
+                case "5":
+                case "6":
+                case "7":
+                case "8":
+                case "9":
+                    if(growthRate >= 6){
+                        isNormal = true;
+                    }
+                    break;
+                default:
+                    if(growthRate >= 5){
+                        isNormal = true;
+                    }
+                    break;
+            }
+        }
+        return isNormal;
     }
 
     @GetMapping("assess1")
@@ -222,6 +270,12 @@ public class TestController {
         return tips;
     }
 
+    /**
+     * 判断出生孕周是否正常
+     * @param taskId
+     * @param a1
+     * @return
+     */
     @GetMapping("assess2")
     public String assessPregnantWeek(String taskId, String a1) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
@@ -232,7 +286,7 @@ public class TestController {
         variables.put("pregnantWeek", a1);
         taskService.complete(taskId, variables);
         int pregnantWeek = Integer.parseInt(a1);
-        String tips = "正常";
+        String tips = "出生孕周 --> 正常";
         if (pregnantWeek < 37) {
             tips = "早产";
         } else if (pregnantWeek > 42) {
@@ -241,9 +295,18 @@ public class TestController {
         return tips;
     }
 
+    /**
+     * 判断是否符合SGA
+     * @param taskId
+     * @param a1
+     * @param a2
+     * @param a3
+     * @param a4
+     * @return
+     */
     @GetMapping("assess3")
     public String assessSGA(String taskId, String a1, String a2, String a3, String a4) {
-        String tips = "正常";
+        String tips = "不符合SGA --> 正常";
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         if (task == null) {
             return "流程不存在";
@@ -299,6 +362,13 @@ public class TestController {
         return tips;
     }
 
+    /**
+     * 是否有家族矮小史
+     * @param taskId
+     * @param a1
+     * @param a2
+     * @return
+     */
     @GetMapping("assess4")
     public String assessFamilyShort(String taskId, String a1, String a2) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
@@ -315,9 +385,9 @@ public class TestController {
         variables.put("isFamilyShort", isFamilyShort);
 
         taskService.complete(taskId, variables);
-        String tips = "正常";
+        String tips = "无家族矮小史 --> 正常";
         if (isFamilyShort) {
-            tips = "家族矮小史";
+            tips = "有家族矮小史";
         }
         return tips;
     }
@@ -334,9 +404,9 @@ public class TestController {
         variables.put("isChronicDisease", isChronicDisease);
 
         taskService.complete(taskId, variables);
-        String tips = "正常";
+        String tips = "无慢性病史 --> 正常";
         if (isChronicDisease) {
-            tips = "慢性病史";
+            tips = "有慢性病史";
         }
         return tips;
     }
@@ -353,9 +423,9 @@ public class TestController {
         variables.put("isDrugAllerg", isDrugAllerg);
 
         taskService.complete(taskId, variables);
-        String tips = "正常";
+        String tips = "无药物过敏史 --> 正常";
         if (isDrugAllerg) {
-            tips = "药物过敏史";
+            tips = "有药物过敏史";
         }
         return tips;
     }
@@ -373,11 +443,13 @@ public class TestController {
         variables.put("hereditaryHeightDiff", hereditaryHeightDiff);
 
         taskService.complete(taskId, variables);
-        String tips = "正常";
+        String tips = "测量身高体重 --> 正常";
         if (heightPercentile < 3) {
-            tips = "身材矮小";
+            tips = "身材矮小，需要进一步详细问诊";
         } else if (heightPercentile > 10 && hereditaryHeightDiff < 30){
-            tips = "直接跳到assess10：上下部量";
+            tips = "测量身高体重 --> 正常；不需详细问诊，直接进行上下部量";
+        } else if (heightPercentile <= 10 && hereditaryHeightDiff >= 30){
+            tips = "需要进一步详细问诊";
         }
         return tips;
     }
@@ -393,7 +465,7 @@ public class TestController {
         isPerinatalInjury = a1.equals("是") ? true : false;
         variables.put("isPerinatalInjury", isPerinatalInjury);
         taskService.complete(taskId, variables);
-        String tips = "正常";
+        String tips = "无围产期损伤 --> 正常";
         if (isPerinatalInjury) {
             tips = "有围产期损伤";
         }
@@ -412,7 +484,7 @@ public class TestController {
         variables.put("isParentDevelopmentDelay", isParentDevelopmentDelay);
 
         taskService.complete(taskId, variables);
-        String tips = "正常";
+        String tips = "无体质性青春期发育延迟 --> 正常";
         if (isParentDevelopmentDelay) {
             tips = "疑似体质性青春期延迟,进一步辅助检查判断";
         }
@@ -432,7 +504,7 @@ public class TestController {
         variables.put("down", down);
 
         taskService.complete(taskId, variables);
-        String tips = "正常";
+        String tips = "上下部量 --> 正常";
         if (up > down) {
             tips = "疑似软骨发育不良/不全,成骨发育不全、骺软发育不良等";
         } else if (up < down) {
@@ -470,7 +542,7 @@ public class TestController {
         Map<String, Object> variables = new HashMap<>();
         variables.put("SSS", SSS);
         taskService.complete(taskId, variables);
-        String tips = "正常";
+        String tips = "第二性征查体 --> 正常";
         if (SSS.equals("落后")) {
             tips = "青春发育延迟";
         } else if (SSS.equals("提前")) {
@@ -524,7 +596,7 @@ public class TestController {
         //骨龄提示信息
         String tips = "";
         if (heightStatus.equals("正常") && !isDevelopmentDelay && isGrowthRate && isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄正常")) {
-            tips = "1.正常人";
+            tips = "1.正常";
             variables.put("result", "1");
         } else if (heightStatus.equals("正常") && !isDevelopmentDelay && isGrowthRate && !isHereditaryHeightPercentile && isBoneAgePercentile && boneAgeStatus.equals("骨龄正常")) {
             tips = "2.孩子生长正常，超过遗传身高，继续观察";
@@ -569,11 +641,11 @@ public class TestController {
             tips = "15.性腺发育异常疾病可能";
             variables.put("result", "15");
         } else {
-            tips = "骨龄检查的其他情况，建议继续观察";
+            tips = "其他情况，建议继续观察";
             variables.put("result", "0");
         }
         taskService.complete(taskId, variables);
-        return tips;
+        return "骨龄检查 --> " + tips;
     }
 
     //判断身高百分位数是否正常[3, 97]--正常
@@ -602,11 +674,11 @@ public class TestController {
         variables.put("boneAgeDiff", boneAgeDiff);
         String firstDiagnosis;
         if(boneAgePercentile < 6 || boneAgeDiff <= -2){ //骨龄落后2岁及以上
-            firstDiagnosis = "考虑矮小，建议进一步检查。";
+            firstDiagnosis = "【 考虑矮小，建议进一步检查 】";
         } else if(SSS.equals("提前") && boneAgeDiff >= 2){//骨龄提前2岁及以上
-            firstDiagnosis = "考虑性早熟，建议进一步检查。";
+            firstDiagnosis = "【 考虑性早熟，建议进一步检查 】";
         } else{
-            firstDiagnosis = "考虑非病理性问题，建议改善生活方式，定期复查。";
+            firstDiagnosis = "【 考虑非病理性问题，建议改善生活方式，定期复查 】";
         }
         taskService.complete(taskId, variables);
         return firstDiagnosis;
@@ -630,7 +702,7 @@ public class TestController {
         }
         //缺省值
         variables.put("checkResult", 0);
-        String tips = "检验检查的其他情况，建议持续观察";
+        String tips = "其他情况，建议持续观察";
         //肝功
         tp      = getStr(tp);
         alb     = getStr(alb);
@@ -2080,7 +2152,7 @@ public class TestController {
         }
         String check1Case = tips.substring(0, tips.indexOf("."));
         variables.put("check1Case", check1Case);
-        variables.put("tips", tips);
+        variables.put("tips", "辅助检查1.0 --> " + tips);
         taskService.complete(taskId, variables);
         return variables;
     }
@@ -2108,37 +2180,122 @@ public class TestController {
         String illnessDiagnosis = "其他疾病，建议持续跟踪";
         if(check1Case.equals("30") && chromosomeExam.equals("正常") && ghTest.equals("正常") &&boneAgePercentile < 3) {
             illnessDiagnosis = "1. 特发性矮小ISS";
-            treatmentPlan = "治疗方案：1.特发性矮小ISS";
+            treatmentPlan = getTreatmentPlan(1);
             variables.put("illnessResult", 1);
         } else if(check1Case.equals("30") && chromosomeExam.equals("正常") && ghTest.equals("正常") &&boneAgePercentile < 3 && isFamilyShortHistory) {
             illnessDiagnosis = "2. 特发性矮小ISS";
-            treatmentPlan = "治疗方案：2.特发性矮小ISS";
+            treatmentPlan = getTreatmentPlan(2);
             variables.put("illnessResult", 2);
         } else if(check1Case.equals("30") && chromosomeExam.equals("异常") && ghTest.equals("正常")) {
             illnessDiagnosis = "3. 特纳综合症或21染色体";
-            treatmentPlan = "治疗方案：3. 特纳综合症或21染色体";
+            treatmentPlan = getTreatmentPlan(3);
             variables.put("illnessResult", 3);
         } else if(check1Case.equals("31") && chromosomeExam.equals("正常") && ghTest.equals("异常")) {
             illnessDiagnosis = "4. 生长激素缺乏症GHD";
-            treatmentPlan = "治疗方案：4. 生长激素缺乏症GHD";
+            treatmentPlan = getTreatmentPlan(4);
             variables.put("illnessResult", 4);
         } else if(check1Case.equals("31") && chromosomeExam.equals("正常") && ghTest.equals("正常")) {
             illnessDiagnosis = "5. 小于胎龄儿SGA";
-            treatmentPlan = "治疗方案：5. 小于胎龄儿SGA";
+            treatmentPlan = getTreatmentPlan(5);
             variables.put("illnessResult", 5);
         } else if(check1Case.equals("32") && chromosomeExam.equals("正常") && ghTest.equals("正常")) {
             illnessDiagnosis = "6. 体质性青春发育延迟CDGP";
-            treatmentPlan = "治疗方案：6. 体质性青春发育延迟CDGP";
+            treatmentPlan = getTreatmentPlan(6);
             variables.put("illnessResult", 6);
         } else if(check1Case.equals("33") && chromosomeExam.equals("正常") && ghTest.equals("正常")) {
             illnessDiagnosis = "7. 中枢性性早熟CPP";
-            treatmentPlan = "治疗方案：7. 中枢性性早熟CPP";
+            treatmentPlan = getTreatmentPlan(7);
             variables.put("illnessResult", 7);
         }
-        variables.put("illnessDiagnosis", illnessDiagnosis);
+        variables.put("illnessDiagnosis", "疾病诊断 --> " + illnessDiagnosis);
         variables.put("treatmentPlan", treatmentPlan);
         taskService.complete(taskId, variables);
         return variables;
+    }
+
+    private String getTreatmentPlan(int id){
+        String treatmentPlan = "";
+        switch(id){
+            case 1:
+                treatmentPlan = "(1)一般治疗<br/>" +
+                        "GH分泌为脉冲式分泌，呈昼夜节律性，一般在深睡眠时出现分泌高峰，因此，ISS患儿应保证充足睡眠。平时加强运动锻炼尤其是伸展性运动、跳跃性运动，增加户外阳光照射，注意均衡饮食，避免偏食、挑食，保证营养摄入。 <br/>" +
+                        "(2)重组人生长激素（rhGH）<br/>" +
+                        "2003年美国FDA批准了rhGH用于治疗ISS的儿童。国内推荐用rhGH治疗的ISS患儿应满足以下条件：1.身高落后于同年龄、同性别、同种族正常儿童身高均值的-2SD；2.出生时身长、体重处于同胎龄儿的正常范围；3.排除了系统性疾病、其他内分泌疾病、营养性疾病、染色体异常、基因异常、骨骼发育不良、心理情感障碍等其他导致的身材矮小原因；4.生长激素激发试验峰值≥10ng/ml；5.起始治疗的年龄为5岁。美国FDA批准用于治疗ISS的rhGH剂量为0.30～0.37 mg/kg/w (相当于0.14-0.18IU/kg/d)。2008年中国《矮身材儿童诊治指南》推荐剂量为0.15~0.20U/（Kg.d）。2013年中国《基因重组人生长激素儿科临床规范应用的建议》，推荐剂量为0.125~0.2U/（Kg.d），每日睡前30 min皮下注射。但rhGH治疗应采用个体化，宜从小剂量开始，最大量不宜超过0.2U/（Kg.d）。一般建议开始治疗的最佳年龄为5岁至青春早期，治疗的疗程一般不少于1年。<br/>" +
+                        "(3)芳香化酶抑制剂（aromatase inhibitors，AI）<br/>" +
+                        "AI主要通过抑制芳香化酶将雄烯二酮、睾酮转化为雌酮、雌二醇从而延缓骨骺最终融合，达到促线性生长的目的。理论上AI单用或与生长激素联用均可治疗青春期男童ISS，但缺乏大样本、长期的临床研究，AI治疗青春期ISS男性患儿的有效性和安全性还有待证实。<br/>" +
+                        "(4)促性腺激素释放激素类似物（Gonadotropin releasing hormone analogue，GnRHa）<br/>" +
+                        "GnRHa可抑制第二性征的发育和延缓骨龄进展，从而维持身高生长潜力，达到改善终身高的目的，目前主要用于青春发育期的ISS患儿。无论男性还是女性患儿，单用GnRHa对成年期身高的改善作用有限且差异很大，并与用药时间呈正相关。因此，通常不推荐单独应用GnRHa用于治疗青春期ISS的患儿。有研究发现生长激素和GnRHa的联合治疗可改善ISS患儿的终身高，但费用较高，且缺乏强有力的临床研究。<br/>" +
+                        "(5)性激素<br/>" +
+                        "CDPG患者男性年龄达14~15岁和女性年龄达12~13岁时，仍无明显第二性征出现，或由于性发育延迟造成精神负担者，可用小剂量性激素诱导发育，多数治疗2~6月后可引起第二性征发育和轻度身高增长，不会增加骨龄进展。男性患者可选择睾酮，氧甲氢龙也已被批准用于男性青春发育延迟。女性患者可选择炔雌醇2~5ug/d，并注意观察患者第二性征发育情况，定期监测骨龄。 ";
+                break;
+            case 2:
+                treatmentPlan = "家族性身材矮小患者大多数不需要治疗，但身高在第3百分位以下或患者、家长对身材矮小有较大精神负担和心理压力时，可应用rhGH治疗。";
+                break;
+            case 3:
+                treatmentPlan = "特纳综合症或21染色体 --> 建议会诊，转诊";
+                break;
+            case 4:
+                treatmentPlan = "（1）一般治疗<br/>" +
+                        "GH分泌为脉冲式分泌，呈昼夜节律性，一般在夜间深睡眠时出现分泌高峰，因此，GHD患儿应保证充足睡眠。平时加强运动锻炼尤其是伸展性运动、跳跃性运动，增加户外阳光照射，注意均衡饮食，避免偏食、挑食，保证营养摄入。<br/>" +
+                        "(2)基因重组人生长激素(recombinant human growth hormone，rhGH)<br/>" +
+                        "1985年美国FDA批准rhGH可用于本症的治疗。<br/>" +
+                        "1)剂型<br/>" +
+                        "国内可供选择的有rhGH粉剂和水剂两种。<br/>" +
+                        "2)剂量<br/>" +
+                        "儿童期0.075-0.15u/（Kg.d），青春期0.075-0.2u/（Kg.d），每日1次, 睡前皮下注射。<br/>" +
+                        "3)用法<br/>" +
+                        "常用的注射部位为脐周围或大腿中部1/2的外、前两侧，每次注射更换注射点，1个月内不要在同一部位注射2次，两针间距1.0cm左右，以防短期重复注射导致皮下组织变性，影响疗效。<br/>" +
+                        "4)治疗监测<br/>" +
+                        "rhGH治疗过程中应定期监治疗的有效性和安全性，主要监测内容为：生长发育指标、实验室检查指标、不良反应等，具体见表10-3。<br/>" +
+                        "<br/>" +
+                        "5)疗程<br/>" +
+                        "治疗疗程视需要而定，总疗程通常不宜短于1-2年，时间太短，患儿获益对其终身高的作用不大。<br/>" +
+                        "(3)其他药物<br/>" +
+                        "1)注意补充钙、微量元素等。<br/>" +
+                        "2)如同时伴有甲状腺功能和肾上腺皮质功能减退者，则应加用左甲状腺素钠片和小剂量氢化可的松0.5-1.0mg/kg.d。";
+                break;
+            case 5:
+                treatmentPlan = "SGA患儿的治疗目标是加速儿童早期的线性生长过程完成追赶性生长，在儿童晚期维持正常生长速度，最终目标是成年期身高达到正常水平。<br/>" +
+                        "(1)rhGH治疗 <br/>" +
+                        "1)适应证<br/>" +
+                        "美国FDA于2001年批准rhGH可用于SGA患儿的治疗，但并非所有出生时诊断为小于胎龄儿的患儿均需要rhGH治疗。2003年国际小于胎龄儿发展建议会议共识声明指出SGA患儿使用rhGH治疗的适应证为：（1）出生时诊断为SGA并且持续矮小（身高低于-2SD）；（2）开始治疗的最早年龄在2-3岁；（3）生长速度等于或者低于同年龄的儿童；（4）排除可能引起矮小的其他原因，如使用生长抑制药物、慢性疾病、内分泌异常和情感剥夺或者其他综合征。<br/>" +
+                        "2)起始治疗时间<br/>" +
+                        "关于SGA起始治疗的时间，国内外专家未取得一致意见。由于大部分SGA患儿在出生后2-3年内都会呈现追赶生长，身高可以达到与其靶身高相称的生长曲线范畴，故对SGA患儿都应定期随访观察。美国FDA推荐SGA患儿2岁时未实现追赶生长，身高低于同年龄、同性别儿童正常均值-2SD，即可开始rhGH治疗。欧洲专利药品委员会（EMEA）推荐4岁以上身高＜-2.5SD，生长速度低于同年龄均值，身高SDS低于遗传靶身高SDS的1SD可用rhGH治疗。2008年中国《矮身材儿童诊治指南》推荐，一般在3岁时，如其生长仍滞后，应考虑rhGH治疗。2013年中国《基因重组人生长激素儿科临床规范应用的建议》推荐：小于胎龄儿rhGH治疗指征为≥4岁身高仍低于同年龄、同性别正常儿童平均身高-2SD。<br/>" +
+                        "3)治疗剂量<br/>" +
+                        "  治疗早期生长速度与rhGH初始剂量成正比，剂量越大，生长速度越快。FDA推荐的最佳剂量是0.48mg/(Kg.周)，相当于0.2 IU/(Kg.d)，治疗时间为2~6年。若已达到追赶生长或青春发育期，剂量可调整至0.24~0.48mg/(Kg.周)，相当于0.1~0.2 IU/(Kg.d)。2008年中国《矮身材儿童诊治指南》对rhGH的推荐剂量为0.15~0.2 IU/(Kg.d)。临床也应依据治疗的反应和IGF-1水平调整用量，尽可能维持IGF-1在对应年龄范围的1SD~2SD之间，这样既能保证疗效，又能避免潜在风险。<br/>" +
+                        "4)治疗监测<br/>" +
+                        "因长期大量使用rhGH会使血IGF-1和IGFBP-3浓度、胰岛素水平明显增加，胰岛素敏感性下降，因此rhGH治疗后发生糖代谢紊乱、高血压和高脂血症的风险增加。建议开始治疗前应监测血压，检查IGF-1、IGFBP-3、血脂、胰岛素、空腹血糖等，治疗期间应随时观察生长发育状况，定期复查上述指标。<br/>" +
+                        "5)疗程<br/>" +
+                        "应采用长疗程治疗，直至达到终身高。欧洲EMEA推荐的治疗终身高标准为：青少年期身高生长速度<2cm/年，且女孩骨龄>14岁，男孩骨龄>16岁，应终止治疗。<br/>" +
+                        "6)安全性<br/>" +
+                        "在有适应证的前提下按照推荐剂量应用rhGH治疗SGA是安全有效的，不会加快骨成熟，也不会改变正常的身体比例，对青春期开始时间及进程无明显影响。但长期使用会增加成年期糖代谢异常和高血压风险，还会导致胰岛素抵抗和甲状腺功能减低。对胰岛素抵抗的影响，在停用rhGH后，胰岛素水平会降至正常水平。目前尚未发现rhGH治疗会增加原发肿瘤的发生率。<br/>" +
+                        "(2)芳香化酶抑制剂（AI）<br/>" +
+                        "  通过抑制芳香化酶将雄烯二酮、睾酮转化为雌酮、雌二醇，从而延缓骨骺融合，延长生长时间，促进身高生长。GH与芳香化酶抑制剂联合应用2年以上可增加成年期预测终身高，但其有效性和安全性还有待进一步证实。<br/>" +
+                        "(3)促性腺激素释放激素类似物<br/>" +
+                        "GnRHa通过抑制垂体促性腺激素（LH、FSH）的分泌，使性激素水平降低至青春期前水平，从而延缓骨龄进展，减慢骨骺融合，改善成年终身高，但治疗效果欠理想。";
+                break;
+            case 6:
+                treatmentPlan = "家族性身材矮小患者大多数不需要治疗，但身高在第3百分位以下或患者、家长对身材矮小有较大精神负担和心理压力时，可应用rhGH治疗。";
+                break;
+            case 7:
+                treatmentPlan = "治疗目标为抑制过早或过快的性发育，防止或缓释患儿或家长因性早熟所致的相关的社会或心理问题（如早初潮）；改善因骨龄提前而减损的成年身高也是重要的目标。但并非所有的ICPP都需要治疗。GnRH类似物（GnRHa）是当前主要的治疗选择，目前常用制剂有曲普瑞林和亮丙瑞林的缓释剂。<br/>" +
+                        "(1)以改善成年身高为目的的应用指征<br/>" +
+                        "1)骨龄大于年龄2岁或以上，但需女孩骨龄≤11.5岁，男孩骨龄≤12.5岁者。<br/>" +
+                        "2)预测成年身高：女孩＜150cm，男孩＜160cm。<br/>" +
+                        "3)或以骨龄判断的身高SDS＜-2SD（按正常人群参照值或遗传靶身高判断）。<br/>" +
+                        "4)发育进程迅速，骨龄增长/年龄增长＞1。<br/>" +
+                        "(2)不需治疗的指征<br/>" +
+                        "1)性成熟进程缓慢（骨龄进展不超越年龄进展）而对成年身高影响不显者。<br/>" +
+                        "2)骨龄虽提前，但身高生长速度亦快，预测成年身高不受损者，需进行定期复查和评估，调整治疗方案。<br/>" +
+                        "(3)GnRHa剂量<br/>" +
+                        "首剂80-100μg/kg，最大量3.75mg；其后每4周注射1次，体重≥30kg者，曲普瑞林每4周肌注3-3.75mg。已有初潮者首剂后2周宜强化1次。维持剂量应当个体化，根据性腺轴功能抑制情况而定（包括性征、性激素水平和骨龄进展），男孩剂量可偏大。<br/>" +
+                        "(4)治疗监测和停药决定<br/>" +
+                        "治疗过程中每3-6个月测量身高以及性征发育状况（阴毛进展不代表性腺受抑状况）；首剂3-6个月末复查GnRH激发试验，LH峰值在青春前期水平提示剂量合适。其后对女孩需定期复查基础血清雌二醇（E2）和子宫、卵巢B超；男孩需复查基础血清睾酮浓度以判断性腺轴功能抑制状况。每半年复查骨龄1次，结合身高增长，预测成年身高改善情况。为改善成年身高的目的疗程至少2年，具体疗程需个体化。<br/>" +
+                        "(5)GnRHa治疗中部分患者生长减速明显，不推荐常规联合应用重组人生长激素（rhGH），尤其女孩骨龄＞12岁，男孩骨龄＞14岁者。<br/>" +
+                        "(6)有中枢器质性病变的CPP患者应当按照病变性质行相应病因治疗。对非进行性损害的颅内肿瘤或先天异常，如下丘脑错构瘤等，无颅压增高或其他中枢神经系统表现者，不需手术，仍按ICPP药物治疗方案治疗。蛛网膜下腔囊肿亦然。";
+                break;
+        }
+        return treatmentPlan;
     }
     @GetMapping("assess0")
     public String assess0(String taskId, String a1, String tp) {
@@ -2410,7 +2567,7 @@ public class TestController {
 
 
         //启动实例并且设置表单的值
-        String outcome = "shareniu";
+        String outcome = "laoliu";
         Map<String, Object> formProperties = new HashMap<>();
         formProperties.put("reason", "家里有事");
         formProperties.put("startTime", "2020-8-17");
@@ -2452,7 +2609,7 @@ public class TestController {
         formProperties2.put("days", "3");
         Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
         String taskId = task.getId();
-        String outcome2 = "牛哥";
+        String outcome2 = "老刘";
         taskService.completeTaskWithForm(taskId, formDefinitionId, outcome2, formProperties2);
 
         //获取个人任务表单
