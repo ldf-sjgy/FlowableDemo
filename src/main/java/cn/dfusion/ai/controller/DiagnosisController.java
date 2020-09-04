@@ -1,21 +1,12 @@
 package cn.dfusion.ai.controller;
 
-import org.flowable.bpmn.model.*;
+import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.engine.*;
 import org.flowable.engine.history.HistoricActivityInstance;
 import org.flowable.engine.history.HistoricProcessInstance;
-import org.flowable.engine.impl.persistence.entity.ExecutionEntity;
-import org.flowable.engine.impl.persistence.entity.HistoricProcessInstanceEntity;
-import org.flowable.engine.repository.Deployment;
-import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.Execution;
 import org.flowable.engine.runtime.ProcessInstance;
-import org.flowable.form.api.FormDefinition;
-import org.flowable.form.api.FormDeployment;
-import org.flowable.form.api.FormInfo;
 import org.flowable.form.api.FormRepositoryService;
-import org.flowable.form.model.FormField;
-import org.flowable.form.model.SimpleFormModel;
 import org.flowable.image.ProcessDiagramGenerator;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,7 +115,7 @@ public class DiagnosisController {
     /**
      * 获取任务节点
      *
-     * @param node   查询节点选择
+     * @param
      * @param taskId 任务id
      */
 //    public void nextFlowNode(String node, String taskId) {
@@ -156,7 +147,7 @@ public class DiagnosisController {
 //        }
 //    }
 
-    @GetMapping("assess")
+    @GetMapping("assess1")
     public String assess(String taskId,
                          String age,
                          Double growthRate,
@@ -2621,5 +2612,31 @@ public class DiagnosisController {
 //
 //        }
 //    }
+    @GetMapping("assess16")
+    public String assessHealthPlan(String taskId,
+                                   String milk,
+                                   String egg,
+                                   String meat,
+                                   String Ca,
+                                   String Zn,
+                                   String vitaminA,
+                                   String vitaminD,
+                                   String meanSleepTime,
+                                   String meanGetupTime,
+                                   String exerciseType,
+                                   String exerciseDuration,
+                                   String schoolRecord
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
 
+        Map<String, Object> variables = new HashMap<>();
+
+        String tips = "";
+
+        taskService.complete(taskId, variables);
+        return "保健方案 --> " + tips;
+    }
 }
