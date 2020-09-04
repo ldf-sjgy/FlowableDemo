@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package cn.dfusion.ai.config;
 
 import org.flowable.spring.SpringProcessEngineConfiguration;
 import org.flowable.spring.boot.EngineConfigurationConfigurer;

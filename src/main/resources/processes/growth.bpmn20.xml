@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
-             typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
-             targetNamespace="http://www.flowable.org/processdef">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.flowable.org/processdef">
   <process id="growth8" name="生长发育工作流8" isExecutable="true">
     <documentation>生长发育工作流8</documentation>
     <startEvent id="startEvent1" flowable:formFieldValidation="true"></startEvent>
     <sequenceFlow id="sid-B421BC7C-B042-4236-B394-E19CBEE7EBD9" sourceRef="startEvent1" targetRef="s1"></sequenceFlow>
     <sequenceFlow id="sid-4269D013-82AC-4241-8A48-219FF46F62B9" sourceRef="s1" targetRef="u1"></sequenceFlow>
-    <exclusiveGateway id="g1" name="g1"></exclusiveGateway>
+    <exclusiveGateway id="g1" name="g1" default="sid-54AED653-B112-4AB5-8975-9FEED59F673B"></exclusiveGateway>
     <sequenceFlow id="sid-B942DC44-0F27-4BA5-97FD-A1E30BA14113" sourceRef="u1" targetRef="g1"></sequenceFlow>
-    <serviceTask id="sid-8A0A4A2D-02DA-41EE-9E9B-15479824B6E8" name="家族矮小史" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-A12F29A1-BBAF-4B79-95CD-3DDFDE874033" name="年生长速率低" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-831EE777-3125-4EB1-8489-3E5B2604F8F8" name="年生长速率低和家族矮小史" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-8A0A4A2D-02DA-41EE-9E9B-15479824B6E8" name="家族矮小史" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-A12F29A1-BBAF-4B79-95CD-3DDFDE874033" name="年生长速率低" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-831EE777-3125-4EB1-8489-3E5B2604F8F8" name="年生长速率低和家族矮小史" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-BAAAF704-4422-4C41-89FD-A667A5BB6188" sourceRef="sid-831EE777-3125-4EB1-8489-3E5B2604F8F8" targetRef="sid-3CE79061-EB0F-4815-93C3-465256803B39"></sequenceFlow>
     <sequenceFlow id="sid-8CC0EFA6-1850-423D-A050-07BB3C767E79" sourceRef="sid-A12F29A1-BBAF-4B79-95CD-3DDFDE874033" targetRef="sid-3CE79061-EB0F-4815-93C3-465256803B39"></sequenceFlow>
     <sequenceFlow id="sid-A165ACD7-F2F4-490B-8C61-74F789803863" sourceRef="sid-8A0A4A2D-02DA-41EE-9E9B-15479824B6E8" targetRef="sid-3CE79061-EB0F-4815-93C3-465256803B39"></sequenceFlow>
@@ -25,8 +21,8 @@
     <sequenceFlow id="sid-F079D16D-088E-4D4E-B2B9-ABCFB46ECB97" sourceRef="sid-3CE79061-EB0F-4815-93C3-465256803B39" targetRef="u2"></sequenceFlow>
     <exclusiveGateway id="g2"></exclusiveGateway>
     <sequenceFlow id="sid-C325CC58-7B6A-4ACA-A86B-808760493E82" sourceRef="u2" targetRef="g2"></sequenceFlow>
-    <serviceTask id="sid-2CD7BBCB-1EB9-4D44-8767-98105E97D3E8" name="过期产" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-1562E425-6992-4AC4-B582-C4ED6DC06745" name="早产" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-2CD7BBCB-1EB9-4D44-8767-98105E97D3E8" name="过期产" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-1562E425-6992-4AC4-B582-C4ED6DC06745" name="早产" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-819312B0-F7F1-4F85-BAE7-D3F958E92BF3" sourceRef="sid-1562E425-6992-4AC4-B582-C4ED6DC06745" targetRef="sid-E93914F2-DB03-495D-B6D7-648752AB0FD6"></sequenceFlow>
     <sequenceFlow id="sid-92DCBBF6-A0F3-4B91-8488-3CAC150C4C58" sourceRef="sid-2CD7BBCB-1EB9-4D44-8767-98105E97D3E8" targetRef="sid-E93914F2-DB03-495D-B6D7-648752AB0FD6"></sequenceFlow>
     <sequenceFlow id="sid-1B9B4EBB-3C84-401E-B2D7-F8D501E629A4" sourceRef="sid-E93914F2-DB03-495D-B6D7-648752AB0FD6" targetRef="sid-9BAC2707-AE6D-4E61-9E78-057E5689E6F7"></sequenceFlow>
@@ -38,11 +34,11 @@
     <sequenceFlow id="sid-17254E01-E543-4027-AC7F-A578A850CD5B" sourceRef="sid-9BAC2707-AE6D-4E61-9E78-057E5689E6F7" targetRef="u3"></sequenceFlow>
     <exclusiveGateway id="g3"></exclusiveGateway>
     <sequenceFlow id="sid-BCBA6DEA-1DEB-40D0-B534-DE787D29F3C6" sourceRef="u3" targetRef="g3"></sequenceFlow>
-    <serviceTask id="sid-5BE02FE4-E64E-43B9-A9F7-EC3FF559F63E" name="符合SGA指征,进一步确认是否追赶生长" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-5BE02FE4-E64E-43B9-A9F7-EC3FF559F63E" name="符合SGA指征,进一步确认是否追赶生长" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-E71095E9-3374-4606-8245-03A056B469E1" sourceRef="sid-5BE02FE4-E64E-43B9-A9F7-EC3FF559F63E" targetRef="u4"></sequenceFlow>
     <exclusiveGateway id="g4"></exclusiveGateway>
     <sequenceFlow id="sid-F1C80496-A58E-4448-AAB6-8D8F1BF85758" sourceRef="u4" targetRef="g4"></sequenceFlow>
-    <serviceTask id="sid-3E4278BD-5F4A-4E96-B8B5-5D1E7701BDE4" name="家族矮小史" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-3E4278BD-5F4A-4E96-B8B5-5D1E7701BDE4" name="家族矮小史" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-DB5B9CDE-9E9A-4664-85B8-4BA4D5CF0EE4" sourceRef="sid-3E4278BD-5F4A-4E96-B8B5-5D1E7701BDE4" targetRef="sid-8DDAB65D-1520-4C8A-A7A2-9996C87BE16D"></sequenceFlow>
     <sequenceFlow id="sid-FF7FB257-0D7E-4BC9-B73C-2580B7B46639" sourceRef="sid-8DDAB65D-1520-4C8A-A7A2-9996C87BE16D" targetRef="sid-34C62676-3D3B-4F2A-8593-154E3F789131"></sequenceFlow>
     <sequenceFlow id="sid-02D55604-45FE-44A7-84A2-EF9901C0A72B" sourceRef="sid-34C62676-3D3B-4F2A-8593-154E3F789131" targetRef="sid-70449D0E-00F9-4B80-ABC8-13F3B8171A3C"></sequenceFlow>
@@ -61,38 +57,38 @@
     <exclusiveGateway id="g7"></exclusiveGateway>
     <sequenceFlow id="sid-1EBCDF3A-2BB6-4DEA-96FA-37D3E03BC106" sourceRef="u7" targetRef="g7"></sequenceFlow>
     <userTask id="u8" name="出生史详细问诊" flowable:formFieldValidation="true"></userTask>
-    <serviceTask id="sid-9CC7A8F7-6427-496B-8949-EF436BF486C2" name="身材矮小" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-9CC7A8F7-6427-496B-8949-EF436BF486C2" name="身材矮小" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-59988F6F-BEEC-43E6-B905-DE23268BDC44" sourceRef="sid-9CC7A8F7-6427-496B-8949-EF436BF486C2" targetRef="u8"></sequenceFlow>
     <exclusiveGateway id="g8"></exclusiveGateway>
     <userTask id="u9" name="遗传史详细问诊" flowable:formFieldValidation="true"></userTask>
-    <serviceTask id="sid-EF4C76D7-24EF-48B7-A86E-07BC6B9E4437" name="颅脑损伤" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-EF4C76D7-24EF-48B7-A86E-07BC6B9E4437" name="颅脑损伤" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <exclusiveGateway id="g9"></exclusiveGateway>
-    <serviceTask id="sid-A9BEE090-4058-44DB-899B-2C06CCC5FD2A" name="疑似体质性青春期延迟,进一步辅助检查判断" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-A9BEE090-4058-44DB-899B-2C06CCC5FD2A" name="疑似体质性青春期延迟,进一步辅助检查判断" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-B7A4E944-E778-4EB6-9F0D-471E35A4959A" sourceRef="sid-A9BEE090-4058-44DB-899B-2C06CCC5FD2A" targetRef="sid-3D643D7D-E6E1-48C9-8BA5-65741CA548F2"></sequenceFlow>
     <userTask id="u10" name="上下部量" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-A4AA3212-6F06-46C9-923C-C44ECC8BB5BA" sourceRef="sid-3D643D7D-E6E1-48C9-8BA5-65741CA548F2" targetRef="u10"></sequenceFlow>
     <exclusiveGateway id="g10"></exclusiveGateway>
     <sequenceFlow id="sid-3EF76DE1-4B6C-4116-B1BE-0AF38D01ADB9" sourceRef="u10" targetRef="g10"></sequenceFlow>
     <exclusiveGateway id="g11"></exclusiveGateway>
-    <serviceTask id="sid-B71B2A64-0372-43AE-8158-89F7FBCD9AE2" name="疑似软骨发育不良/不全,成骨发育不全、骺软发育不良等" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-E11A5169-6D73-43DF-AE0F-EC58251EB774" name="疑似粘多糖病、脊椎骨骺发育不良等" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-B71B2A64-0372-43AE-8158-89F7FBCD9AE2" name="疑似软骨发育不良/不全,成骨发育不全、骺软发育不良等" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-E11A5169-6D73-43DF-AE0F-EC58251EB774" name="疑似粘多糖病、脊椎骨骺发育不良等" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <userTask id="u12" name="骨龄检查" flowable:formFieldValidation="true"></userTask>
     <userTask id="u11" name="第二性征查体" flowable:formFieldValidation="true"></userTask>
     <exclusiveGateway id="g12"></exclusiveGateway>
     <sequenceFlow id="sid-569B9F62-7A1C-4780-BD5D-0A7F9F337289" sourceRef="u11" targetRef="g12"></sequenceFlow>
-    <serviceTask id="sid-1A9DCAB7-55D9-4D17-8B15-218FD797B148" name="青春期发育延迟" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-1A9DCAB7-55D9-4D17-8B15-218FD797B148" name="青春期发育延迟" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-DAC2E2D9-2C9A-4E4E-AC9B-9775F6505928" sourceRef="sid-E4FBB33D-44F4-4A18-9709-00CF1E24D69C" targetRef="u12"></sequenceFlow>
     <sequenceFlow id="sid-693EDD37-69F4-46A5-B2BA-73051B389FBC" sourceRef="sid-1A9DCAB7-55D9-4D17-8B15-218FD797B148" targetRef="u12"></sequenceFlow>
     <exclusiveGateway id="g13"></exclusiveGateway>
     <sequenceFlow id="sid-36A9768C-F369-4E42-B44B-3DF8FB608EA9" sourceRef="u12" targetRef="g13"></sequenceFlow>
-    <serviceTask id="sid-90F91541-2EC2-4F8B-A5C3-7350EE89B64A" name="1.正常人" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-C08F88E2-C52D-46CF-84A6-157656B3E350" name="9.可能是晚长，可以考虑观察" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-4190A620-B7CA-4A07-B31D-2D293977F8C3" name="10.若生长速度慢，那他的身高可能会越来越偏低生长曲线，身高会逐渐矮小，可能需要提前更多关注" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-315987CA-49BE-4997-A437-E6784D794E0D" name="11.考虑生长激素缺乏症等的可能，需进一步检查" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-2F90148A-BCB4-433E-B4A7-7E0B8FCA43C0" name="3.生长速度慢，可能是短暂的，需注意排除近期有无疾病、心理压力大等影响长个生物因素，若有尽量去除，下一步生长趋势可能不好，可观察一段时间，若生长速度持续慢，可能影响终身高" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-64E5D77F-1581-4401-8DE0-B6F118818823" name="4.孩子可能属于早长类型，注意青春发育情况，骨龄暂时不提前，下一步有可能出现骨龄加速，影响生长，导致终身高偏矮或矮小" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-CB3EA3E5-A87B-4BB1-AC6F-A72A2D57D822" name="14.还要关注他的发育情况，尤其是青春期年龄段的，有部分是青春期发育延迟的，身高可能暂时偏矮" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-150AE5EC-FC3C-453B-9D97-FC89B10CDB11" name="2.孩子生长正常，超过遗传身高，继续观察" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-90F91541-2EC2-4F8B-A5C3-7350EE89B64A" name="1.正常人" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-C08F88E2-C52D-46CF-84A6-157656B3E350" name="9.可能是晚长，可以考虑观察" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-4190A620-B7CA-4A07-B31D-2D293977F8C3" name="10.若生长速度慢，那他的身高可能会越来越偏低生长曲线，身高会逐渐矮小，可能需要提前更多关注" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-315987CA-49BE-4997-A437-E6784D794E0D" name="11.考虑生长激素缺乏症等的可能，需进一步检查" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-2F90148A-BCB4-433E-B4A7-7E0B8FCA43C0" name="3.生长速度慢，可能是短暂的，需注意排除近期有无疾病、心理压力大等影响长个生物因素，若有尽量去除，下一步生长趋势可能不好，可观察一段时间，若生长速度持续慢，可能影响终身高" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-64E5D77F-1581-4401-8DE0-B6F118818823" name="4.孩子可能属于早长类型，注意青春发育情况，骨龄暂时不提前，下一步有可能出现骨龄加速，影响生长，导致终身高偏矮或矮小" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-CB3EA3E5-A87B-4BB1-AC6F-A72A2D57D822" name="14.还要关注他的发育情况，尤其是青春期年龄段的，有部分是青春期发育延迟的，身高可能暂时偏矮" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-150AE5EC-FC3C-453B-9D97-FC89B10CDB11" name="2.孩子生长正常，超过遗传身高，继续观察" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <userTask id="u13" name="初步诊断" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-B3AFABC6-6C17-454D-B3BA-B88ABB1EC63B" sourceRef="sid-315987CA-49BE-4997-A437-E6784D794E0D" targetRef="u13"></sequenceFlow>
     <sequenceFlow id="sid-0E058A32-DF30-43AE-9A91-3D1A56D488C4" sourceRef="sid-4190A620-B7CA-4A07-B31D-2D293977F8C3" targetRef="u13"></sequenceFlow>
@@ -103,32 +99,32 @@
     <sequenceFlow id="sid-3503228F-75C6-4894-B6E5-824E47D9A488" sourceRef="sid-150AE5EC-FC3C-453B-9D97-FC89B10CDB11" targetRef="u13"></sequenceFlow>
     <sequenceFlow id="sid-E4211702-9CB1-42D5-BA6D-649D5E61F23F" sourceRef="sid-90F91541-2EC2-4F8B-A5C3-7350EE89B64A" targetRef="u13"></sequenceFlow>
     <exclusiveGateway id="g14"></exclusiveGateway>
-    <serviceTask id="sid-D8A88769-B0EF-4E63-B6D7-672F658F4200" name="13、提示男孩要发育或已经发育" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-DF3765C7-8BD8-4EB3-8969-0124A0D8C57A" name="14、提示性腺轴启动" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-553CCEF4-1351-417F-A549-D715AA3342C2" name="12、提示女孩要发育或已经发育" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-82CA37DF-EE36-4627-B322-72904C7F89E6" name="11、常见于甲亢" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-A36E0646-A4C0-4074-91D3-5CF78FC11B29" name="10、常见于甲减" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-E718EDEF-1F98-44CA-8083-D42E4DF52DA2" name="9、常见于甲亢" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-C2030008-1086-47B0-B149-4EB25392D397" name="8、常见于甲减" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-391FB4D5-BD05-49E6-B942-5CF1C439E9DC" name="1、提示营养不良" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-8244181E-23DC-465A-B084-392709BF57DE" name="2、提示营养不良" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-4E07E833-29CE-4B92-AE7C-737CA8264C12" name="3、提示肝损害" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-875F024E-BDAC-4ABD-8D14-6C090DC5A4B4" name="4、提示肾功能不全" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-064083E5-7AEB-4336-88DD-A7D49BF5055C" name="5、高尿酸血症" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-97C060EE-41B1-44F5-B11C-E230C867F098" name="6、常见于甲减" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-5C172190-CD6D-4EF6-90EB-14F65EBC1500" name="7、常见于甲亢" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-28AC0048-F209-4796-A15E-E15FC9AFFE99" name="15、青春期后不升高，提示垂体功能减退" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-0970233C-E355-4A7F-AD9D-FA6C5B563C0C" name="17、垂体疾病" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-682E47CD-2521-4BED-8355-ECE58CE5C4E3" name="16、垂体疾病" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-82032290-87E0-45C0-9DA9-5FE8D6DE3CA3" name="18、提示酸中毒" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-50B4A68B-55F6-430E-A096-69747285942C" name="19、糖尿病或糖尿病前期" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-CDBEBA2A-1917-4FDF-AE42-6038256DD305" name="20、贫血" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-09522519-4237-406E-998F-E4DDCDB9C2F6" name="21、贫血" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-5B2CE474-2AE7-4D6F-8709-151E450FA7E6" name="22、有感染" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-B0236AEC-1AA1-49C7-8069-30A2777B698F" name="23、有感染" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-9BB0A645-EF04-4899-A9D4-0659B12757E8" name="24、有肾病" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-585A23D8-DE30-464C-9EAD-42CCDBB22091" name="26、尿路感染" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-A8CC8CFC-14F7-4F60-AA30-D4AADB544302" name="25、有肾病" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-D8A88769-B0EF-4E63-B6D7-672F658F4200" name="13、提示男孩要发育或已经发育" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-DF3765C7-8BD8-4EB3-8969-0124A0D8C57A" name="14、提示性腺轴启动" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-553CCEF4-1351-417F-A549-D715AA3342C2" name="12、提示女孩要发育或已经发育" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-82CA37DF-EE36-4627-B322-72904C7F89E6" name="11、常见于甲亢" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-A36E0646-A4C0-4074-91D3-5CF78FC11B29" name="10、常见于甲减" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-E718EDEF-1F98-44CA-8083-D42E4DF52DA2" name="9、常见于甲亢" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-C2030008-1086-47B0-B149-4EB25392D397" name="8、常见于甲减" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-391FB4D5-BD05-49E6-B942-5CF1C439E9DC" name="1、提示营养不良" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-8244181E-23DC-465A-B084-392709BF57DE" name="2、提示营养不良" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-4E07E833-29CE-4B92-AE7C-737CA8264C12" name="3、提示肝损害" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-875F024E-BDAC-4ABD-8D14-6C090DC5A4B4" name="4、提示肾功能不全" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-064083E5-7AEB-4336-88DD-A7D49BF5055C" name="5、高尿酸血症" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-97C060EE-41B1-44F5-B11C-E230C867F098" name="6、常见于甲减" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-5C172190-CD6D-4EF6-90EB-14F65EBC1500" name="7、常见于甲亢" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-28AC0048-F209-4796-A15E-E15FC9AFFE99" name="15、青春期后不升高，提示垂体功能减退" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-0970233C-E355-4A7F-AD9D-FA6C5B563C0C" name="17、垂体疾病" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-682E47CD-2521-4BED-8355-ECE58CE5C4E3" name="16、垂体疾病" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-82032290-87E0-45C0-9DA9-5FE8D6DE3CA3" name="18、提示酸中毒" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-50B4A68B-55F6-430E-A096-69747285942C" name="19、糖尿病或糖尿病前期" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-CDBEBA2A-1917-4FDF-AE42-6038256DD305" name="20、贫血" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-09522519-4237-406E-998F-E4DDCDB9C2F6" name="21、贫血" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-5B2CE474-2AE7-4D6F-8709-151E450FA7E6" name="22、有感染" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-B0236AEC-1AA1-49C7-8069-30A2777B698F" name="23、有感染" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-9BB0A645-EF04-4899-A9D4-0659B12757E8" name="24、有肾病" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-585A23D8-DE30-464C-9EAD-42CCDBB22091" name="26、尿路感染" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-A8CC8CFC-14F7-4F60-AA30-D4AADB544302" name="25、有肾病" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-4B63F28E-F71C-4B2B-8A0B-097B781ECEE0" sourceRef="sid-DF3765C7-8BD8-4EB3-8969-0124A0D8C57A" targetRef="sid-9BCD3191-AF86-4355-84E9-C5870B01271A"></sequenceFlow>
     <sequenceFlow id="sid-CB45638A-1720-4366-A017-ABD6189CDE7C" sourceRef="sid-D8A88769-B0EF-4E63-B6D7-672F658F4200" targetRef="sid-9BCD3191-AF86-4355-84E9-C5870B01271A"></sequenceFlow>
     <sequenceFlow id="sid-058A14C4-D493-44F8-BEEE-0839D0DC5767" sourceRef="sid-553CCEF4-1351-417F-A549-D715AA3342C2" targetRef="sid-9BCD3191-AF86-4355-84E9-C5870B01271A"></sequenceFlow>
@@ -154,29 +150,29 @@
     <sequenceFlow id="sid-1A15D9BF-EDBC-4977-B865-072425C364DD" sourceRef="sid-9BB0A645-EF04-4899-A9D4-0659B12757E8" targetRef="sid-9BCD3191-AF86-4355-84E9-C5870B01271A"></sequenceFlow>
     <sequenceFlow id="sid-09BCA3E5-EFDB-4432-A708-C4C9D9A0D0E2" sourceRef="sid-A8CC8CFC-14F7-4F60-AA30-D4AADB544302" targetRef="sid-9BCD3191-AF86-4355-84E9-C5870B01271A"></sequenceFlow>
     <sequenceFlow id="sid-A5148443-0EB6-4971-BECB-A95788B94437" sourceRef="sid-5B2CE474-2AE7-4D6F-8709-151E450FA7E6" targetRef="sid-9BCD3191-AF86-4355-84E9-C5870B01271A"></sequenceFlow>
-    <serviceTask id="s1" name="患者" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="s1" name="患者" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <userTask id="u1" name="读取公众平台信息" flowable:assignee="doctors" flowable:formFieldValidation="true">
       <extensionElements>
         <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
-    <serviceTask id="sid-3CE79061-EB0F-4815-93C3-465256803B39" name="完善患者基本信息" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-E93914F2-DB03-495D-B6D7-648752AB0FD6" name="分娩方式" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-9BAC2707-AE6D-4E61-9E78-057E5689E6F7" name="胎次产次" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-3CE79061-EB0F-4815-93C3-465256803B39" name="完善患者基本信息" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-E93914F2-DB03-495D-B6D7-648752AB0FD6" name="分娩方式" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-9BAC2707-AE6D-4E61-9E78-057E5689E6F7" name="胎次产次" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <userTask id="u4" name="家族中矮小者" flowable:assignee="doctors" flowable:formFieldValidation="true">
       <extensionElements>
         <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
-    <serviceTask id="sid-8DDAB65D-1520-4C8A-A7A2-9996C87BE16D" name="饮食情况" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-34C62676-3D3B-4F2A-8593-154E3F789131" name="营养情况" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-70449D0E-00F9-4B80-ABC8-13F3B8171A3C" name="睡眠情况" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-90BD8229-5F9B-4818-9B48-F5890BEAB0E1" name="运动情况" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-EFBD43CE-D4AE-43C6-B71E-79D21AC76379" name="成绩情况" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-EB125EC3-A071-42A6-B032-73C52B8BD1A1" name="进行记录" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-75EB8A6A-21B2-40B3-904E-024DE6E2E16F" name="进行记录" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-3D643D7D-E6E1-48C9-8BA5-65741CA548F2" name="既往史详细问诊" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-E4FBB33D-44F4-4A18-9709-00CF1E24D69C" name="性早熟" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-8DDAB65D-1520-4C8A-A7A2-9996C87BE16D" name="饮食情况" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-34C62676-3D3B-4F2A-8593-154E3F789131" name="营养情况" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-70449D0E-00F9-4B80-ABC8-13F3B8171A3C" name="睡眠情况" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-90BD8229-5F9B-4818-9B48-F5890BEAB0E1" name="运动情况" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-EFBD43CE-D4AE-43C6-B71E-79D21AC76379" name="成绩情况" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-EB125EC3-A071-42A6-B032-73C52B8BD1A1" name="进行记录" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-75EB8A6A-21B2-40B3-904E-024DE6E2E16F" name="进行记录" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-3D643D7D-E6E1-48C9-8BA5-65741CA548F2" name="既往史详细问诊" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-E4FBB33D-44F4-4A18-9709-00CF1E24D69C" name="性早熟" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-4B2EC7F3-5930-4C06-A50A-AC7AF4BBD593" name="符合SGA标准" sourceRef="g3" targetRef="sid-5BE02FE4-E64E-43B9-A9F7-EC3FF559F63E">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ isSGA }]]></conditionExpression>
     </sequenceFlow>
@@ -211,35 +207,23 @@
     <sequenceFlow id="sid-5FD49AD0-3D6E-4727-A837-EFB6C5DFF02D" name="身高评价低于等于10百分位或与父母遗传百分位相差&gt;=30百分位" sourceRef="g7" targetRef="u8">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ heightPercentile <= 10 && hereditaryHeightDiff >= 30}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="sid-26D52B7B-4AA3-44AA-8909-7DCF862F0F8C" name="5.孩子的身高生长超过遗传身高，骨龄落后可能是临时的，或者存在骨骼系统疾病，建议观察，注意骨龄变化情况" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-26D52B7B-4AA3-44AA-8909-7DCF862F0F8C" name="5.孩子的身高生长超过遗传身高，骨龄落后可能是临时的，或者存在骨骼系统疾病，建议观察，注意骨龄变化情况" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-D006ADA7-14A4-4144-9DB3-6FCD4977D724" sourceRef="sid-26D52B7B-4AA3-44AA-8909-7DCF862F0F8C" targetRef="u13"></sequenceFlow>
-    <serviceTask id="sid-CDF76EE8-7E85-4E35-B3D5-AB1C52A95104" name="6.遗传身高本身就高可能，考虑正常高个可能，观察" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-CDF76EE8-7E85-4E35-B3D5-AB1C52A95104" name="6.遗传身高本身就高可能，考虑正常高个可能，观察" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-361A6437-BE41-4B20-A37F-BCDA10EB9D31" sourceRef="sid-CDF76EE8-7E85-4E35-B3D5-AB1C52A95104" targetRef="u13"></sequenceFlow>
-    <serviceTask id="sid-1C397676-CFCD-4185-A00E-08146CAA0106" name="7.早长个可能，需注意评估性发育情况，观察骨龄是否快速进展" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-1C397676-CFCD-4185-A00E-08146CAA0106" name="7.早长个可能，需注意评估性发育情况，观察骨龄是否快速进展" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-DBA68192-975B-44FD-92ED-4B8FE5B10EF8" sourceRef="sid-1C397676-CFCD-4185-A00E-08146CAA0106" targetRef="u13"></sequenceFlow>
-    <serviceTask id="sid-7A6652ED-5AE3-443A-94AD-B2098D74AF3E" name="8.这种情况常见于青春发育较早的孩子，青春期后期可能，需注意性腺发育情况" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-7A6652ED-5AE3-443A-94AD-B2098D74AF3E" name="8.这种情况常见于青春发育较早的孩子，青春期后期可能，需注意性腺发育情况" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-12CD037E-F028-492F-87A1-892263E171A8" sourceRef="sid-7A6652ED-5AE3-443A-94AD-B2098D74AF3E" targetRef="u13"></sequenceFlow>
-    <serviceTask id="sid-9FFD84E6-6D9D-40B7-9A22-EAA5B7574788" name="12.遗传性矮小可能，可观察，或者进一步检查" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-1B8A12F5-3795-459F-B62F-E36837D98D8E" name="13.明确矮小原因" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-F6FE4E61-BDB0-4210-A757-234230EE0862" name="15.性腺发育异常疾病可能" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-9FFD84E6-6D9D-40B7-9A22-EAA5B7574788" name="12.遗传性矮小可能，可观察，或者进一步检查" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-1B8A12F5-3795-459F-B62F-E36837D98D8E" name="13.明确矮小原因" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-F6FE4E61-BDB0-4210-A757-234230EE0862" name="15.性腺发育异常疾病可能" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-CA9F92F2-418A-43DC-9719-2DF99635FE7C" sourceRef="sid-9FFD84E6-6D9D-40B7-9A22-EAA5B7574788" targetRef="u13"></sequenceFlow>
     <sequenceFlow id="sid-A3C03343-08D0-490C-A1B5-08576038A184" sourceRef="sid-F6FE4E61-BDB0-4210-A757-234230EE0862" targetRef="u13"></sequenceFlow>
     <sequenceFlow id="sid-A96D23AA-F07B-413E-A60C-E8E348F42D29" sourceRef="sid-1B8A12F5-3795-459F-B62F-E36837D98D8E" targetRef="u13"></sequenceFlow>
     <sequenceFlow id="sid-AB7B364A-BE2B-4373-A1F6-26BC4383DC07" sourceRef="sid-B71B2A64-0372-43AE-8158-89F7FBCD9AE2" targetRef="sid-642B47A6-8FB7-46C7-ACAD-C0EBFAAD08D2"></sequenceFlow>
     <sequenceFlow id="sid-6DBA4B38-BCBF-4CD8-8589-2057B4FBE624" sourceRef="sid-642B47A6-8FB7-46C7-ACAD-C0EBFAAD08D2" targetRef="g11"></sequenceFlow>
     <sequenceFlow id="sid-9656DFF4-9720-498F-9A8B-74A45C2B1B54" sourceRef="sid-E11A5169-6D73-43DF-AE0F-EC58251EB774" targetRef="sid-642B47A6-8FB7-46C7-ACAD-C0EBFAAD08D2"></sequenceFlow>
-    <sequenceFlow id="sid-54AED653-B112-4AB5-8975-9FEED59F673B" name="年生长速率正常或无生长速率,父母身高正常" sourceRef="g1" targetRef="sid-3CE79061-EB0F-4815-93C3-465256803B39">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${(growthRate==null || growthRate) && parentHeight}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-D5F3E168-CCC4-4347-AECF-0126CAB10A94" name="年生长速率异常,父母身高矮小" sourceRef="g1" targetRef="sid-831EE777-3125-4EB1-8489-3E5B2604F8F8">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ !growthRate && !parentHeight }]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-A343DAF6-53B1-42EF-B4F9-664E3F499C73" name="年生长速率异常,父母身高正常" sourceRef="g1" targetRef="sid-A12F29A1-BBAF-4B79-95CD-3DDFDE874033">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ !growthRate && parentHeight }]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-34C60929-23C3-4303-BDF0-1E0AB142D397" name="年生长速率正常或无生长速率,父母身高矮小" sourceRef="g1" targetRef="sid-8A0A4A2D-02DA-41EE-9E9B-15479824B6E8">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${(growthRate==null || growthRate) && !parentHeight}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="sid-D741E342-3AB2-4717-ACFA-55F1EE48E153" name="37周与42周之间,包括37周和42周" sourceRef="g2" targetRef="sid-E93914F2-DB03-495D-B6D7-648752AB0FD6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ pregnantWeek >= 37 && pregnantWeek <= 42 }]]></conditionExpression>
     </sequenceFlow>
@@ -318,7 +302,7 @@
     <sequenceFlow id="sid-996CC391-F1A6-41E9-A785-DE28AE245D48" sourceRef="g13" targetRef="sid-1B8A12F5-3795-459F-B62F-E36837D98D8E">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=="13"}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="sid-088DC11B-4F4A-4116-80C3-E6CE1B73EBD9" name="其他情况，建议继续观察" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-088DC11B-4F4A-4116-80C3-E6CE1B73EBD9" name="其他情况，建议继续观察" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-41135107-6B69-47B8-AC46-D8C2A160B68D" sourceRef="sid-088DC11B-4F4A-4116-80C3-E6CE1B73EBD9" targetRef="u13"></sequenceFlow>
     <sequenceFlow id="sid-64F4C00F-9A40-416D-A4F1-EC7B2035C0E9" sourceRef="g13" targetRef="sid-088DC11B-4F4A-4116-80C3-E6CE1B73EBD9">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=="0"}]]></conditionExpression>
@@ -398,7 +382,7 @@
     <sequenceFlow id="sid-DB0A5307-2840-4772-8BCE-34D975ABE783" sourceRef="g14" targetRef="sid-585A23D8-DE30-464C-9EAD-42CCDBB22091">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkResult=="26"}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="sid-88D2F629-706D-49C6-B63C-EC9E7A1FC962" name="0、其他情况，请持续观察" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-88D2F629-706D-49C6-B63C-EC9E7A1FC962" name="0、其他情况，请持续观察" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-F629B398-6C48-43BF-9A4D-EE0121138683" sourceRef="g14" targetRef="sid-88D2F629-706D-49C6-B63C-EC9E7A1FC962">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${checkResult=="0"}]]></conditionExpression>
     </sequenceFlow>
@@ -423,20 +407,20 @@
     <userTask id="sid-9BCD3191-AF86-4355-84E9-C5870B01271A" name="转诊到其他科室进行进一步检查" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-E9F6B6A2-0ABC-4F0E-B9CD-DE6E86DC8A6F" sourceRef="sid-88D2F629-706D-49C6-B63C-EC9E7A1FC962" targetRef="sid-9BCD3191-AF86-4355-84E9-C5870B01271A"></sequenceFlow>
     <userTask id="sid-C30A51E4-BE3A-4324-9434-FA788B65F5E6" name="辅助检查2.0" flowable:formFieldValidation="true"></userTask>
-    <serviceTask id="sid-656D7265-7377-4CD7-87C3-8CB8A93F633A" name="30、所有指标全部正常" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-656D7265-7377-4CD7-87C3-8CB8A93F633A" name="30、所有指标全部正常" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <exclusiveGateway id="g15"></exclusiveGateway>
-    <serviceTask id="sid-77406681-F20E-4296-9BAE-CAA59AD975C0" name="1. 特发性矮小ISS" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-DE9A0FB5-2CD1-4B5C-8674-7897C59AC822" name="2. 特发性矮小ISS" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-77406681-F20E-4296-9BAE-CAA59AD975C0" name="1. 特发性矮小ISS" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-DE9A0FB5-2CD1-4B5C-8674-7897C59AC822" name="2. 特发性矮小ISS" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-2D968C06-4F46-478D-8616-ADF177293006" sourceRef="sid-585A23D8-DE30-464C-9EAD-42CCDBB22091" targetRef="sid-9BCD3191-AF86-4355-84E9-C5870B01271A"></sequenceFlow>
-    <serviceTask id="sid-3F989B47-FD06-4BD2-9FAB-8E356584C6F1" name="3. 特纳综合症或21染色体" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-0747CAC3-AC95-49A5-B2F9-14D1E516738C" name="31、IGF-1、IGFBP3降低" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-069D3BFB-D3DD-467D-B366-AF7FCF955102" name="32、LH、FSH降低" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-AD6D528D-1220-4AEB-87C4-16BB30262FA7" name="33、激素水平异常" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-30752B03-DFB6-4A82-93CE-53644849AD5A" name="4. 生长激素缺乏症GHD" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-3A5BCB86-E752-4E2B-BCDA-E788A399397E" name="5. 小于胎龄儿SGA" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-A4CF401A-C83E-4F40-8643-C432081ADF81" name="6. 体质性青春发育延迟CDGP" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-68D44F8F-C21C-40A7-967A-C6A7FB9FAD6B" name="7. 中枢性性早熟CPP" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-DF28DDD4-302C-41D1-92DC-9EC10D6B4B8B" name="生成治疗方案" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-3F989B47-FD06-4BD2-9FAB-8E356584C6F1" name="3. 特纳综合症或21染色体" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-0747CAC3-AC95-49A5-B2F9-14D1E516738C" name="31、IGF-1、IGFBP3降低" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-069D3BFB-D3DD-467D-B366-AF7FCF955102" name="32、LH、FSH降低" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-AD6D528D-1220-4AEB-87C4-16BB30262FA7" name="33、激素水平异常" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-30752B03-DFB6-4A82-93CE-53644849AD5A" name="4. 生长激素缺乏症GHD" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-3A5BCB86-E752-4E2B-BCDA-E788A399397E" name="5. 小于胎龄儿SGA" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-A4CF401A-C83E-4F40-8643-C432081ADF81" name="6. 体质性青春发育延迟CDGP" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-68D44F8F-C21C-40A7-967A-C6A7FB9FAD6B" name="7. 中枢性性早熟CPP" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-DF28DDD4-302C-41D1-92DC-9EC10D6B4B8B" name="生成治疗方案" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <endEvent id="sid-97631AA2-9FAA-48FF-B656-38AAC7B6514D"></endEvent>
     <sequenceFlow id="sid-B3993629-E863-4585-9547-C5F0765B2FBA" sourceRef="sid-069D3BFB-D3DD-467D-B366-AF7FCF955102" targetRef="sid-C30A51E4-BE3A-4324-9434-FA788B65F5E6"></sequenceFlow>
     <sequenceFlow id="sid-CFF54F6B-1732-480B-8062-AF6F4A1A1D35" sourceRef="sid-AD6D528D-1220-4AEB-87C4-16BB30262FA7" targetRef="sid-C30A51E4-BE3A-4324-9434-FA788B65F5E6"></sequenceFlow>
@@ -460,7 +444,7 @@
     <sequenceFlow id="sid-8B11DEC6-D55E-4164-B5B5-1919ADCBBACF" name="31&amp;GH激发试验异常" sourceRef="g15" targetRef="sid-30752B03-DFB6-4A82-93CE-53644849AD5A">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${illnessResult=="4"}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="sid-0E42825A-8F48-4E27-B560-AED4FA79FCB6" name="0. 其他疾病，建议持续跟踪" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-0E42825A-8F48-4E27-B560-AED4FA79FCB6" name="0. 其他疾病，建议持续跟踪" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-4723B6B5-6415-4BED-97BC-CE8DDD30F944" name="30&amp;2.0正常&amp;骨龄身高百分位&lt;3&amp; 家族矮小史" sourceRef="g15" targetRef="sid-DE9A0FB5-2CD1-4B5C-8674-7897C59AC822">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${illnessResult=="2"}]]></conditionExpression>
     </sequenceFlow>
@@ -492,13 +476,13 @@
     <sequenceFlow id="sid-CAEC447C-08E8-4034-A064-604A9543D1D1" sourceRef="sid-DE9A0FB5-2CD1-4B5C-8674-7897C59AC822" targetRef="sid-DF28DDD4-302C-41D1-92DC-9EC10D6B4B8B"></sequenceFlow>
     <exclusiveGateway id="g13_2" default="sid-3892BB93-471E-48C6-8CF4-F74DEF575D56"></exclusiveGateway>
     <sequenceFlow id="sid-5A82A943-E59B-41E0-A116-C6E0F1ED74B4" sourceRef="u13" targetRef="g13_2"></sequenceFlow>
-    <serviceTask id="sid-EE058F5B-06A7-44AC-A256-2E2558059FCE" name="初步诊断：考虑矮小，建议进一步检查。" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-E85B6F65-2883-43E8-9C18-29831DDB4D1C" name="初步诊断：考虑性早熟，建议进一步检查。" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-EE058F5B-06A7-44AC-A256-2E2558059FCE" name="初步诊断：考虑矮小，建议进一步检查。" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-E85B6F65-2883-43E8-9C18-29831DDB4D1C" name="初步诊断：考虑性早熟，建议进一步检查。" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-54D766A5-14F4-4DBC-BB4A-D8F2BBADF5B0" name="骨龄身高百分位低于6百分位 或骨龄与落后年龄2岁及以上" sourceRef="g13_2" targetRef="sid-EE058F5B-06A7-44AC-A256-2E2558059FCE">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${boneAgePercentile<6 || boneAgeDiff<=-2}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-0C68E614-6179-414D-BA47-3EFF0D2884BA" sourceRef="sid-E85B6F65-2883-43E8-9C18-29831DDB4D1C" targetRef="sid-BE7C96AF-4851-4035-9395-197568F79FA0"></sequenceFlow>
-    <serviceTask id="sid-0D8A9B2C-C3C4-4643-877A-E2FC42143A53" name="初步诊断：考虑非病理性问题，建议改善生活方式，定期复查。" flowable:class="com.example.demo.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-0D8A9B2C-C3C4-4643-877A-E2FC42143A53" name="初步诊断：考虑非病理性问题，建议改善生活方式，定期复查。" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-3892BB93-471E-48C6-8CF4-F74DEF575D56" name="除以上其他情况" sourceRef="g13_2" targetRef="sid-0D8A9B2C-C3C4-4643-877A-E2FC42143A53"></sequenceFlow>
     <sequenceFlow id="sid-5AC17642-B928-4203-BD07-F76ED27C6087" sourceRef="sid-0D8A9B2C-C3C4-4643-877A-E2FC42143A53" targetRef="sid-97631AA2-9FAA-48FF-B656-38AAC7B6514D"></sequenceFlow>
     <sequenceFlow id="sid-594AE6FA-123B-4FBD-A14D-146A81160B9F" name="提示早熟或骨龄 提前2岁及以上" sourceRef="g13_2" targetRef="sid-E85B6F65-2883-43E8-9C18-29831DDB4D1C">
@@ -507,6 +491,16 @@
     <sequenceFlow id="b2" name="2" sourceRef="g13" targetRef="sid-C08F88E2-C52D-46CF-84A6-157656B3E350">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=="9"}]]></conditionExpression>
     </sequenceFlow>
+    <sequenceFlow id="sid-34C60929-23C3-4303-BDF0-1E0AB142D397" name="年生长速率正常或无生长速率,父母身高矮小" sourceRef="g1" targetRef="sid-8A0A4A2D-02DA-41EE-9E9B-15479824B6E8">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${growthRate && !parentHeight}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-A343DAF6-53B1-42EF-B4F9-664E3F499C73" name="年生长速率异常,父母身高正常" sourceRef="g1" targetRef="sid-A12F29A1-BBAF-4B79-95CD-3DDFDE874033">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ !growthRate && parentHeight }]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-D5F3E168-CCC4-4347-AECF-0126CAB10A94" name="年生长速率异常,父母身高矮小" sourceRef="g1" targetRef="sid-831EE777-3125-4EB1-8489-3E5B2604F8F8">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ !growthRate && !parentHeight }]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-54AED653-B112-4AB5-8975-9FEED59F673B" name="年生长速率正常或无生长速率,父母身高正常" sourceRef="g1" targetRef="sid-3CE79061-EB0F-4815-93C3-465256803B39"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_growth8">
     <bpmndi:BPMNPlane bpmnElement="growth8" id="BPMNPlane_growth8">
