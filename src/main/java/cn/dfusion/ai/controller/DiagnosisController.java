@@ -2612,20 +2612,149 @@ public class DiagnosisController {
 //
 //        }
 //    }
-    @GetMapping("assess16")
-    public String assessHealthPlan(String taskId,
-                                   String milk,
-                                   String egg,
-                                   String meat,
-                                   String Ca,
-                                   String Zn,
-                                   String vitaminA,
-                                   String vitaminD,
-                                   String meanSleepTime,
-                                   String meanGetupTime,
-                                   String exerciseType,
-                                   String exerciseDuration,
-                                   String schoolRecord
+    @GetMapping("assessMilk")
+    public String assessMilk(String taskId,
+                             Integer milk
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("milk", milk);
+        String tips;
+        if(milk == 1){
+            tips = "每日牛奶摄入量 --> 正常";
+        }else{
+            tips = "每日牛奶摄入量不足";
+        }
+        taskService.complete(taskId, variables);
+        return "饮食情况：" + tips;
+    }
+    @GetMapping("assessEgg")
+    public String assessEgg(String taskId,
+                            Integer egg
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("egg", egg);
+        String tips;
+        if(egg == 1){
+            tips = "每日鸡蛋摄入量 --> 正常";
+        }else{
+            tips = "每日鸡蛋摄入量不足";
+        }
+        taskService.complete(taskId, variables);
+        return "饮食情况：" + tips;
+    }
+    @GetMapping("assessMeat")
+    public String assessMeat(String taskId,
+                             Integer meat
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("meat", meat);
+        String tips;
+        if(meat == 1){
+            tips = "每日肉类摄入量 --> 正常";
+        }else{
+            tips = "每日肉类摄入量不足";
+        }
+        taskService.complete(taskId, variables);
+        return "饮食情况：" + tips;
+    }
+    @GetMapping("assessCa")
+    public String assessCa(String taskId,
+                           String Ca
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("Ca", Ca);
+        String tips;
+        if(Ca.equals("补充")){
+            tips = "已进行钙元素补充";
+        }else{
+            tips = "未进行钙元素补充";
+        }
+        taskService.complete(taskId, variables);
+        return "营养情况：" + tips;
+    }
+    @GetMapping("assessZn")
+    public String assessZn(String taskId,
+                           String Zn
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("Zn", Zn);
+        String tips;
+        if(Zn.equals("补充")){
+            tips = "已进行锌元素补充";
+        }else{
+            tips = "未进行锌元素补充";
+        }
+        taskService.complete(taskId, variables);
+        return "营养情况：" + tips;
+    }
+    @GetMapping("assessVitaminA")
+    public String assessVitaminA(String taskId,
+                                 String vitaminA
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("vitaminA", vitaminA);
+        String tips;
+        if(vitaminA.equals("补充")){
+            tips = "已进行维生素A补充";
+        }else{
+            tips = "未进行维生素A补充";
+        }
+        taskService.complete(taskId, variables);
+        return "营养情况：" + tips;
+    }
+    @GetMapping("assessVitaminD")
+    public String assessVitaminD(String taskId,
+                                 String vitaminD
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("vitaminD", vitaminD);
+        String tips;
+        if(vitaminD.equals("补充")){
+            tips = "已进行维生素D补充";
+        }else{
+            tips = "未进行维生素D补充";
+        }
+        taskService.complete(taskId, variables);
+        return "营养情况：" + tips;
+    }
+    @GetMapping("assessMeanSleepTime")
+    public String assessMeanSleepTime(String taskId,
+                                   String meanSleepTime
                                    ) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         if (task == null) {
@@ -2638,5 +2767,63 @@ public class DiagnosisController {
 
         taskService.complete(taskId, variables);
         return "保健方案 --> " + tips;
+    }
+    @GetMapping("assessMeanGetupTime")
+    public String assessMeanGetupTime(String taskId,
+                                   String meanGetupTime
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+
+        Map<String, Object> variables = new HashMap<>();
+
+        String tips = "";
+
+        taskService.complete(taskId, variables);
+        return "保健方案 --> " + tips;
+    }
+    @GetMapping("assessExerciseType")
+    public String assessExerciseType(String taskId,
+                                   Integer exerciseType
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("exerciseType", exerciseType);
+        String tips;
+        if(exerciseType == 1){
+            tips = "纵向用动量 --> 正常";
+        }else{
+            tips = "纵向用动量不足";
+        }
+        taskService.complete(taskId, variables);
+        return "运动情况：" + tips;
+    }
+    @GetMapping("assessExerciseDuration")
+    public String assessExerciseDuration(String taskId,
+                                   Integer exerciseDuration
+                                   ) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        if (task == null) {
+            return "流程不存在";
+        }
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("exerciseDuration", exerciseDuration);
+        String tips;
+        if(exerciseDuration == 1){
+            tips = "单词运动时间 --> 正常";
+        }else if(exerciseDuration == 2){
+            tips = "单词运动时间不足";
+        }else {
+            tips = "单词运动时间过长";
+        }
+        taskService.complete(taskId, variables);
+        return "运动情况：" + tips;
     }
 }
