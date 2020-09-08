@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -52,6 +51,9 @@ public class DiagnosisController {
      */
     @GetMapping("start")
     public String start() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("patientId", 1);
+        map.put("doctorId", 2);
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("growth8");
         return processInstance.getId();
     }
@@ -95,11 +97,14 @@ public class DiagnosisController {
      * @param group
      * @return
      */
-//    @GetMapping("nextId")
-//    public Object list(String group) {
-//        List<Task> tasks = taskService.createTaskQuery().taskCandidateGroup(group).list();
-//        return tasks.get(tasks.size() - 1).getId();
-//    }
+    @GetMapping("list")
+    public Object list(String group) {
+        List<Task> tasks = taskService.createTaskQuery().orderByTaskCreateTime().desc().list();
+        for (Task task : tasks) {
+            System.out.println(task.toString());
+        }
+        return tasks.toArray().toString();
+    }
 
     /**
      * 获取指定用户组流程任务列表
@@ -107,8 +112,8 @@ public class DiagnosisController {
      * @return
      */
     @GetMapping("getNextId")
-    public Object getNextId(String processId) {
-        Task task = this.processEngine.getTaskService().createTaskQuery().processInstanceId(processId).active().singleResult();
+    public String getNextId(String processId) {
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         return task.getId();
     }
 
@@ -116,7 +121,7 @@ public class DiagnosisController {
      * 获取任务节点
      *
      * @param
-     * @param taskId 任务id
+     * @param processId 任务id
      */
 //    public void nextFlowNode(String node, String taskId) {
 //        Task task = processEngine.getTaskService().createTaskQuery().taskId(taskId).singleResult();
@@ -148,12 +153,12 @@ public class DiagnosisController {
 //    }
 
     @GetMapping("assess1")
-    public String assess(String taskId,
+    public String assess(String processId,
                          String age,
                          Double growthRate,
                          Integer fatherHeightPercentile,
                          Integer motherHeightPercentile) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -168,7 +173,7 @@ public class DiagnosisController {
         boolean isMotherHeightNormal = this.isPercentileNormal(motherHeightPercentile);
         boolean isParentHeightNormal = (isFatherHeightNormal && isMotherHeightNormal);
         variables.put("parentHeight", isParentHeightNormal);
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "生长速率 --> 正常";
         if ((growthRate == null || this.getGrowthRateStatus(age, growthRate)) && !isParentHeightNormal) {
             tips = "有家族矮小史";
@@ -179,6 +184,38 @@ public class DiagnosisController {
         }
         return tips;
     }
+//    @GetMapping("assess1")
+//    public String assess(String taskId,
+//                         String age,
+//                         Double growthRate,
+//                         Integer fatherHeightPercentile,
+//                         Integer motherHeightPercentile) {
+//        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+//        if (task == null) {
+//            return "流程不存在";
+//        }
+//
+//        Map<String, Object> variables = new HashMap<>();
+//        if (null != growthRate) {
+//            variables.put("growthRate", this.getGrowthRateStatus(age, growthRate));
+//        } else {
+//            variables.put("growthRate", true);
+//        }
+//        boolean isFatherHeightNormal = this.isPercentileNormal(fatherHeightPercentile);
+//        boolean isMotherHeightNormal = this.isPercentileNormal(motherHeightPercentile);
+//        boolean isParentHeightNormal = (isFatherHeightNormal && isMotherHeightNormal);
+//        variables.put("parentHeight", isParentHeightNormal);
+//        taskService.complete(taskId, variables);
+//        String tips = "生长速率 --> 正常";
+//        if ((growthRate == null || this.getGrowthRateStatus(age, growthRate)) && !isParentHeightNormal) {
+//            tips = "有家族矮小史";
+//        } else if ((growthRate != null && !this.getGrowthRateStatus(age, growthRate)) && isParentHeightNormal) {
+//            tips = "年生长速率低";
+//        } else if ((growthRate != null && !this.getGrowthRateStatus(age, growthRate)) && !isParentHeightNormal) {
+//            tips = "年生长速率低且有家族矮小史";
+//        }
+//        return tips;
+//    }
 
     /**
      * 判断生长速率是否正常
@@ -236,20 +273,20 @@ public class DiagnosisController {
     /**
      * 判断出生孕周是否正常
      *
-     * @param taskId
+     * @param processId
      * @param pregnantWeek
      * @return
      */
     @GetMapping("assess2")
-    public String assessPregnantWeek(String taskId,
+    public String assessPregnantWeek(String processId,
                                      Integer pregnantWeek) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = this.processEngine.getTaskService().createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
         Map<String, Object> variables = new HashMap<>();
         variables.put("pregnantWeek", pregnantWeek);
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "出生孕周 --> 正常";
         if (pregnantWeek < 37) {
             tips = "早产";
@@ -258,11 +295,29 @@ public class DiagnosisController {
         }
         return tips;
     }
+//    @GetMapping("assess2")
+//    public String assessPregnantWeek(String taskId,
+//                                     Integer pregnantWeek) {
+//        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+//        if (task == null) {
+//            return "流程不存在";
+//        }
+//        Map<String, Object> variables = new HashMap<>();
+//        variables.put("pregnantWeek", pregnantWeek);
+//        taskService.complete(taskId, variables);
+//        String tips = "出生孕周 --> 正常";
+//        if (pregnantWeek < 37) {
+//            tips = "早产";
+//        } else if (pregnantWeek > 42) {
+//            tips = "过期产";
+//        }
+//        return tips;
+//    }
 
     /**
      * 判断是否符合SGA
      *
-     * @param taskId
+     * @param processId
      * @param pregnantWeek
      * @param height (cm)
      * @param weight (kg)
@@ -270,13 +325,13 @@ public class DiagnosisController {
      * @return
      */
     @GetMapping("assess3")
-    public String assessSGA(String taskId,
+    public String assessSGA(String processId,
                             Integer pregnantWeek,
                             Double height,
                             Double weight,
                             String gender) {
         String tips = "不符合SGA --> 正常";
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -320,7 +375,7 @@ public class DiagnosisController {
             isSGA = true;
         }
         variables.put("isSGA", isSGA);
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         if (isSGA) {
             tips = "符合SGA，进一步确认是否追赶生长";
         }
@@ -330,16 +385,16 @@ public class DiagnosisController {
     /**
      * 是否有家族矮小史
      *
-     * @param taskId
+     * @param processId
      * @param grandfatherHeight
      * @param grandmotherHeight
      * @return
      */
     @GetMapping("assess4")
-    public String assessFamilyShort(String taskId,
+    public String assessFamilyShort(String processId,
                                     Double grandfatherHeight,
                                     Double grandmotherHeight) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -350,7 +405,7 @@ public class DiagnosisController {
         }
         variables.put("isFamilyShort", isFamilyShort);
 
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "无家族矮小史 --> 正常";
         if (isFamilyShort) {
             tips = "有家族矮小史";
@@ -361,9 +416,9 @@ public class DiagnosisController {
     //保健问诊
 
     @GetMapping("assess5")
-    public String assessChronicDisease(String taskId,
+    public String assessChronicDisease(String processId,
                                        String normal) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -372,7 +427,7 @@ public class DiagnosisController {
         isChronicDisease = normal.equals("是") ? true : false;
         variables.put("isChronicDisease", isChronicDisease);
 
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "无慢性病史 --> 正常";
         if (isChronicDisease) {
             tips = "有慢性病史";
@@ -381,9 +436,9 @@ public class DiagnosisController {
     }
 
     @GetMapping("assess6")
-    public String assessDrugAllerg(String taskId,
+    public String assessDrugAllerg(String processId,
                                    String normal) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -392,7 +447,7 @@ public class DiagnosisController {
         isDrugAllerg = normal.equals("是") ? true : false;
         variables.put("isDrugAllerg", isDrugAllerg);
 
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "无药物过敏史 --> 正常";
         if (isDrugAllerg) {
             tips = "有药物过敏史";
@@ -401,10 +456,10 @@ public class DiagnosisController {
     }
 
     @GetMapping("assess7")
-    public String assessHeight(String taskId,
+    public String assessHeight(String processId,
                                Integer heightPercentile,
                                Integer hereditaryHeightDiff) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -412,7 +467,7 @@ public class DiagnosisController {
         variables.put("heightPercentile", heightPercentile);
         variables.put("hereditaryHeightDiff", hereditaryHeightDiff);
 
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "测量身高体重 --> 正常";
         if (heightPercentile < 3) {
             tips = "身材矮小，需要进一步详细问诊";
@@ -426,9 +481,9 @@ public class DiagnosisController {
 
     @GetMapping("assess8")
     public String assessPerinatalInjury
-            (String taskId,
+            (String processId,
              String perinatalInjury) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -436,7 +491,7 @@ public class DiagnosisController {
         Map<String, Object> variables = new HashMap<>();
         isPerinatalInjury = perinatalInjury.equals("是") ? true : false;
         variables.put("isPerinatalInjury", isPerinatalInjury);
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "无围产期损伤 --> 正常";
         if (isPerinatalInjury) {
             tips = "有围产期损伤";
@@ -445,9 +500,9 @@ public class DiagnosisController {
     }
 
     @GetMapping("assess9")
-    public String assessParentDevelopmentDelay(String taskId,
+    public String assessParentDevelopmentDelay(String processId,
                                                String parentDevelopmentDelay) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -456,7 +511,7 @@ public class DiagnosisController {
         isParentDevelopmentDelay = parentDevelopmentDelay.equals("是") ? true : false;
         variables.put("isParentDevelopmentDelay", isParentDevelopmentDelay);
 
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "无体质性青春期发育延迟 --> 正常";
         if (isParentDevelopmentDelay) {
             tips = "疑似体质性青春期延迟,进一步辅助检查判断";
@@ -465,10 +520,10 @@ public class DiagnosisController {
     }
 
     @GetMapping("assess10")
-    public String assessUpDownMeasure(String taskId,
+    public String assessUpDownMeasure(String processId,
                                       Double up,
                                       Double down) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -477,7 +532,7 @@ public class DiagnosisController {
         variables.put("up", up);
         variables.put("down", down);
 
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "上下部量 --> 正常";
         if (up > down) {
             tips = "疑似软骨发育不良/不全,成骨发育不全、骺软发育不良等";
@@ -488,9 +543,9 @@ public class DiagnosisController {
     }
 
     @GetMapping("assess11")
-    public String assessNeedSSS(String taskId,
+    public String assessNeedSSS(String processId,
                                 String needSSS) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -499,7 +554,7 @@ public class DiagnosisController {
         isNeedSSS = needSSS.equals("是") ? true : false;
         variables.put("isNeedSSS", isNeedSSS);
 
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "不需要进行第二性征查体";
         if (isNeedSSS) {
             tips = "需要进行第二性征查体";
@@ -508,16 +563,16 @@ public class DiagnosisController {
     }
 
     @GetMapping("assess12")
-    public String assessSSS(String taskId,
+    public String assessSSS(String processId,
                             String SSS) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
 
         Map<String, Object> variables = new HashMap<>();
         variables.put("SSS", SSS);
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         String tips = "第二性征查体 --> 正常";
         if (SSS.equals("落后")) {
             tips = "青春发育延迟";
@@ -528,14 +583,14 @@ public class DiagnosisController {
     }
 
     @GetMapping("assess13")
-    public String assessBoneAge(String taskId,
+    public String assessBoneAge(String processId,
                                 Integer heightPercentile,
                                 String developmentDelay,
                                 Double growthRate,
                                 Integer hereditaryHeightPercentile,
                                 Integer boneAgePercentile,
                                 Double boneAgeDiff) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -625,7 +680,7 @@ public class DiagnosisController {
             tips = "其他情况，建议继续观察";
             variables.put("result", "0");
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "骨龄检查 --> " + tips;
     }
 
@@ -639,11 +694,11 @@ public class DiagnosisController {
     }
 
     @GetMapping("assess13_2")
-    public String assessBoneAge(String taskId,
+    public String assessBoneAge(String processId,
                                 String SSS, //第二性征："落后"/"提前"
                                 Integer boneAgePercentile,
                                 Double boneAgeDiff) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -660,12 +715,12 @@ public class DiagnosisController {
         } else {
             firstDiagnosis = "【 考虑非病理性问题，建议改善生活方式，定期复查 】";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return firstDiagnosis;
     }
 
     @GetMapping("assess14")
-    public Map assessCheck(String taskId,
+    public Map assessCheck(String processId,
                            String tp, String alb, String glb, String ag, String alt, String ast, String op, String tbil, String dbil, String ibil, String alp, String y, String z,//肝功
                            String crea, String urea, String ua, String cys,//肾功能
                            String tsh, String t3, String t4, String ft3, String ft4,//甲功
@@ -676,7 +731,7 @@ public class DiagnosisController {
                            String rbc, String pro, String wbcc//尿常规
     ) {
         Map<String, Object> variables = new HashMap<>();
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             variables.put("msg", "流程不存在");
             return variables;
@@ -2134,7 +2189,7 @@ public class DiagnosisController {
         String check1Case = tips.substring(0, tips.indexOf("."));
         variables.put("check1Case", check1Case);
         variables.put("tips", "辅助检查1.0 --> " + tips);
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return variables;
     }
 
@@ -2144,7 +2199,7 @@ public class DiagnosisController {
     }
 
     @GetMapping("assess15")
-    public Map assessCheck2(String taskId,
+    public Map assessCheck2(String processId,
                             String check1Case,
                             String chromosomeExam,
                             String ghTest,
@@ -2152,7 +2207,7 @@ public class DiagnosisController {
                             String familyShortHistory) {
         Map<String, Object> variables = new HashMap<>();
         String treatmentPlan = "";
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             variables.put("msg", "流程不存在");
             return variables;
@@ -2192,7 +2247,7 @@ public class DiagnosisController {
         }
         variables.put("illnessDiagnosis", "疾病诊断 --> " + illnessDiagnosis);
         variables.put("treatmentPlan", treatmentPlan);
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return variables;
     }
 
@@ -2281,7 +2336,8 @@ public class DiagnosisController {
     }
 
 //    @GetMapping("assess0")
-//    public String assess0(String taskId, String a1, String tp) {
+//    public String assess0(String processId, String a1, String tp) {
+//        Map<String, Object> variables = new HashMap<>();
 //        tp = (tp == null ? "正常" : tp);
 //        System.out.println(tp);
 //        String tips = "";
@@ -2293,7 +2349,7 @@ public class DiagnosisController {
 //            tips = "否";
 //        }
 //
-////        variables.put("a1", a1);
+//        variables.put("a1", a1);
 //        return tips;
 //    }
 
@@ -2301,12 +2357,12 @@ public class DiagnosisController {
     /**
      * 计算身高百分位数
      *
-     * @param taskId
+     * @param processId
      * @param heightPercentile
      * @return
      */
 //    @GetMapping("check")
-//    public String computePercentile(String taskId, String heightPercentile, String boneAge, String isPatient, String isUnderTreatment, String isFillIn) {
+//    public String computePercentile(String processId, String heightPercentile, String boneAge, String isPatient, String isUnderTreatment, String isFillIn) {
 //        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 //        if (task == null) {
 //            return "流程不存在";
@@ -2339,13 +2395,13 @@ public class DiagnosisController {
     /**
      * 驳回流程实例
      *
-     * @param taskId
+     * @param processId
      * @param targetTaskKey
      * @return
      */
     @GetMapping("rollbask")
-    public String rollbaskTask(String taskId, String targetTaskKey) {
-        Task currentTask = taskService.createTaskQuery().taskId(taskId).singleResult();
+    public String rollbaskTask(String processId, String targetTaskKey) {
+        Task currentTask = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (currentTask == null) {
             return "节点不存在";
         }
@@ -2479,7 +2535,7 @@ public class DiagnosisController {
         BpmnModel bpmnModel = repositoryService.getBpmnModel(pi.getProcessDefinitionId());
         ProcessEngineConfiguration engconf = processEngine.getProcessEngineConfiguration();
         ProcessDiagramGenerator diagramGenerator = engconf.getProcessDiagramGenerator();
-        InputStream in = diagramGenerator.generateDiagram(bpmnModel, "png", activityIds, flows, engconf.getActivityFontName(), engconf.getLabelFontName(), engconf.getAnnotationFontName(), engconf.getClassLoader(), 1.0);
+        InputStream in = diagramGenerator.generateDiagram(bpmnModel, "png", activityIds, flows, engconf.getActivityFontName(), engconf.getLabelFontName(), engconf.getAnnotationFontName(), engconf.getClassLoader(), 1.0, true);
         OutputStream out = null;
         byte[] buf = new byte[1024];
         int legth = 0;
@@ -2615,10 +2671,10 @@ public class DiagnosisController {
 //        }
 //    }
     @GetMapping("assessMilk")
-    public String assessMilk(String taskId,
+    public String assessMilk(String processId,
                              Integer milk
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2631,14 +2687,14 @@ public class DiagnosisController {
         }else{
             tips = "每日牛奶摄入量不足";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "饮食情况：" + tips;
     }
     @GetMapping("assessEgg")
-    public String assessEgg(String taskId,
+    public String assessEgg(String processId,
                             Integer egg
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2651,14 +2707,14 @@ public class DiagnosisController {
         }else{
             tips = "每日鸡蛋摄入量不足";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "饮食情况：" + tips;
     }
     @GetMapping("assessMeat")
-    public String assessMeat(String taskId,
+    public String assessMeat(String processId,
                              Integer meat
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2671,14 +2727,14 @@ public class DiagnosisController {
         }else{
             tips = "每日肉类摄入量不足";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "饮食情况：" + tips;
     }
     @GetMapping("assessCa")
-    public String assessCa(String taskId,
+    public String assessCa(String processId,
                            String Ca
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2691,14 +2747,14 @@ public class DiagnosisController {
         }else{
             tips = "未进行钙元素补充";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "营养情况：" + tips;
     }
     @GetMapping("assessZn")
-    public String assessZn(String taskId,
+    public String assessZn(String processId,
                            String Zn
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2711,14 +2767,14 @@ public class DiagnosisController {
         }else{
             tips = "未进行锌元素补充";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "营养情况：" + tips;
     }
     @GetMapping("assessVitaminA")
-    public String assessVitaminA(String taskId,
+    public String assessVitaminA(String processId,
                                  String vitaminA
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2731,14 +2787,14 @@ public class DiagnosisController {
         }else{
             tips = "未进行维生素A补充";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "营养情况：" + tips;
     }
     @GetMapping("assessVitaminD")
-    public String assessVitaminD(String taskId,
+    public String assessVitaminD(String processId,
                                  String vitaminD
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2751,15 +2807,15 @@ public class DiagnosisController {
         }else{
             tips = "未进行维生素D补充";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "营养情况：" + tips;
     }
 
     @GetMapping("assessSleepTime")
-    public String assessSleepTime(String taskId,
+    public String assessSleepTime(String processId,
                                    String sleepTime
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2777,16 +2833,16 @@ public class DiagnosisController {
         }else{
             tips = "入睡时间晚";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "睡眠情况：" + tips;
     }
 
     @GetMapping("assessWakeTime")
-    public String assessWakeTime(String taskId,
+    public String assessWakeTime(String processId,
                                   String sleepTime,
                                   String wakeTime
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2807,7 +2863,7 @@ public class DiagnosisController {
         }else{
             tips = "睡眠时间不足";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "睡眠情况：" + tips;
     }
 
@@ -2861,10 +2917,10 @@ public class DiagnosisController {
     }
 
     @GetMapping("assessExerciseType")
-    public String assessExerciseType(String taskId,
+    public String assessExerciseType(String processId,
                                    Integer exerciseType
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2877,14 +2933,14 @@ public class DiagnosisController {
         }else{
             tips = "纵向用动量不足";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "运动情况：" + tips;
     }
     @GetMapping("assessExerciseDuration")
-    public String assessExerciseDuration(String taskId,
+    public String assessExerciseDuration(String processId,
                                    Integer exerciseDuration
                                    ) {
-        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -2899,7 +2955,7 @@ public class DiagnosisController {
         }else {
             tips = "单词运动时间过长";
         }
-        taskService.complete(taskId, variables);
+        taskService.complete(task.getId(), variables);
         return "运动情况：" + tips;
     }
 }

@@ -544,9 +544,9 @@
     <sequenceFlow id="sid-EDC29A74-C833-4C1E-9A73-5119AFC25B37" sourceRef="sid-6B689E1B-E6A2-4ECC-B2A6-248A21E55625" targetRef="sid-231F022F-AD86-4976-87F6-DAD881FBDF11"></sequenceFlow>
     <exclusiveGateway id="sid-ED7C9593-4A37-49D8-8E33-171D12B87FFF"></exclusiveGateway>
     <sequenceFlow id="sid-40C58DBD-2B9C-4B25-95F6-C3CC3653BDE2" sourceRef="sid-231F022F-AD86-4976-87F6-DAD881FBDF11" targetRef="sid-ED7C9593-4A37-49D8-8E33-171D12B87FFF"></sequenceFlow>
-    <serviceTask id="sid-64A6A0E8-2690-4239-8EAC-B6C369E663B9" name="单词运动时间太短" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-64A6A0E8-2690-4239-8EAC-B6C369E663B9" name="单次运动时间太短" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-13107514-B359-474F-BAF7-3FA342157C82" name="纵向运动少，无纵向运动" sourceRef="sid-4016E387-9539-4BA3-BF11-E84BFF98A7C8" targetRef="sid-6B689E1B-E6A2-4ECC-B2A6-248A21E55625"></sequenceFlow>
-    <serviceTask id="sid-8140E07A-93FC-40C6-95AB-83C8761339F0" name="单词运动时间太长" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-8140E07A-93FC-40C6-95AB-83C8761339F0" name="单次运动时间太长" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <serviceTask id="sid-3D92119E-EF2D-4DBE-8891-A53033DC793F" name="学习成绩" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <sequenceFlow id="sid-F0941004-EF84-4950-A896-A2923C000767" sourceRef="sid-8140E07A-93FC-40C6-95AB-83C8761339F0" targetRef="sid-3D92119E-EF2D-4DBE-8891-A53033DC793F"></sequenceFlow>
     <sequenceFlow id="sid-A61896B6-B606-4203-9B2F-B383D2260CF3" sourceRef="sid-64A6A0E8-2690-4239-8EAC-B6C369E663B9" targetRef="sid-3D92119E-EF2D-4DBE-8891-A53033DC793F"></sequenceFlow>
