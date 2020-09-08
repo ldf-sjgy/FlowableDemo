@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author LDF
@@ -357,6 +357,8 @@ public class DiagnosisController {
         }
         return tips;
     }
+
+    //保健问诊
 
     @GetMapping("assess5")
     public String assessChronicDisease(String taskId,
@@ -2752,9 +2754,10 @@ public class DiagnosisController {
         taskService.complete(taskId, variables);
         return "营养情况：" + tips;
     }
-    @GetMapping("assessMeanSleepTime")
-    public String assessMeanSleepTime(String taskId,
-                                   String meanSleepTime
+
+    @GetMapping("assessSleepTime")
+    public String assessSleepTime(String taskId,
+                                   String sleepTime
                                    ) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         if (task == null) {
@@ -2763,14 +2766,25 @@ public class DiagnosisController {
 
         Map<String, Object> variables = new HashMap<>();
 
-        String tips = "";
-
+        String tips;
+        Date sleep = this.sleepTime(sleepTime);
+        Calendar sleepCalendar = Calendar.getInstance();
+        sleepCalendar.setTime(sleep);
+        int sleepHour = sleepCalendar.get(Calendar.HOUR_OF_DAY);
+        variables.put("sleepTime", sleepHour);
+        if(sleepHour <= 22){
+            tips = "入睡时间 --> 正常";
+        }else{
+            tips = "入睡时间晚";
+        }
         taskService.complete(taskId, variables);
-        return "保健方案 --> " + tips;
+        return "睡眠情况：" + tips;
     }
-    @GetMapping("assessMeanGetupTime")
-    public String assessMeanGetupTime(String taskId,
-                                   String meanGetupTime
+
+    @GetMapping("assessWakeTime")
+    public String assessWakeTime(String taskId,
+                                  String sleepTime,
+                                  String wakeTime
                                    ) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         if (task == null) {
@@ -2779,11 +2793,73 @@ public class DiagnosisController {
 
         Map<String, Object> variables = new HashMap<>();
 
-        String tips = "";
+        String tips;
 
+        Date sleep = this.sleepTime(sleepTime);
+        Date wake = this.wakeTime(wakeTime);
+
+        long diff = wake.getTime() - sleep.getTime();
+        double hours = diff / (60 * 60 * 1000);
+        variables.put("hours", hours);
+
+        if(hours >= 8){
+            tips = "睡眠时间 --> 正常";
+        }else{
+            tips = "睡眠时间不足";
+        }
         taskService.complete(taskId, variables);
-        return "保健方案 --> " + tips;
+        return "睡眠情况：" + tips;
     }
+
+
+    private Date sleepTime(String time){
+
+        String trim = time.trim();
+        Calendar cal = Calendar.getInstance();
+        Date now = new Date();
+
+        cal.setTime(now);
+
+        int year = cal.get(Calendar.YEAR);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH) + 1;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        try {
+            Date changeTime = sdf.parse(year+"-"+month+"-"+day+" "+trim);
+            return changeTime;
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private Date wakeTime(String time){
+
+        String trim = time.trim();
+        Calendar cal = Calendar.getInstance();
+        Date now = new Date();
+
+        cal.setTime(now);
+
+        int year = cal.get(Calendar.YEAR);
+        int day = cal.get(Calendar.DAY_OF_MONTH) + 1;
+        int month = cal.get(Calendar.MONTH) + 1;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        try {
+            Date changeTime = sdf.parse(year+"-"+month+"-"+day+" "+trim);
+            return changeTime;
+        }catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     @GetMapping("assessExerciseType")
     public String assessExerciseType(String taskId,
                                    Integer exerciseType
