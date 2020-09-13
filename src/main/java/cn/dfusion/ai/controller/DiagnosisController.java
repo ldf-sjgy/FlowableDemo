@@ -59,39 +59,6 @@ public class DiagnosisController {
     }
 
     /**
-     * 创建流程
-     *
-     * @param gender
-     * @param birthDate
-     * @param measureDate
-     * @param height
-     * @param weight
-     * @return
-     */
-//    @GetMapping("add")
-//    public String addExpense(String name,
-//                             String heightPercentile,
-//                             String gender,
-//                             String birthDate,
-//                             String measureDate,
-//                             String height,
-//                             String weight) {
-//        Map<String, Object> map = new HashMap<>();
-//        //基本信息
-//        map.put("name", name);
-//        map.put("heightPercentile", heightPercentile);
-//        map.put("gender", gender);
-//        map.put("birthDate", birthDate);
-//        map.put("measureDate", measureDate);
-//        map.put("height", height);
-//        map.put("weight", weight);
-//        //检验检查信息
-//
-//        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("growth7", map);
-//        return "提交成功,流程ID为：" + processInstance.getId();
-//    }
-
-    /**
      * 获取指定用户组流程任务列表
      *
      * @param group
@@ -103,7 +70,7 @@ public class DiagnosisController {
         for (Task task : tasks) {
             System.out.println(task.toString());
         }
-        return tasks.toArray().toString();
+        return tasks.toString();
     }
 
     /**
@@ -116,41 +83,6 @@ public class DiagnosisController {
         Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         return task.getId();
     }
-
-    /**
-     * 获取任务节点
-     *
-     * @param
-     * @param processId 任务id
-     */
-//    public void nextFlowNode(String node, String taskId) {
-//        Task task = processEngine.getTaskService().createTaskQuery().taskId(taskId).singleResult();
-//        ExecutionEntity ee = (ExecutionEntity) processEngine.getRuntimeService().createExecutionQuery()
-//                .executionId(task.getExecutionId()).singleResult();
-//        // 当前审批节点
-//        String crruentActivityId = ee.getActivityId();
-//        BpmnModel bpmnModel = processEngine.getRepositoryService().getBpmnModel(task.getProcessDefinitionId());
-//        FlowNode flowNode = (FlowNode) bpmnModel.getFlowElement(crruentActivityId);
-//        // 输出连线
-//        List<SequenceFlow> outFlows = flowNode.getOutgoingFlows();
-//        for (SequenceFlow sequenceFlow : outFlows) {
-//            //当前审批节点
-//            if ("now".equals(node)) {
-//                FlowElement sourceFlowElement = sequenceFlow.getSourceFlowElement();
-//                System.out.println("当前节点: id=" + sourceFlowElement.getId() + ",name=" + sourceFlowElement.getName());
-//            } else if ("next".equals(node)) {
-//                // 下一个审批节点
-//                FlowElement targetFlow = sequenceFlow.getTargetFlowElement();
-//                if (targetFlow instanceof UserTask) {
-//                    System.out.println("下一节点: id=" + targetFlow.getId() + ",name=" + targetFlow.getName());
-//                }
-//                // 如果下个审批节点为结束节点
-//                if (targetFlow instanceof EndEvent) {
-//                    System.out.println("下一节点为结束节点：id=" + targetFlow.getId() + ",name=" + targetFlow.getName());
-//                }
-//            }
-//        }
-//    }
 
     @GetMapping("assess1")
     public String assess(String processId,
@@ -184,38 +116,6 @@ public class DiagnosisController {
         }
         return tips;
     }
-//    @GetMapping("assess1")
-//    public String assess(String taskId,
-//                         String age,
-//                         Double growthRate,
-//                         Integer fatherHeightPercentile,
-//                         Integer motherHeightPercentile) {
-//        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-//        if (task == null) {
-//            return "流程不存在";
-//        }
-//
-//        Map<String, Object> variables = new HashMap<>();
-//        if (null != growthRate) {
-//            variables.put("growthRate", this.getGrowthRateStatus(age, growthRate));
-//        } else {
-//            variables.put("growthRate", true);
-//        }
-//        boolean isFatherHeightNormal = this.isPercentileNormal(fatherHeightPercentile);
-//        boolean isMotherHeightNormal = this.isPercentileNormal(motherHeightPercentile);
-//        boolean isParentHeightNormal = (isFatherHeightNormal && isMotherHeightNormal);
-//        variables.put("parentHeight", isParentHeightNormal);
-//        taskService.complete(taskId, variables);
-//        String tips = "生长速率 --> 正常";
-//        if ((growthRate == null || this.getGrowthRateStatus(age, growthRate)) && !isParentHeightNormal) {
-//            tips = "有家族矮小史";
-//        } else if ((growthRate != null && !this.getGrowthRateStatus(age, growthRate)) && isParentHeightNormal) {
-//            tips = "年生长速率低";
-//        } else if ((growthRate != null && !this.getGrowthRateStatus(age, growthRate)) && !isParentHeightNormal) {
-//            tips = "年生长速率低且有家族矮小史";
-//        }
-//        return tips;
-//    }
 
     /**
      * 判断生长速率是否正常
@@ -280,7 +180,7 @@ public class DiagnosisController {
     @GetMapping("assess2")
     public String assessPregnantWeek(String processId,
                                      Integer pregnantWeek) {
-        Task task = this.processEngine.getTaskService().createTaskQuery().processInstanceId(processId).active().singleResult();
+        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
             return "流程不存在";
         }
@@ -295,32 +195,14 @@ public class DiagnosisController {
         }
         return tips;
     }
-//    @GetMapping("assess2")
-//    public String assessPregnantWeek(String taskId,
-//                                     Integer pregnantWeek) {
-//        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-//        if (task == null) {
-//            return "流程不存在";
-//        }
-//        Map<String, Object> variables = new HashMap<>();
-//        variables.put("pregnantWeek", pregnantWeek);
-//        taskService.complete(taskId, variables);
-//        String tips = "出生孕周 --> 正常";
-//        if (pregnantWeek < 37) {
-//            tips = "早产";
-//        } else if (pregnantWeek > 42) {
-//            tips = "过期产";
-//        }
-//        return tips;
-//    }
 
     /**
      * 判断是否符合SGA
      *
      * @param processId
      * @param pregnantWeek
-     * @param height (cm)
-     * @param weight (kg)
+     * @param height       (cm)
+     * @param weight       (kg)
      * @param gender
      * @return
      */
@@ -413,7 +295,7 @@ public class DiagnosisController {
         return tips;
     }
 
-    //保健问诊
+    //assess4与5之间增加了保健问诊
 
     @GetMapping("assess5")
     public String assessChronicDisease(String processId,
@@ -2335,48 +2217,48 @@ public class DiagnosisController {
         return treatmentPlan;
     }
 
-//    @GetMapping("assess0")
-//    public String assess0(String processId, String a1, String tp) {
-//        Map<String, Object> variables = new HashMap<>();
-//        tp = (tp == null ? "正常" : tp);
-//        System.out.println(tp);
-//        String tips = "";
-//        if (a1 == null) {
-//            tips = "null";
-//        } else if (a1.equals("是")) {
-//            tips = "true";
-//        } else if (a1.equals("否")) {
-//            tips = "否";
-//        }
-//
-//        variables.put("a1", a1);
-//        return tips;
-//    }
-
-
-    /**
-     * 计算身高百分位数
-     *
-     * @param processId
-     * @param heightPercentile
-     * @return
-     */
-//    @GetMapping("check")
-//    public String computePercentile(String processId, String heightPercentile, String boneAge, String isPatient, String isUnderTreatment, String isFillIn) {
-//        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
-//        if (task == null) {
-//            return "流程不存在";
-//        }
-//        Map<String, Object> variables = new HashMap<>();
-//        variables.put("heightPercentile", heightPercentile);
-//        variables.put("boneAge", boneAge);
-//        variables.put("isPatient", Boolean.valueOf(isPatient));
-//        variables.put("isUnderTreatment", Boolean.valueOf(isUnderTreatment));
-//        variables.put("isFillIn", Boolean.valueOf(isFillIn));
-//        taskService.complete(taskId, variables);
-//        return "您的任务已处理，流程已推进。 患者上一个处理任务为：【 " + task.getName() + " 】";
-//
-//    }
+    private String getHealthPlan(int id) {
+        String healthPlan = "";
+        switch (id) {
+            case 1:
+                healthPlan = "饮食情况：目前饮食情况尚可，继续保持。<br/>";
+                break;
+            case 2:
+                healthPlan = "饮食情况：家保证每天一个鸡蛋、500ml牛奶（不能用酸奶代替）、50g肉。<br/>";
+                break;
+            case 3:
+                healthPlan = "适量水果，每天低于150g，限制碳水化合物的摄入（例如米饭、面食等等）<br/>";
+                break;
+            case 4:
+                healthPlan = "低糖、低盐、低油、低脂饮食。<br/>";
+                break;
+            case 5:
+                healthPlan = "蔬菜量占日常饮食的60%以上。<br/>";
+                break;
+            case 6:
+                healthPlan = "睡眠情况：每晚十点前入睡，至少9小时睡眠时间，尽量避免十点到凌晨两点之间起夜。<br/>";
+                break;
+            case 7:
+                healthPlan = "睡眠情况：现在睡眠情况尚可，继续保持。<br/>";
+                break;
+            case 8:
+                healthPlan = "运动情况：每次运动时间30~40分钟，每天坚持一到两次，可选择：慢跑、踢毽、跳绳、篮球或者游泳等项目。以纵向运动为主，强度以孩子出汗为准（心跳约140次/分）。<br/>";
+                break;
+            case 9:
+                healthPlan = "运动情况：保持目前运动量及运动方式。<br/>";
+                break;
+            case 10:
+                healthPlan = "情绪情况：每天表扬孩子一次以上；若无必要原因不要打骂孩子，尤其是在进餐和睡觉前。尽量保持家庭氛围轻松愉悦。<br/>";
+                break;
+            case 11:
+                healthPlan = "避免观看言情电视剧等相关内容。<br/>";
+                break;
+            case 12:
+                healthPlan = "营养情况：每天适量补充维生素A、维生素D、钙、锌等元素，三个月后监测维生素A、D水平值、钙、锌含量。<br/>";
+                break;
+        }
+        return healthPlan;
+    }
 
     /**
      * 查看历史流程记录
@@ -2416,7 +2298,6 @@ public class DiagnosisController {
         return "驳回成功...";
     }
 
-
     /**
      * 终止流程实例
      *
@@ -2427,7 +2308,6 @@ public class DiagnosisController {
         runtimeService.deleteProcessInstance(processInstanceId, "");
         return "终止流程实例成功";
     }
-
 
     /**
      * 挂起流程实例
@@ -2450,7 +2330,6 @@ public class DiagnosisController {
         runtimeService.activateProcessInstanceById(processInstanceId);
         return "恢复流程成功...";
     }
-
 
     /**
      * 判断传入流程实例在运行中是否存在
@@ -2553,322 +2432,180 @@ public class DiagnosisController {
             }
         }
     }
-    /**
-     * 新版获取流程图
-     */
-    /**
-     * 获取流程图
-     * @param processDefinedId
-     */
-//    @GetMapping(value = "/getFlowDiagram/{processDefinedId}")
-//    public ErrorMsg getFlowDiagram(@PathVariable(value = "processDefinedId") String processDefinedId) throws IOException {
-//        List<String> flows = new ArrayList<>();
-//        //获取流程图
-//        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinedId);
-//        ProcessEngineConfiguration processEngineConfig = processEngine.getProcessEngineConfiguration();
-//
-//        ProcessDiagramGenerator diagramGenerator = processEngineConfig.getProcessDiagramGenerator();
-//        InputStream in = diagramGenerator.generateDiagram(bpmnModel, "bmp", new ArrayList<>(), flows, processEngineConfig.getActivityFontName(),
-//                processEngineConfig.getLabelFontName(), processEngineConfig.getAnnotationFontName(), processEngineConfig.getClassLoader(), 1.0);
-//
-//        // in.available()返回文件的字节长度
-//        byte[] buf = new byte[in.available()];
-//        // 将文件中的内容读入到数组中
-//        in.read(buf);
-//        // 进行Base64编码处理
-//        String base64Img =  new String(Base64.encodeBase64(buf));
-//        in.close();
-//        return ErrorMsg.PREVIEW_SUCCESS.setNewData(base64Img);
-//    }
 
-
-    /**
-     * 流程以及表单的部署
-     */
-//    @RequestMapping(value = "nform")
-//    public void deployTest() {
-//        Deployment deployment = repositoryService.createDeployment()
-//                .name("表单流程")
-//                .addClasspathResource("processes/test-form.bpmn20.xml")
-//                .deploy();
-//
-//        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().
-//                deploymentId(deployment.getId())
-//                .singleResult();
-//        String processDefinitionId = processDefinition.getId();
-//        FormDeployment formDeployment = formRepositoryService.createDeployment()
-//                .name("definition-one")
-//                .addClasspathResource("forms/form1.form")
-//                .parentDeploymentId(deployment.getId())
-//                .deploy();
-//        FormDefinition formDefinition = formRepositoryService.createFormDefinitionQuery().deploymentId(formDeployment.getId()).singleResult();
-//        String formDefinitionId = formDefinition.getId();
-//
-//
-//        //启动实例并且设置表单的值
-//        String outcome = "laoliu";
-//        Map<String, Object> formProperties = new HashMap<>();
-//        formProperties.put("reason", "家里有事");
-//        formProperties.put("startTime", "2020-8-17");
-//        formProperties.put("endTime", "2020-8-17");
-//        String processInstanceName = "shareniu";
-//        runtimeService.startProcessInstanceWithForm(processDefinitionId, outcome, formProperties, processInstanceName);
-//        HistoricProcessInstanceEntity historicProcessInstanceEntity = (HistoricProcessInstanceEntity) historyService.createHistoricProcessInstanceQuery()
-//                .processDefinitionId(processDefinitionId)
-//                .singleResult();
-//        String processInstanceId = historicProcessInstanceEntity.getProcessInstanceId();
-//
-//
-//        //查询表单信息
-//        SimpleFormModel fm = (SimpleFormModel) runtimeService.getStartFormModel(processDefinitionId, processInstanceId).getFormModel();
-//        //FormInfo fm = runtimeService.getStartFormModel(processDefinitionId, processInstanceId);
-//
-//        System.out.println(fm.getKey());
-//        System.out.println(fm.getName());
-//        System.out.println(fm.getOutcomeVariableName());
-//        System.err.println(fm.getVersion());
-//        List<FormField> fields = fm.getFields();
-//        for (FormField ff : fields) {
-//            System.out.println("######################");
-//            System.out.println(ff.getId());
-//            System.out.println(ff.getName());
-//            System.out.println(ff.getType());
-//            System.out.println(ff.getPlaceholder());
-//            System.out.println(ff.getValue());
-//            System.out.println("######################");
-//
-//        }
-//
-//
-//        //查询个人任务并填写表单
-//        Map<String, Object> formProperties2 = new HashMap<>();
-//        formProperties2.put("reason", "家里有事2222");
-//        formProperties2.put("startTime", "2020-8-18");
-//        formProperties2.put("endTime", "2020-8-18");
-//        formProperties2.put("days", "3");
-//        Task task = taskService.createTaskQuery().processInstanceId(processInstanceId).singleResult();
-//        String taskId = task.getId();
-//        String outcome2 = "老刘";
-//        taskService.completeTaskWithForm(taskId, formDefinitionId, outcome2, formProperties2);
-//
-//        //获取个人任务表单
-//        FormInfo taskFm = taskService.getTaskFormModel(taskId);
-//
-//
-//        SimpleFormModel sfm = (SimpleFormModel) taskFm.getFormModel();
-//        System.out.println(sfm);
-//
-//        List<FormField> formFields = sfm.getFields();
-//        for (FormField ff : formFields) {
-//            System.out.println("######################");
-//            System.out.println(ff.getId());
-//            System.out.println(ff.getName());
-//            System.out.println(ff.getType());
-//            System.out.println(ff.getPlaceholder());
-//            System.out.println(ff.getValue());
-//            System.out.println("######################");
-//
-//        }
-//    }
-    @GetMapping("assessMilk")
-    public String assessMilk(String processId,
-                             Integer milk
-                                   ) {
+    @GetMapping("assessDiet")
+    public Map<String, Object> assessDiet(String processId,
+                                          Integer milk,
+                                          Integer egg,
+                                          Integer meat
+    ) {
+        Map<String, Object> variables = new HashMap<>();
         Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
-            return "流程不存在";
+            variables.put("msg", "流程不存在");
+            return variables;
         }
 
-        Map<String, Object> variables = new HashMap<>();
         variables.put("milk", milk);
-        String tips;
-        if(milk == 1){
-            tips = "每日牛奶摄入量 --> 正常";
-        }else{
-            tips = "每日牛奶摄入量不足";
-        }
-        taskService.complete(task.getId(), variables);
-        return "饮食情况：" + tips;
-    }
-    @GetMapping("assessEgg")
-    public String assessEgg(String processId,
-                            Integer egg
-                                   ) {
-        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
-        if (task == null) {
-            return "流程不存在";
-        }
-
-        Map<String, Object> variables = new HashMap<>();
         variables.put("egg", egg);
-        String tips;
-        if(egg == 1){
-            tips = "每日鸡蛋摄入量 --> 正常";
-        }else{
-            tips = "每日鸡蛋摄入量不足";
-        }
-        taskService.complete(task.getId(), variables);
-        return "饮食情况：" + tips;
-    }
-    @GetMapping("assessMeat")
-    public String assessMeat(String processId,
-                             Integer meat
-                                   ) {
-        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
-        if (task == null) {
-            return "流程不存在";
-        }
-
-        Map<String, Object> variables = new HashMap<>();
         variables.put("meat", meat);
-        String tips;
-        if(meat == 1){
-            tips = "每日肉类摄入量 --> 正常";
-        }else{
-            tips = "每日肉类摄入量不足";
+        String tips = "";
+        if (milk == 1) {
+            tips += "每日牛奶摄入量 --> 正常";
+        } else {
+            tips += "每日牛奶摄入量不足";
         }
+        tips += "<br/>";
+        if (egg == 1) {
+            tips += "每日鸡蛋摄入量 --> 正常";
+        } else {
+            tips += "每日鸡蛋摄入量不足";
+        }
+        tips += "<br/>";
+        if (meat == 1) {
+            tips += "每日肉类摄入量 --> 正常";
+        } else {
+            tips += "每日肉类摄入量不足";
+        }
+        tips += "<br/>";
+        String healthPlan;
+        //饮食情况
+        if (milk == 1 && egg == 1 && meat == 1) {
+            healthPlan = getHealthPlan(1);//正常
+        } else {
+            healthPlan = getHealthPlan(2);
+        }
+        variables.put("tips", tips);
+        variables.put("healthPlan", healthPlan);
         taskService.complete(task.getId(), variables);
-        return "饮食情况：" + tips;
+        return variables;
     }
-    @GetMapping("assessCa")
-    public String assessCa(String processId,
-                           String Ca
-                                   ) {
+
+    @GetMapping("assessNutrition")
+    public Map<String, Object> assessNutrition(String processId,
+                                               String Ca,
+                                               String Zn,
+                                               String vitaminA,
+                                               String vitaminD
+    ) {
+        Map<String, Object> variables = new HashMap<>();
         Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
-            return "流程不存在";
+            variables.put("msg", "流程不存在");
+            return variables;
         }
 
-        Map<String, Object> variables = new HashMap<>();
         variables.put("Ca", Ca);
-        String tips;
-        if(Ca.equals("补充")){
-            tips = "已进行钙元素补充";
-        }else{
-            tips = "未进行钙元素补充";
-        }
-        taskService.complete(task.getId(), variables);
-        return "营养情况：" + tips;
-    }
-    @GetMapping("assessZn")
-    public String assessZn(String processId,
-                           String Zn
-                                   ) {
-        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
-        if (task == null) {
-            return "流程不存在";
-        }
-
-        Map<String, Object> variables = new HashMap<>();
         variables.put("Zn", Zn);
-        String tips;
-        if(Zn.equals("补充")){
-            tips = "已进行锌元素补充";
-        }else{
-            tips = "未进行锌元素补充";
-        }
-        taskService.complete(task.getId(), variables);
-        return "营养情况：" + tips;
-    }
-    @GetMapping("assessVitaminA")
-    public String assessVitaminA(String processId,
-                                 String vitaminA
-                                   ) {
-        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
-        if (task == null) {
-            return "流程不存在";
-        }
-
-        Map<String, Object> variables = new HashMap<>();
         variables.put("vitaminA", vitaminA);
-        String tips;
-        if(vitaminA.equals("补充")){
-            tips = "已进行维生素A补充";
-        }else{
-            tips = "未进行维生素A补充";
-        }
-        taskService.complete(task.getId(), variables);
-        return "营养情况：" + tips;
-    }
-    @GetMapping("assessVitaminD")
-    public String assessVitaminD(String processId,
-                                 String vitaminD
-                                   ) {
-        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
-        if (task == null) {
-            return "流程不存在";
-        }
-
-        Map<String, Object> variables = new HashMap<>();
         variables.put("vitaminD", vitaminD);
-        String tips;
-        if(vitaminD.equals("补充")){
-            tips = "已进行维生素D补充";
-        }else{
-            tips = "未进行维生素D补充";
+        String tips = "";
+        if (Ca.equals("补充")) {
+            tips += "已进行钙元素补充";
+        } else {
+            tips += "未进行钙元素补充";
         }
+        tips += "<br/>";
+        if (Zn.equals("补充")) {
+            tips += "已进行锌元素补充";
+        } else {
+            tips += "未进行锌元素补充";
+        }
+        tips += "<br/>";
+        if (vitaminA.equals("补充")) {
+            tips += "已进行维生素A补充";
+        } else {
+            tips += "未进行维生素A补充";
+        }
+        tips += "<br/>";
+        if (vitaminD.equals("补充")) {
+            tips += "已进行维生素D补充";
+        } else {
+            tips += "未进行维生素D补充";
+        }
+        tips += "<br/>";
+
+        String healthPlan;
+        //营养情况
+        if (Ca.equals("补充") || Zn.equals("补充") || vitaminA.equals("补充") || vitaminD.equals("补充")) {//异常
+            healthPlan = "营养情况：正常。";
+        } else {
+            healthPlan = getHealthPlan(12);
+        }
+
+        variables.put("tips", tips);
+        variables.put("healthPlan", healthPlan);
         taskService.complete(task.getId(), variables);
-        return "营养情况：" + tips;
+        return variables;
     }
 
-    @GetMapping("assessSleepTime")
-    public String assessSleepTime(String processId,
-                                   String sleepTime
-                                   ) {
+    @GetMapping("assessSleep")
+    public Map<String, Object> assessSleep(String processId,
+                                           String sleepTime,
+                                           String wakeTime
+    ) {
+        Map<String, Object> variables = new HashMap<>();
         Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
-            return "流程不存在";
+            variables.put("msg", "流程不存在");
+            return variables;
         }
 
-        Map<String, Object> variables = new HashMap<>();
 
-        String tips;
-        Date sleep = this.sleepTime(sleepTime);
-        Calendar sleepCalendar = Calendar.getInstance();
-        sleepCalendar.setTime(sleep);
-        int sleepHour = sleepCalendar.get(Calendar.HOUR_OF_DAY);
+        String tips = "";
+
+        int sleepHour = this.getSleepHour(sleepTime);
         variables.put("sleepTime", sleepHour);
-        if(sleepHour <= 22){
-            tips = "入睡时间 --> 正常";
-        }else{
-            tips = "入睡时间晚";
+        if (sleepHour <= 22) {
+            tips += "入睡时间 --> 正常";
+        } else {
+            tips += "入睡时间晚";
         }
+        tips += "<br/>";
+        double hours = this.getSleepHours(sleepTime, wakeTime);
+        variables.put("hours", hours);
+
+        if (hours >= 9) {
+            tips += "睡眠时长 --> 正常";
+        } else {
+            tips += "睡眠时长不足";
+        }
+        tips += "<br/>";
+
+        String healthPlan;
+        //睡眠情况
+        if (this.getSleepHour(sleepTime) <= 22 && this.getSleepHours(sleepTime, wakeTime) >= 9) {//正常
+            healthPlan = getHealthPlan(7);
+        } else {
+            healthPlan = getHealthPlan(6);
+        }
+
+        variables.put("tips", tips);
+        variables.put("healthPlan", healthPlan);
         taskService.complete(task.getId(), variables);
-        return "睡眠情况：" + tips;
+        return variables;
     }
 
-    @GetMapping("assessWakeTime")
-    public String assessWakeTime(String processId,
-                                  String sleepTime,
-                                  String wakeTime
-                                   ) {
-        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
-        if (task == null) {
-            return "流程不存在";
-        }
+    //获取字符串时间的小时字段（24小时制）
+    private int getSleepHour(String time) {
+        Date dTime = this.sleepTime(time);
+        Calendar sleepCalendar = Calendar.getInstance();
+        sleepCalendar.setTime(dTime);
+        return sleepCalendar.get(Calendar.HOUR_OF_DAY);
+    }
 
-        Map<String, Object> variables = new HashMap<>();
-
-        String tips;
-
+    //睡眠时长
+    private double getSleepHours(String sleepTime,
+                                 String wakeTime) {
         Date sleep = this.sleepTime(sleepTime);
         Date wake = this.wakeTime(wakeTime);
 
         long diff = wake.getTime() - sleep.getTime();
         double hours = diff / (60 * 60 * 1000);
-        variables.put("hours", hours);
-
-        if(hours >= 8){
-            tips = "睡眠时间 --> 正常";
-        }else{
-            tips = "睡眠时间不足";
-        }
-        taskService.complete(task.getId(), variables);
-        return "睡眠情况：" + tips;
+        return hours;
     }
 
-
-    private Date sleepTime(String time){
+    private Date sleepTime(String time) {
 
         String trim = time.trim();
         Calendar cal = Calendar.getInstance();
@@ -2883,16 +2620,16 @@ public class DiagnosisController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         try {
-            Date changeTime = sdf.parse(year+"-"+month+"-"+day+" "+trim);
+            Date changeTime = sdf.parse(year + "-" + month + "-" + day + " " + trim);
             return changeTime;
-        }catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
         return null;
     }
 
-    private Date wakeTime(String time){
+    private Date wakeTime(String time) {
 
         String trim = time.trim();
         Calendar cal = Calendar.getInstance();
@@ -2907,55 +2644,59 @@ public class DiagnosisController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         try {
-            Date changeTime = sdf.parse(year+"-"+month+"-"+day+" "+trim);
+            Date changeTime = sdf.parse(year + "-" + month + "-" + day + " " + trim);
             return changeTime;
-        }catch (ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
         return null;
     }
 
-    @GetMapping("assessExerciseType")
-    public String assessExerciseType(String processId,
-                                   Integer exerciseType
-                                   ) {
+    @GetMapping("assessExercise")
+    public Map<String, Object> assessExercise(String processId,
+                                              Integer exerciseType,
+                                              Integer exerciseDuration
+    ) {
+        Map<String, Object> variables = new HashMap<>();
         Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
-            return "流程不存在";
+            variables.put("msg", "流程不存在");
+            return variables;
         }
 
-        Map<String, Object> variables = new HashMap<>();
         variables.put("exerciseType", exerciseType);
-        String tips;
-        if(exerciseType == 1){
-            tips = "纵向用动量 --> 正常";
-        }else{
-            tips = "纵向用动量不足";
-        }
-        taskService.complete(task.getId(), variables);
-        return "运动情况：" + tips;
-    }
-    @GetMapping("assessExerciseDuration")
-    public String assessExerciseDuration(String processId,
-                                   Integer exerciseDuration
-                                   ) {
-        Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
-        if (task == null) {
-            return "流程不存在";
-        }
-
-        Map<String, Object> variables = new HashMap<>();
         variables.put("exerciseDuration", exerciseDuration);
-        String tips;
-        if(exerciseDuration == 1){
-            tips = "单词运动时间 --> 正常";
-        }else if(exerciseDuration == 2){
-            tips = "单词运动时间不足";
-        }else {
-            tips = "单词运动时间过长";
+
+        String tips = "";
+        if (exerciseType == 1) {
+            tips += "纵向运动量 --> 正常";
+        } else {
+            tips += "纵向运动量不足";
         }
+        tips += "<br/>";
+        if (exerciseDuration == 1) {
+            tips += "单次运动时间 --> 正常";
+        } else if (exerciseDuration == 2) {
+            tips += "单次运动时间不足";
+        } else {
+            tips += "单次运动时间过长";
+        }
+        tips += "<br/>";
+
+        String healthPlan;
+        //运动情况
+        if (exerciseType == 1 && exerciseDuration == 1) {
+            healthPlan = getHealthPlan(9);//正常
+        } else {
+            healthPlan = getHealthPlan(8);
+        }
+        healthPlan += getHealthPlan(10);//情绪情况方案（暂不判断）
+
+        variables.put("tips", tips);
+        variables.put("healthPlan", healthPlan);
         taskService.complete(task.getId(), variables);
-        return "运动情况：" + tips;
+        return variables;
     }
+
 }

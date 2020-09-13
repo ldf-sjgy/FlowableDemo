@@ -1,0 +1,20 @@
+{
+    "name": "demo",
+    "key": "d",
+    "version": 0,
+    "fields": [
+      {
+        "fieldType": "FormField",
+        "id": "name",
+        "name": "姓名：",
+        "type": "text",
+        "value": null,
+        "required": false,
+        "readOnly": false,
+        "overrideId": true,
+        "placeholder": null,
+        "layout": null
+      }
+    ],
+    "outcomes": []
+}

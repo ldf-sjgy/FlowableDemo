@@ -1,5 +1,5 @@
 {
-  "key": "form1",
+  "key": "x",
   "name": "测试带表单流程",
   "fields": [
     {
@@ -23,6 +23,16 @@
       "type": "text",
       "required": true,
       "placeholder": "empty"
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "sendToParent",
+      "name": "发给上级"
+    },
+    {
+      "id": "sendToHr",
+      "name": "发给人事"
     }
   ]
 }

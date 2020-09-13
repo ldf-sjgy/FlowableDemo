@@ -1,0 +1,33 @@
+{
+    "name": "憋喘加重速度判断",
+    "key": "g1",
+    "version": 0,
+    "fields": [
+      {
+        "fieldType": "OptionFormField",
+        "id": "g1",
+        "name": "憋喘加重速度判断",
+        "type": "radio-buttons",
+        "value": "突然",
+        "required": true,
+        "readOnly": false,
+        "overrideId": true,
+        "placeholder": null,
+        "layout": null,
+        "optionType": null,
+        "hasEmptyValue": null,
+        "options": [
+          {
+            "id": null,
+            "name": "突然"
+          },
+          {
+            "id": null,
+            "name": "缓慢"
+          }
+        ],
+        "optionsExpression": null
+      }
+    ],
+    "outcomes": []
+}
