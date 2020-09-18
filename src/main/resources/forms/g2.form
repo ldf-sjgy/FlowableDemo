@@ -1,0 +1,33 @@
+{
+  "name": "判断是否有危急值？",
+  "key": "g2",
+  "version": 0,
+  "fields": [
+    {
+      "fieldType": "OptionFormField",
+      "id": "choice",
+      "name": "判断生命体征监测血压、心率、脉氧等是否有危急值？",
+      "type": "radio-buttons",
+      "value": "是",
+      "required": true,
+      "readOnly": false,
+      "overrideId": true,
+      "placeholder": null,
+      "layout": null,
+      "optionType": null,
+      "hasEmptyValue": null,
+      "options": [
+        {
+          "id": "result",
+          "name": "是"
+        },
+        {
+          "id": "result",
+          "name": "否"
+        }
+      ],
+      "optionsExpression": null
+    }
+  ],
+  "outcomes": []
+}

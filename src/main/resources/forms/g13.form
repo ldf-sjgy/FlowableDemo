@@ -1,0 +1,33 @@
+{
+    "name": "是否有后面括号中描述的一种或一种以上的症状（有无伴随呼吸的胸痛、有无胸部运动受限，胸式呼吸减弱、是否有呼吸音减弱和胸膜摩擦音、触诊语音震颤减弱、叩诊患侧浊音减弱、有无气道移位）？",
+    "key": "g13",
+    "version": 0,
+    "fields": [
+      {
+        "fieldType": "OptionFormField",
+        "id": "choice",
+        "name": "是否有后面括号中描述的一种或一种以上的症状（有无伴随呼吸的胸痛、有无胸部运动受限，胸式呼吸减弱、是否有呼吸音减弱和胸膜摩擦音、触诊语音震颤减弱、叩诊患侧浊音减弱、有无气道移位）？",
+        "type": "radio-buttons",
+        "value": "是",
+        "required": true,
+        "readOnly": false,
+        "overrideId": true,
+        "placeholder": null,
+        "layout": null,
+        "optionType": null,
+        "hasEmptyValue": null,
+        "options": [
+          {
+            "id": null,
+            "name": "是"
+          },
+          {
+            "id": null,
+            "name": "否"
+          }
+        ],
+        "optionsExpression": null
+      }
+    ],
+    "outcomes": []
+}

@@ -1,0 +1,33 @@
+{
+    "name": "【检查结果】是否存在后面括号中描述的一种或一种以上的检查结果异常的情况（白细胞总数、中性粒细胞百分比、CRP浓度、PCT浓度）？",
+    "key": "g17",
+    "version": 0,
+    "fields": [
+      {
+        "fieldType": "OptionFormField",
+        "id": "choice",
+        "name": "【检查结果】是否存在后面括号中描述的一种或一种以上的检查结果异常的情况（白细胞总数、中性粒细胞百分比、CRP浓度、PCT浓度）？",
+        "type": "radio-buttons",
+        "value": "是",
+        "required": true,
+        "readOnly": false,
+        "overrideId": true,
+        "placeholder": null,
+        "layout": null,
+        "optionType": null,
+        "hasEmptyValue": null,
+        "options": [
+          {
+            "id": null,
+            "name": "是"
+          },
+          {
+            "id": null,
+            "name": "否"
+          }
+        ],
+        "optionsExpression": null
+      }
+    ],
+    "outcomes": []
+}

@@ -49,7 +49,7 @@
     <sequenceFlow id="sid-5B2BFF22-C8E8-4A9B-B871-5B59301A01EB" sourceRef="u6" targetRef="g6"></sequenceFlow>
     <userTask id="u7" name="测量身高体重" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-76A9152A-1DBC-432B-ADEC-FF7B23FC64F8" sourceRef="sid-75EB8A6A-21B2-40B3-904E-024DE6E2E16F" targetRef="u7"></sequenceFlow>
-    <exclusiveGateway id="g7"></exclusiveGateway>
+    <exclusiveGateway id="g7" default="sid-78CB3928-9538-452A-ACA6-2C87A60920BF"></exclusiveGateway>
     <sequenceFlow id="sid-1EBCDF3A-2BB6-4DEA-96FA-37D3E03BC106" sourceRef="u7" targetRef="g7"></sequenceFlow>
     <userTask id="u8" name="出生史详细问诊" flowable:formFieldValidation="true"></userTask>
     <serviceTask id="sid-9CC7A8F7-6427-496B-8949-EF436BF486C2" name="身材矮小" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
@@ -177,9 +177,6 @@
     </sequenceFlow>
     <sequenceFlow id="sid-8B23EA92-2B98-49A4-BA74-F85920F8FA7E" name="身高评价&lt;3百分位" sourceRef="g7" targetRef="sid-9CC7A8F7-6427-496B-8949-EF436BF486C2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ heightPercentile < 3 }]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-78CB3928-9538-452A-ACA6-2C87A60920BF" name="身高评价高于10百分位或与父母遗传百分位相差&lt;30百分位" sourceRef="g7" targetRef="u10">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ heightPercentile > 10 && hereditaryHeightDiff < 30}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="sid-642B47A6-8FB7-46C7-ACAD-C0EBFAAD08D2" name="是否需要进行第二性征查体" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-15DA01AA-6D90-4CD2-ADD9-BA829D3B8BB4" name="有" sourceRef="g6" targetRef="sid-75EB8A6A-21B2-40B3-904E-024DE6E2E16F">
@@ -588,6 +585,7 @@
     <sequenceFlow id="sid-6DF8C11B-EFE2-49FE-B527-B953826128D8" sourceRef="sid-6DB03419-DE89-4D76-93D6-8212B674CED5" targetRef="sid-97631AA2-9FAA-48FF-B656-38AAC7B6514D"></sequenceFlow>
     <sequenceFlow id="sid-94C6C7E1-2247-4C93-B1F1-DE5EF37585A5" sourceRef="sid-D6D36DAA-250F-46D1-AD85-C29A44DAE884" targetRef="sid-E51625F6-B412-402C-8CD2-EADF7974AEC2"></sequenceFlow>
     <userTask id="sid-D6D36DAA-250F-46D1-AD85-C29A44DAE884" name="睡眠情况" flowable:formFieldValidation="true"></userTask>
+    <sequenceFlow id="sid-78CB3928-9538-452A-ACA6-2C87A60920BF" name="身高评价高于10百分位或与父母遗传百分位相差&lt;30百分位" sourceRef="g7" targetRef="u10"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_growth8">
     <bpmndi:BPMNPlane bpmnElement="growth8" id="BPMNPlane_growth8">

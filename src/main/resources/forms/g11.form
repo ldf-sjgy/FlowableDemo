@@ -1,0 +1,33 @@
+{
+    "name": "【问诊查体结果】是否有后面括号中描述的一种或一种以上的症状（是否有心肺听诊变化、既往是否有心脏病史、是否存在面部或下肢水肿、是否有粉红色泡沫痰、是否有强迫体位）？",
+    "key": "g11",
+    "version": 0,
+    "fields": [
+      {
+        "fieldType": "OptionFormField",
+        "id": "choice",
+        "name": "【问诊查体结果】是否有后面括号中描述的一种或一种以上的症状（是否有心肺听诊变化、既往是否有心脏病史、是否存在面部或下肢水肿、是否有粉红色泡沫痰、是否有强迫体位）？",
+        "type": "radio-buttons",
+        "value": "是",
+        "required": false,
+        "readOnly": false,
+        "overrideId": true,
+        "placeholder": null,
+        "layout": null,
+        "optionType": null,
+        "hasEmptyValue": null,
+        "options": [
+          {
+            "id": null,
+            "name": "是"
+          },
+          {
+            "id": null,
+            "name": "否"
+          }
+        ],
+        "optionsExpression": null
+      }
+    ],
+    "outcomes": []
+}

@@ -1,14 +1,14 @@
 {
-    "name": "憋喘加重速度判断",
-    "key": "g1",
+    "name": "【检查结果】是否有气道异物证据？",
+    "key": "g5",
     "version": 0,
     "fields": [
       {
         "fieldType": "OptionFormField",
         "id": "choice",
-        "name": "憋喘加重速度判断",
+        "name": "【检查结果】是否有气道异物证据？",
         "type": "radio-buttons",
-        "value": "突然",
+        "value": "是",
         "required": false,
         "readOnly": false,
         "overrideId": true,
@@ -19,11 +19,11 @@
         "options": [
           {
             "id": "result",
-            "name": "突然"
+            "name": "是"
           },
           {
             "id": "result",
-            "name": "缓慢"
+            "name": "否"
           }
         ],
         "optionsExpression": null

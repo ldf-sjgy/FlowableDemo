@@ -12,16 +12,16 @@
     <sequenceFlow id="sid-D2CC921D-6DDF-442F-8988-1C3AA12F5888" sourceRef="sid-4B737ED9-397F-4042-9794-AF8D02AD538F" targetRef="sid-63AF3AA1-2E32-406A-8AAE-AA310DDA4FFD"></sequenceFlow>
     <userTask id="sid-A9C79762-459B-4065-8A74-EABAA2C281AC" name="缓慢" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-F0A36BBC-BF7A-4542-901A-6BCC326CFB4E" sourceRef="sid-A9C79762-459B-4065-8A74-EABAA2C281AC" targetRef="sid-FABAE5E0-BA3D-4A81-A699-82EED0D78585"></sequenceFlow>
-    <sequenceFlow id="sid-087D6437-66C6-4C7B-AB4D-83B27A0E2FB6" name="N
-" sourceRef="sid-63AF3AA1-2E32-406A-8AAE-AA310DDA4FFD" targetRef="sid-A9C79762-459B-4065-8A74-EABAA2C281AC">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${!isApprove}]]></conditionExpression>
-    </sequenceFlow>
     <serviceTask id="sid-520FF34E-E111-4028-8B83-9682D99EB890" name="突然" flowable:class="cn.dfusion.ai.delegate.SendWeChatMessage"></serviceTask>
     <sequenceFlow id="sid-0D5D1A09-8D9B-4F7C-9763-EDC2E5EFBD2F" sourceRef="sid-520FF34E-E111-4028-8B83-9682D99EB890" targetRef="sid-F39033B5-FA70-4233-89CC-D3A9B3738D73"></sequenceFlow>
     <userTask id="sid-F39033B5-FA70-4233-89CC-D3A9B3738D73" name="哈哈" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-7A1CC7FD-E948-4D6A-A35E-6682C41E64DD" sourceRef="sid-F39033B5-FA70-4233-89CC-D3A9B3738D73" targetRef="sid-FABAE5E0-BA3D-4A81-A699-82EED0D78585"></sequenceFlow>
+    <sequenceFlow id="sid-087D6437-66C6-4C7B-AB4D-83B27A0E2FB6" name="N
+" sourceRef="sid-63AF3AA1-2E32-406A-8AAE-AA310DDA4FFD" targetRef="sid-A9C79762-459B-4065-8A74-EABAA2C281AC">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${g1=="缓慢"}]]></conditionExpression>
+    </sequenceFlow>
     <sequenceFlow id="sid-769B7546-C0C0-4C7E-8CFE-00736D1B848C" name="Y" sourceRef="sid-63AF3AA1-2E32-406A-8AAE-AA310DDA4FFD" targetRef="sid-520FF34E-E111-4028-8B83-9682D99EB890">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${isApprove}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${g1=="突然"}]]></conditionExpression>
     </sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_fd">

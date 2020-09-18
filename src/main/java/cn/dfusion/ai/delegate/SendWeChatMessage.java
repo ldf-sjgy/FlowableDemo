@@ -10,9 +10,12 @@ import org.flowable.engine.delegate.JavaDelegate;
 public class SendWeChatMessage implements JavaDelegate {
     @Override
     public void execute(DelegateExecution delegateExecution) {
+
         System.out.println("TODO 3个月后给患者发微信复查提醒通知。。。"
                 + delegateExecution.getVariable("name"));
         delegateExecution.setVariable("message1", "11TODO 3个月后给患者发微信复查提醒通知。。。");
         System.out.println(delegateExecution.getEventName());
+
+
     }
 }

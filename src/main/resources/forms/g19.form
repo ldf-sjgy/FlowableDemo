@@ -1,0 +1,41 @@
+{
+    "name": "AECOPD病情严重程度评估级别？",
+    "key": "g19",
+    "version": 0,
+    "fields": [
+      {
+        "fieldType": "OptionFormField",
+        "id": "choice",
+        "name": "AECOPD病情严重程度评估级别？",
+        "type": "radio-buttons",
+        "value": "<b>轻度</b><br/> 症状: 步行或上楼时气短可有焦虑<br/> 呼吸频率: 轻度增快<br/> 胸部体征: 散在哮鸣音<br/> 肺功能: 正常<br/> PaO2: 正常<br/> PaCO2: < 45mmHg<br/> SaO2: >95%",
+        "required": true,
+        "readOnly": false,
+        "overrideId": true,
+        "placeholder": null,
+        "layout": null,
+        "optionType": null,
+        "hasEmptyValue": null,
+        "options": [
+          {
+            "id": null,
+            "name": "<b>轻度</b><br/> 症状: 步行或上楼时气短可有焦虑<br/> 呼吸频率: 轻度增快<br/> 胸部体征: 散在哮鸣音<br/> 肺功能: 正常<br/> PaO2: 正常<br/> PaCO2: < 45mmHg<br/> SaO2: >95%"
+          },
+          {
+            "id": null,
+            "name": "<b>中度</b><br/> 症状: \t稍事活动感气短、讲话常正常,时有焦虑<br/> 呼吸频率: 增加<br/> 胸部体征: \t三凹征响亮弥漫哮鸣音、心率增快，奇脉<br/> 肺功能: \t舒张支气管后PEF占、预计值60% -80%<br/> PaO2: 60 ~ 80mmHg<br/> PaCO2: ≤45mmHg<br/> SaO2: 91%~ 95%<br/>"
+          },
+          {
+            "id": null,
+            "name": "<b>重度</b><br/> 症状: \t休息时气短,端坐呼吸、单字表达,常有焦虑烦躁<br/> 呼吸频率: > 30次/分<br/> 胸部体征: \t三凹征响亮弥漫哮鸣音、心率增快，奇脉<br/> 肺功能: \t舒张支气管后PEF占预计值<60%<br/> PaO2: <60mmHg<br/> PaCO2: > 45mmHg<br/> SaO2: ≤90% ,pH可降低<br/>"
+          },
+          {
+            "id": null,
+            "name": "<b>危重</b><br/> 症状: \t不能讲话、嗜睡或意识模糊<br/> 呼吸频率: —<br/> 胸部体征: \t胸腹矛盾运动、哮鸣音减弱或消失、脉率不规则<br/> 肺功能: 不可测量<br/> PaO2: 严重低氧血症<br/> PaCO2: 严重高碳酸血症<br/> SaO2: pH降低<br/>"
+          }
+        ],
+        "optionsExpression": null
+      }
+    ],
+    "outcomes": []
+}

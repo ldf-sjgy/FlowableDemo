@@ -350,13 +350,15 @@ public class DiagnosisController {
         variables.put("hereditaryHeightDiff", hereditaryHeightDiff);
 
         taskService.complete(task.getId(), variables);
-        String tips = "测量身高体重 --> 正常";
+        String tips;
         if (heightPercentile < 3) {
             tips = "身材矮小，需要进一步详细问诊";
-        } else if (heightPercentile > 10 && hereditaryHeightDiff < 30) {
-            tips = "测量身高体重 --> 正常；不需详细问诊，直接进行上下部量";
         } else if (heightPercentile <= 10 && hereditaryHeightDiff >= 30) {
             tips = "需要进一步详细问诊";
+        } else if (heightPercentile > 10 && hereditaryHeightDiff < 30) {
+            tips = "不需详细问诊，测量身高体重 --> 正常";
+        } else{
+            tips = "缺省情况，不需详细问诊，测量身高体重 --> 正常";
         }
         return tips;
     }
@@ -437,7 +439,7 @@ public class DiagnosisController {
         variables.put("isNeedSSS", isNeedSSS);
 
         taskService.complete(task.getId(), variables);
-        String tips = "不需要进行第二性征查体";
+        String tips = "不需要进行第二性征查体 --> 正常";
         if (isNeedSSS) {
             tips = "需要进行第二性征查体";
         }
@@ -487,7 +489,7 @@ public class DiagnosisController {
         }
         boolean isDevelopmentDelay = developmentDelay.equals("是") ? true : false;
         boolean isGrowthRate = false;
-        if (growthRate > 6.0) {
+        if (null == growthRate || growthRate > 6.0) {
             isGrowthRate = true;
         }
         boolean isHereditaryHeightPercentile = isPercentileNormal(hereditaryHeightPercentile);
@@ -608,7 +610,7 @@ public class DiagnosisController {
                            String tsh, String t3, String t4, String ft3, String ft4,//甲功
                            String e2, String p, String t, String prl, String lh, String fsh,//激素六项
                            String ca, String mg, String pa, String k, String na, String cl, String co2,//电解质
-                           String bglu, String bc, String igf_1, String igfbp_3,//
+                           String bglu, String bc, String igf_1, String igfbp_3,//生长发育检查
                            String brbc, String hgb, String wbc, String neut, //血常规
                            String rbc, String pro, String wbcc//尿常规
     ) {
@@ -620,7 +622,7 @@ public class DiagnosisController {
         }
         //缺省值
         variables.put("checkResult", 0);
-        String tips = "其他情况，建议持续观察";
+        String tips = "0.其他情况，建议持续观察";
         //肝功
         tp = getStr(tp);
         alb = getStr(alb);
@@ -660,7 +662,7 @@ public class DiagnosisController {
         na = getStr(na);
         cl = getStr(cl);
         co2 = getStr(co2);
-        //String bglu, String bc, String igf_1, String igfbp_3,//
+        //生长发育
         bglu = getStr(bglu);
         bc = getStr(bc);
         igf_1 = getStr(igf_1);
@@ -2528,7 +2530,7 @@ public class DiagnosisController {
         String healthPlan;
         //营养情况
         if (Ca.equals("补充") || Zn.equals("补充") || vitaminA.equals("补充") || vitaminD.equals("补充")) {//异常
-            healthPlan = "营养情况：正常。";
+            healthPlan = "营养情况：正常";
         } else {
             healthPlan = getHealthPlan(12);
         }

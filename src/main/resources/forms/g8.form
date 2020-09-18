@@ -1,15 +1,15 @@
 {
-    "name": "憋喘加重速度判断",
-    "key": "g1",
+    "name": "是否有肺栓塞证据？",
+    "key": "g8",
     "version": 0,
     "fields": [
       {
         "fieldType": "OptionFormField",
         "id": "choice",
-        "name": "憋喘加重速度判断",
+        "name": "是否有肺栓塞证据？",
         "type": "radio-buttons",
-        "value": "突然",
-        "required": false,
+        "value": "是",
+        "required": true,
         "readOnly": false,
         "overrideId": true,
         "placeholder": null,
@@ -18,12 +18,12 @@
         "hasEmptyValue": null,
         "options": [
           {
-            "id": "result",
-            "name": "突然"
+            "id": null,
+            "name": "是"
           },
           {
-            "id": "result",
-            "name": "缓慢"
+            "id": null,
+            "name": "否"
           }
         ],
         "optionsExpression": null

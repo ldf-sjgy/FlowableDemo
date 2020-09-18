@@ -1,0 +1,33 @@
+{
+    "name": "【问诊查体】是否有后面括号中描述的一种或一种以上的症状（既往是否有占位性病变病史、是否有局限性喘鸣音（干啰音）、是否有咯血）？",
+    "key": "g15",
+    "version": 0,
+    "fields": [
+      {
+        "fieldType": "OptionFormField",
+        "id": "choice",
+        "name": "【问诊查体】是否有后面括号中描述的一种或一种以上的症状（既往是否有占位性病变病史、是否有局限性喘鸣音（干啰音）、是否有咯血）？",
+        "type": "radio-buttons",
+        "value": "是",
+        "required": true,
+        "readOnly": false,
+        "overrideId": true,
+        "placeholder": null,
+        "layout": null,
+        "optionType": null,
+        "hasEmptyValue": null,
+        "options": [
+          {
+            "id": null,
+            "name": "是"
+          },
+          {
+            "id": null,
+            "name": "否"
+          }
+        ],
+        "optionsExpression": null
+      }
+    ],
+    "outcomes": []
+}
