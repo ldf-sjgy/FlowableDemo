@@ -81,7 +81,7 @@
     <sequenceFlow id="sid-A2CEA3A9-552A-4324-BE5E-337878F9EF4E" sourceRef="sid-19FB70CB-B1D0-4E5A-BA31-85B7A103F8EE" targetRef="sid-26B3B58F-75D4-4F05-9FF3-D75F0F8CE9B3"></sequenceFlow>
     <sequenceFlow id="sid-9801FE42-16AC-4BBA-803B-6E241ABDAB46" sourceRef="sid-B549AB46-DE32-49AA-A737-ECEEEF00DCCC" targetRef="sid-062D00FD-E622-4924-9B19-59D84AACF41A"></sequenceFlow>
     <sequenceFlow id="sid-D797C533-708F-49F3-8E8C-A7B27931663C" sourceRef="sid-26B3B58F-75D4-4F05-9FF3-D75F0F8CE9B3" targetRef="sid-8D88EE71-9275-42CE-B113-07AF596D2712"></sequenceFlow>
-    <sequenceFlow id="sid-DEFC293B-CEE0-490D-A5C1-DA5877D826DA" sourceRef="sid-062D00FD-E622-4924-9B19-59D84AACF41A" targetRef="sid-8D88EE71-9275-42CE-B113-07AF596D2712"></sequenceFlow>
+    <sequenceFlow id="sid-DEFC293B-CEE0-490D-A5C1-DA5877D826DA" sourceRef="sid-062D00FD-E622-4924-9B19-59D84AACF41A" targetRef="sid-123EB0F7-DD77-4740-8EC7-CCCA5CC48293"></sequenceFlow>
     <userTask id="sid-420421ED-66FC-4D12-8489-458368D58B8F" name="检查判断 -有无胸腔积液证据" flowable:formKey="g14" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-C5B05008-EA3B-423A-AAA3-DE0D1E8EDFA8" sourceRef="sid-D76274ED-1F45-433E-B602-0823CCA1D483" targetRef="sid-420421ED-66FC-4D12-8489-458368D58B8F"></sequenceFlow>
     <exclusiveGateway id="sid-81F7CE4A-2428-49EC-8AA3-93AB2AC58DCA" default="sid-4BF50AB9-95FA-4E70-9864-3B0203DF8CCD"></exclusiveGateway>
@@ -400,16 +400,15 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
     <sequenceFlow id="sid-42E2EB91-1C9B-4BF6-A7D3-C69E8F40E677" name="突然" sourceRef="g1" targetRef="sid-97F18054-0853-46B6-9C21-74213F310B96">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="sid-7684C87D-C62E-4543-8984-4E29468BB640" name="缓慢" sourceRef="g1" targetRef="sid-3D653D31-A7CA-4A8D-9C76-2F1E697C5784"></sequenceFlow>
     <sequenceFlow id="sid-C2EA0824-E2FB-4BD6-8B12-5ABE355B83F5" sourceRef="sid-62399B8E-1125-40E3-B7F6-581CBB767876" targetRef="sid-7B4FFCD8-592C-4195-A787-423A0BB46C0B"></sequenceFlow>
     <sequenceFlow id="sid-0BB12A20-B60D-40B1-B5F3-FCF8AD47E0D5" name="是" sourceRef="sid-B9764B19-88C6-4276-9BBE-29CFDA1484FE" targetRef="sid-6CFE40B9-9013-4BEF-9887-17AB34D3819B">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="sid-6CFE40B9-9013-4BEF-9887-17AB34D3819B" name="【问诊结果】有一种或多种症状" flowable:formFieldValidation="true">
-      <documentation>【问诊结果】有一种或多种症状</documentation>
+      <documentation>【问诊结果】有 [心肺听诊变化、既往有心脏病史、存在面部或下肢水肿、有粉红色泡沫痰、有强迫体位] 等一种或多种症状</documentation>
     </userTask>
     <userTask id="sid-EED6283B-9313-4D10-80F0-FBDF65878BDC" name="【问诊结果】无症状" flowable:formFieldValidation="true">
-      <documentation>【问诊结果】无症状</documentation>
+      <documentation>【问诊结果】 [无心肺听诊变化、既往无心脏病史、不存在面部或下肢水肿、无粉红色泡沫痰、无强迫体位] 等症状</documentation>
     </userTask>
     <sequenceFlow id="sid-BE6C8790-976F-4F69-A5A7-739EF587B3C9" name="否" sourceRef="sid-B9764B19-88C6-4276-9BBE-29CFDA1484FE" targetRef="sid-EED6283B-9313-4D10-80F0-FBDF65878BDC"></sequenceFlow>
     <sequenceFlow id="sid-9FACCEE4-FA58-4F9A-A3EE-C80827ACFAA6" sourceRef="sid-6CFE40B9-9013-4BEF-9887-17AB34D3819B" targetRef="sid-A45F7B66-5F19-4D48-A2F4-537F379F4004"></sequenceFlow>
@@ -431,11 +430,11 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="sid-39005BF9-0CB8-47AC-B930-273C661F33CA" name="【问诊结果】有症状" flowable:formFieldValidation="true">
-      <documentation>【问诊结果】有一种或一种以上症状</documentation>
+      <documentation>【问诊结果】有 [伴随呼吸的胸痛、有胸部运动受限，胸式呼吸减弱、有呼吸音减弱和胸膜摩擦音、触诊语音震颤减弱、叩诊患侧浊音减弱、有气道移位] 等一种或一种以上症状</documentation>
     </userTask>
     <sequenceFlow id="sid-8ED2D39D-FFE8-4904-863B-E72081EAE51B" sourceRef="sid-39005BF9-0CB8-47AC-B930-273C661F33CA" targetRef="sid-D76274ED-1F45-433E-B602-0823CCA1D483"></sequenceFlow>
     <userTask id="sid-C5532C99-28BF-4D78-A70D-F1732378088E" name="【问诊结果】无症状" flowable:formFieldValidation="true">
-      <documentation>【问诊结果】无症状</documentation>
+      <documentation>【问诊结果】无 [伴随呼吸的胸痛、胸部运动受限，胸式呼吸减弱、呼吸音减弱和胸膜摩擦音、触诊语音震颤减弱、叩诊患侧浊音减弱、气道移位] 等症状</documentation>
     </userTask>
     <sequenceFlow id="sid-56D51C04-AB13-48A1-9180-4745AF9A3964" sourceRef="sid-B4B1F9C1-2049-4241-A325-A39AC5528C19" targetRef="sid-C5532C99-28BF-4D78-A70D-F1732378088E"></sequenceFlow>
     <sequenceFlow id="sid-A4C27AE3-076A-4B6A-8BFF-65CB14F41EB3" sourceRef="sid-C5532C99-28BF-4D78-A70D-F1732378088E" targetRef="sid-AC60B74F-0D19-4947-BD33-5AC9A4EB8DC9"></sequenceFlow>
@@ -484,6 +483,11 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
     <sequenceFlow id="sid-73FEEE94-66C2-45B7-A590-7951111FC709" sourceRef="sid-301B9BED-CD5F-494F-986E-0E0765977360" targetRef="sid-7B1226A7-902B-440C-84BF-F4D80E70FA6D"></sequenceFlow>
     <sequenceFlow id="sid-1834490A-804A-4629-9988-F0EC516E4B09" sourceRef="sid-A7014B5B-58BE-46E0-B25C-9CDE6ECA8691" targetRef="sid-07F382F6-C94E-4A4B-8B79-DAAFC495A277"></sequenceFlow>
     <sequenceFlow id="sid-F6161DC4-08FC-4935-8464-9F549DD3E5B1" sourceRef="sid-44ABABFD-5C30-436A-B3F4-E0B9EC175351" targetRef="sid-8E908731-E858-4651-8FB3-FC16F0B5607B"></sequenceFlow>
+    <sequenceFlow id="sid-7684C87D-C62E-4543-8984-4E29468BB640" name="缓慢" sourceRef="g1" targetRef="sid-3D653D31-A7CA-4A8D-9C76-2F1E697C5784"></sequenceFlow>
+    <userTask id="sid-123EB0F7-DD77-4740-8EC7-CCCA5CC48293" name="【诊疗建议】向上级医院转诊" flowable:formFieldValidation="true">
+      <documentation>【诊疗建议】向上级医院转诊</documentation>
+    </userTask>
+    <sequenceFlow id="sid-9B75EA50-3097-4071-823C-E01B1C162350" sourceRef="sid-123EB0F7-DD77-4740-8EC7-CCCA5CC48293" targetRef="sid-8D88EE71-9275-42CE-B113-07AF596D2712"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_copd1">
     <bpmndi:BPMNPlane bpmnElement="copd1" id="BPMNPlane_copd1">
@@ -617,7 +621,7 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdc:Bounds height="40.0" width="40.0" x="5485.367113650392" y="1058.7856758464086"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-C20246FB-2C0C-49AD-B1E9-CDCAB52DB930" id="BPMNShape_sid-C20246FB-2C0C-49AD-B1E9-CDCAB52DB930">
-        <omgdc:Bounds height="28.0" width="28.0" x="7959.999999999999" y="1916.0"></omgdc:Bounds>
+        <omgdc:Bounds height="28.0" width="28.0" x="8019.999999999999" y="1916.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-816D2483-9401-40BD-A7B1-A0C166D82AD3" id="BPMNShape_sid-816D2483-9401-40BD-A7B1-A0C166D82AD3">
         <omgdc:Bounds height="80.0" width="100.0" x="1005.0" y="520.0"></omgdc:Bounds>
@@ -671,19 +675,19 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdc:Bounds height="80.0" width="100.0" x="7219.908128714935" y="1663.1552027741548"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-9D5B8C3E-5062-4BB5-9B8F-E73574F363DE" id="BPMNShape_sid-9D5B8C3E-5062-4BB5-9B8F-E73574F363DE">
-        <omgdc:Bounds height="80.0" width="100.0" x="7789.999999999999" y="1716.0"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="7849.999999999999" y="1716.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-B7178BB8-3A8E-40FF-A6D1-32E3706D6357" id="BPMNShape_sid-B7178BB8-3A8E-40FF-A6D1-32E3706D6357">
-        <omgdc:Bounds height="80.0" width="100.0" x="7789.999999999999" y="1815.0"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="7849.999999999999" y="1815.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-8D88EE71-9275-42CE-B113-07AF596D2712" id="BPMNShape_sid-8D88EE71-9275-42CE-B113-07AF596D2712">
-        <omgdc:Bounds height="80.0" width="100.0" x="7789.999999999999" y="2000.0"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="7849.999999999999" y="2000.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-26B3B58F-75D4-4F05-9FF3-D75F0F8CE9B3" id="BPMNShape_sid-26B3B58F-75D4-4F05-9FF3-D75F0F8CE9B3">
         <omgdc:Bounds height="80.0" width="100.0" x="7569.300464767264" y="1932.124995259568"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-062D00FD-E622-4924-9B19-59D84AACF41A" id="BPMNShape_sid-062D00FD-E622-4924-9B19-59D84AACF41A">
-        <omgdc:Bounds height="80.0" width="100.0" x="7569.300464767264" y="2062.1829404578816"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="7575.0" y="2076.841460748077"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-02B4E5EE-6B0A-4A10-9CB6-E9738557F523" id="BPMNShape_sid-02B4E5EE-6B0A-4A10-9CB6-E9738557F523">
         <omgdc:Bounds height="80.0" width="100.0" x="6776.430970697111" y="1232.6923353377385"></omgdc:Bounds>
@@ -823,6 +827,9 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
       <bpmndi:BPMNShape bpmnElement="sid-301B9BED-CD5F-494F-986E-0E0765977360" id="BPMNShape_sid-301B9BED-CD5F-494F-986E-0E0765977360">
         <omgdc:Bounds height="80.0" width="100.0" x="7082.742343886153" y="1663.1552027741548"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-123EB0F7-DD77-4740-8EC7-CCCA5CC48293" id="BPMNShape_sid-123EB0F7-DD77-4740-8EC7-CCCA5CC48293">
+        <omgdc:Bounds height="80.0" width="100.0" x="7709.699535232736" y="2078.6585202901956"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="sid-A4C27AE3-076A-4B6A-8BFF-65CB14F41EB3" id="BPMNEdge_sid-A4C27AE3-076A-4B6A-8BFF-65CB14F41EB3">
         <omgdi:waypoint x="5930.861972858469" y="1352.761004442978"></omgdi:waypoint>
         <omgdi:waypoint x="5969.555017197284" y="1352.761004442978"></omgdi:waypoint>
@@ -832,8 +839,8 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdi:waypoint x="5664.844552282417" y="1008.0068410065151"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-9801FE42-16AC-4BBA-803B-6E241ABDAB46" id="BPMNEdge_sid-9801FE42-16AC-4BBA-803B-6E241ABDAB46">
-        <omgdi:waypoint x="7507.145446333251" y="2117.5071538358075"></omgdi:waypoint>
-        <omgdi:waypoint x="7569.300464767262" y="2102.413635307044"></omgdi:waypoint>
+        <omgdi:waypoint x="7507.145446333251" y="2117.7369751824094"></omgdi:waypoint>
+        <omgdi:waypoint x="7574.999999999987" y="2116.853825317968"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-E949040C-BE39-40C2-BF16-7002849B384B" id="BPMNEdge_sid-E949040C-BE39-40C2-BF16-7002849B384B">
         <omgdi:waypoint x="3823.0301072973784" y="594.0000000000002"></omgdi:waypoint>
@@ -871,13 +878,13 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdi:waypoint x="6646.498821373645" y="1780.2421743362236"></omgdi:waypoint>
         <omgdi:waypoint x="6995.698091846905" y="1942.0776265060979"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sid-7684C87D-C62E-4543-8984-4E29468BB640" id="BPMNEdge_sid-7684C87D-C62E-4543-8984-4E29468BB640">
-        <omgdi:waypoint x="780.3107638888888" y="892.6381566766953"></omgdi:waypoint>
-        <omgdi:waypoint x="875.4889589905363" y="1155.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-6B6D24AB-978B-4F23-95DD-D7FD1395AF57" id="BPMNEdge_sid-6B6D24AB-978B-4F23-95DD-D7FD1395AF57">
         <omgdi:waypoint x="6419.064886972211" y="1193.882488214798"></omgdi:waypoint>
         <omgdi:waypoint x="6457.381461552992" y="1194.36732612734"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-7684C87D-C62E-4543-8984-4E29468BB640" id="BPMNEdge_sid-7684C87D-C62E-4543-8984-4E29468BB640">
+        <omgdi:waypoint x="780.3107638888888" y="892.6381566766953"></omgdi:waypoint>
+        <omgdi:waypoint x="875.4889589905363" y="1155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-D5F8B96F-2B4E-4684-BA15-ADC7CA9D322F" id="BPMNEdge_sid-D5F8B96F-2B4E-4684-BA15-ADC7CA9D322F">
         <omgdi:waypoint x="1649.410952584266" y="555.0"></omgdi:waypoint>
@@ -920,8 +927,8 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdi:waypoint x="7219.908128714803" y="1703.1552027741548"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-DF80F839-6FB1-402C-9F29-5BBA782C8AFC" id="BPMNEdge_sid-DF80F839-6FB1-402C-9F29-5BBA782C8AFC">
-        <omgdi:waypoint x="7889.949999999998" y="1882.957089552239"></omgdi:waypoint>
-        <omgdi:waypoint x="7961.772648265701" y="1923.161106365639"></omgdi:waypoint>
+        <omgdi:waypoint x="7949.949999999998" y="1882.957089552239"></omgdi:waypoint>
+        <omgdi:waypoint x="8021.772648264271" y="1923.1611063681949"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-CF237CC5-8BA1-4734-8077-647FC394F634" id="BPMNEdge_sid-CF237CC5-8BA1-4734-8077-647FC394F634">
         <omgdi:waypoint x="2453.451654315421" y="393.8061249902232"></omgdi:waypoint>
@@ -1000,8 +1007,8 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdi:waypoint x="4523.430282719527" y="650.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-DEFC293B-CEE0-490D-A5C1-DA5877D826DA" id="BPMNEdge_sid-DEFC293B-CEE0-490D-A5C1-DA5877D826DA">
-        <omgdi:waypoint x="7669.250464767264" y="2101.839149909875"></omgdi:waypoint>
-        <omgdi:waypoint x="7789.999999999998" y="2060.3266010206066"></omgdi:waypoint>
+        <omgdi:waypoint x="7674.949999999945" y="2116.841460748077"></omgdi:waypoint>
+        <omgdi:waypoint x="7709.699535232736" y="2116.841460748077"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-4A0F829D-1CA4-4CD7-90E4-71F533CA15E9" id="BPMNEdge_sid-4A0F829D-1CA4-4CD7-90E4-71F533CA15E9">
         <omgdi:waypoint x="4822.760129891526" y="586.3333333333333"></omgdi:waypoint>
@@ -1052,8 +1059,8 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdi:waypoint x="3424.7148025315696" y="715.381033086879"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-D797C533-708F-49F3-8E8C-A7B27931663C" id="BPMNEdge_sid-D797C533-708F-49F3-8E8C-A7B27931663C">
-        <omgdi:waypoint x="7669.250464767263" y="1972.4956670344625"></omgdi:waypoint>
-        <omgdi:waypoint x="7789.999999999999" y="2019.609819184322"></omgdi:waypoint>
+        <omgdi:waypoint x="7669.250464767263" y="1972.3739354358277"></omgdi:waypoint>
+        <omgdi:waypoint x="7849.999999999998" y="2019.7379577092001"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-022E15D1-6D9A-497D-B01E-71BF03F1E68E" id="BPMNEdge_sid-022E15D1-6D9A-497D-B01E-71BF03F1E68E">
         <omgdi:waypoint x="6137.021420546346" y="1361.9535771111719"></omgdi:waypoint>
@@ -1076,16 +1083,16 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdi:waypoint x="5346.283611689518" y="1078.7856758464088"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-38373E55-9C37-459C-ADCB-5245AF79C429" id="BPMNEdge_sid-38373E55-9C37-459C-ADCB-5245AF79C429">
-        <omgdi:waypoint x="7889.949999999999" y="2038.7058823529412"></omgdi:waypoint>
-        <omgdi:waypoint x="7965.439324303036" y="1941.0389553433872"></omgdi:waypoint>
+        <omgdi:waypoint x="7949.949999999999" y="2038.7058823529412"></omgdi:waypoint>
+        <omgdi:waypoint x="8025.439324300791" y="1941.0389553462928"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-7DD5B962-298D-4038-B529-621148C070BF" id="BPMNEdge_sid-7DD5B962-298D-4038-B529-621148C070BF">
         <omgdi:waypoint x="4692.310524192546" y="641.8361870096487"></omgdi:waypoint>
         <omgdi:waypoint x="4722.810129891737" y="620.7855144737308"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-E931E3A4-4A08-45EE-8E9F-342DFC5B5841" id="BPMNEdge_sid-E931E3A4-4A08-45EE-8E9F-342DFC5B5841">
-        <omgdi:waypoint x="7744.271028508245" y="1802.7455431416736"></omgdi:waypoint>
-        <omgdi:waypoint x="7789.999999999999" y="1756.9508453776893"></omgdi:waypoint>
+        <omgdi:waypoint x="7747.723134663886" y="1806.206301192442"></omgdi:waypoint>
+        <omgdi:waypoint x="7849.999999999999" y="1756.4619769126386"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-3A124AFF-AEAE-4AF1-B45E-ACC883ADBC90" id="BPMNEdge_sid-3A124AFF-AEAE-4AF1-B45E-ACC883ADBC90">
         <omgdi:waypoint x="7316.39099255399" y="1971.806817944835"></omgdi:waypoint>
@@ -1240,8 +1247,8 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdi:waypoint x="319.99999999975887" y="878.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-C7719895-0D17-4221-B7F2-4A548FAA7556" id="BPMNEdge_sid-C7719895-0D17-4221-B7F2-4A548FAA7556">
-        <omgdi:waypoint x="7870.766091954022" y="1795.95"></omgdi:waypoint>
-        <omgdi:waypoint x="7965.457469161772" y="1918.9022584446052"></omgdi:waypoint>
+        <omgdi:waypoint x="7930.766091954022" y="1795.95"></omgdi:waypoint>
+        <omgdi:waypoint x="8025.457469161772" y="1918.9022584446052"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-F50BC90C-6338-43F2-B3C0-CD9691A1C44F" id="BPMNEdge_sid-F50BC90C-6338-43F2-B3C0-CD9691A1C44F">
         <omgdi:waypoint x="2755.486101898495" y="742.75"></omgdi:waypoint>
@@ -1320,8 +1327,8 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdi:waypoint x="2243.0" y="486.53343756344043"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-BC3D61A2-0A45-49CF-ACC4-3423AF36524A" id="BPMNEdge_sid-BC3D61A2-0A45-49CF-ACC4-3423AF36524A">
-        <omgdi:waypoint x="7745.730635710166" y="1821.2683489570952"></omgdi:waypoint>
-        <omgdi:waypoint x="7789.999999999999" y="1854.254843812962"></omgdi:waypoint>
+        <omgdi:waypoint x="7748.944664045464" y="1818.0528537054515"></omgdi:waypoint>
+        <omgdi:waypoint x="7849.999999999998" y="1854.6379590595918"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-EFB08D05-D6E1-4DC8-9411-7D5EF591ED4B" id="BPMNEdge_sid-EFB08D05-D6E1-4DC8-9411-7D5EF591ED4B">
         <omgdi:waypoint x="7507.14544633325" y="1912.4849583155715"></omgdi:waypoint>
@@ -1342,6 +1349,10 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
       <bpmndi:BPMNEdge bpmnElement="sid-3BE52D46-C666-49BD-9138-58696F210772" id="BPMNEdge_sid-3BE52D46-C666-49BD-9138-58696F210772">
         <omgdi:waypoint x="3135.492665880255" y="663.6666666666667"></omgdi:waypoint>
         <omgdi:waypoint x="3191.2115205406717" y="663.6666666666667"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-9B75EA50-3097-4071-823C-E01B1C162350" id="BPMNEdge_sid-9B75EA50-3097-4071-823C-E01B1C162350">
+        <omgdi:waypoint x="7809.649535232736" y="2090.626353603978"></omgdi:waypoint>
+        <omgdi:waypoint x="7849.999999999999" y="2068.004134519532"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-63F665D5-405F-46A4-8096-A7A73B5E0052" id="BPMNEdge_sid-63F665D5-405F-46A4-8096-A7A73B5E0052">
         <omgdi:waypoint x="1982.9499999999082" y="436.0"></omgdi:waypoint>
