@@ -7,9 +7,15 @@
     <sequenceFlow id="sid-4269D013-82AC-4241-8A48-219FF46F62B9" sourceRef="s1" targetRef="u1"></sequenceFlow>
     <exclusiveGateway id="g1" name="g1" default="sid-54AED653-B112-4AB5-8975-9FEED59F673B"></exclusiveGateway>
     <sequenceFlow id="sid-B942DC44-0F27-4BA5-97FD-A1E30BA14113" sourceRef="u1" targetRef="g1"></sequenceFlow>
-    <serviceTask id="sid-8A0A4A2D-02DA-41EE-9E9B-15479824B6E8" name="家族矮小史" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-A12F29A1-BBAF-4B79-95CD-3DDFDE874033" name="年生长速率低" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
-    <serviceTask id="sid-831EE777-3125-4EB1-8489-3E5B2604F8F8" name="年生长速率低和家族矮小史" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-8A0A4A2D-02DA-41EE-9E9B-15479824B6E8" name="家族矮小史" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate">
+      <documentation>haha-1</documentation>
+    </serviceTask>
+    <serviceTask id="sid-A12F29A1-BBAF-4B79-95CD-3DDFDE874033" name="年生长速率低" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate">
+      <documentation>haha-2</documentation>
+    </serviceTask>
+    <serviceTask id="sid-831EE777-3125-4EB1-8489-3E5B2604F8F8" name="年生长速率低和家族矮小史" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate">
+      <documentation>haha-3</documentation>
+    </serviceTask>
     <sequenceFlow id="sid-BAAAF704-4422-4C41-89FD-A667A5BB6188" sourceRef="sid-831EE777-3125-4EB1-8489-3E5B2604F8F8" targetRef="sid-3CE79061-EB0F-4815-93C3-465256803B39"></sequenceFlow>
     <sequenceFlow id="sid-8CC0EFA6-1850-423D-A050-07BB3C767E79" sourceRef="sid-A12F29A1-BBAF-4B79-95CD-3DDFDE874033" targetRef="sid-3CE79061-EB0F-4815-93C3-465256803B39"></sequenceFlow>
     <sequenceFlow id="sid-A165ACD7-F2F4-490B-8C61-74F789803863" sourceRef="sid-8A0A4A2D-02DA-41EE-9E9B-15479824B6E8" targetRef="sid-3CE79061-EB0F-4815-93C3-465256803B39"></sequenceFlow>
@@ -151,7 +157,9 @@
         <modeler:initiator-can-complete xmlns:modeler="http://flowable.org/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
-    <serviceTask id="sid-3CE79061-EB0F-4815-93C3-465256803B39" name="完善患者基本信息" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
+    <serviceTask id="sid-3CE79061-EB0F-4815-93C3-465256803B39" name="完善患者基本信息" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate">
+      <documentation>hehe---</documentation>
+    </serviceTask>
     <serviceTask id="sid-E93914F2-DB03-495D-B6D7-648752AB0FD6" name="分娩方式" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <serviceTask id="sid-9BAC2707-AE6D-4E61-9E78-057E5689E6F7" name="胎次产次" flowable:class="cn.dfusion.ai.delegate.CallExternalSystemDelegate"></serviceTask>
     <userTask id="u4" name="家族中矮小者" flowable:assignee="doctors" flowable:formFieldValidation="true">
@@ -446,7 +454,6 @@
     <sequenceFlow id="sid-D5F3E168-CCC4-4347-AECF-0126CAB10A94" name="年生长速率异常,父母身高矮小" sourceRef="g1" targetRef="sid-831EE777-3125-4EB1-8489-3E5B2604F8F8">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ !growthRate && !parentHeight }]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="sid-54AED653-B112-4AB5-8975-9FEED59F673B" name="年生长速率正常或无生长速率,父母身高正常" sourceRef="g1" targetRef="sid-3CE79061-EB0F-4815-93C3-465256803B39"></sequenceFlow>
     <sequenceFlow id="sid-F2395E28-A90C-4123-8A8D-47C58E03E1CF" name="无" sourceRef="g4" targetRef="sid-D5005407-F751-441F-A441-3B337376F94F">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ !isFamilyShort }]]></conditionExpression>
     </sequenceFlow>
@@ -586,6 +593,7 @@
     <sequenceFlow id="sid-94C6C7E1-2247-4C93-B1F1-DE5EF37585A5" sourceRef="sid-D6D36DAA-250F-46D1-AD85-C29A44DAE884" targetRef="sid-E51625F6-B412-402C-8CD2-EADF7974AEC2"></sequenceFlow>
     <userTask id="sid-D6D36DAA-250F-46D1-AD85-C29A44DAE884" name="睡眠情况" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-78CB3928-9538-452A-ACA6-2C87A60920BF" name="身高评价高于10百分位或与父母遗传百分位相差&lt;30百分位" sourceRef="g7" targetRef="u10"></sequenceFlow>
+    <sequenceFlow id="sid-54AED653-B112-4AB5-8975-9FEED59F673B" name="年生长速率正常或无生长速率,父母身高正常" sourceRef="g1" targetRef="sid-3CE79061-EB0F-4815-93C3-465256803B39"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_growth8">
     <bpmndi:BPMNPlane bpmnElement="growth8" id="BPMNPlane_growth8">

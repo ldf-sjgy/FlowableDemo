@@ -145,16 +145,16 @@
       <documentation>【推荐检查】首先推荐胸部CT检查、如无条件胸部X线检查</documentation>
     </userTask>
     <userTask id="sid-BC399FCF-6F00-410F-90E3-41FEE11A3793" name="轻度（门诊治疗）" flowable:formFieldValidation="true">
-      <documentation>【评估结果】轻度</documentation>
+      <documentation>【评估结果】AECOPD级别：轻度</documentation>
     </userTask>
     <userTask id="sid-30354112-6EFA-413C-B2A0-A8065121BC23" name="中度" flowable:formFieldValidation="true">
-      <documentation>【评估结果】中度</documentation>
+      <documentation>【评估结果】AECOPD级别：中度</documentation>
     </userTask>
     <userTask id="sid-B549AB46-DE32-49AA-A737-ECEEEF00DCCC" name="危重度" flowable:formFieldValidation="true">
-      <documentation>【评估结果】危重度</documentation>
+      <documentation>【评估结果】AECOPD级别：危重度</documentation>
     </userTask>
     <userTask id="sid-19FB70CB-B1D0-4E5A-BA31-85B7A103F8EE" name="重度" flowable:formFieldValidation="true">
-      <documentation>【评估结果】重度</documentation>
+      <documentation>【评估结果】AECOPD级别：重度</documentation>
     </userTask>
     <userTask id="sid-07F382F6-C94E-4A4B-8B79-DAAFC495A277" name="社区获得性肺炎" flowable:formFieldValidation="true">
       <documentation>【疾病判断】社区获得性肺炎</documentation>
@@ -199,8 +199,7 @@
 方案7：LAMA单药,ICS单药,LABA单药&lt;br/&gt;</documentation>
     </userTask>
     <userTask id="sid-B7178BB8-3A8E-40FF-A6D1-32E3706D6357" name="规律用药患者改变或增强治疗方案" flowable:formFieldValidation="true">
-      <documentation>【提示信息】&lt;br/&gt;
-规律用药患者改变或增强治疗方案</documentation>
+      <documentation>【提示信息】规律用药患者改变或增强治疗方案</documentation>
     </userTask>
     <sequenceFlow id="sid-C7719895-0D17-4221-B7F2-4A548FAA7556" sourceRef="sid-9D5B8C3E-5062-4BB5-9B8F-E73574F363DE" targetRef="sid-C20246FB-2C0C-49AD-B1E9-CDCAB52DB930"></sequenceFlow>
     <sequenceFlow id="sid-DF80F839-6FB1-402C-9F29-5BBA782C8AFC" sourceRef="sid-B7178BB8-3A8E-40FF-A6D1-32E3706D6357" targetRef="sid-C20246FB-2C0C-49AD-B1E9-CDCAB52DB930"></sequenceFlow>
@@ -297,10 +296,10 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
     </userTask>
     <sequenceFlow id="sid-56B53611-622F-4250-A76E-2039FDF4CC60" sourceRef="sid-FE9784E2-6E20-4C1A-A7DC-BD647E646E6D" targetRef="sid-3141006F-15D2-4B12-BAB1-DF3C1E16CE88"></sequenceFlow>
     <userTask id="sid-ABA61F3C-C968-4092-BA7D-6B90357BFACE" name="【询问信息】有无呛咳史：有" flowable:formFieldValidation="true">
-      <documentation>【问诊结果】有无呛咳史：有</documentation>
+      <documentation>【问诊结果】有无&lt;a href="javascript:void" title="呛咳：是指异物(刺激性气体或水、食物等)进入气管引起咳嗽，突然喷出异物。"&gt;呛咳&lt;/a&gt;史：有</documentation>
     </userTask>
     <userTask id="sid-F5476FD7-ED5C-4728-AB53-8C9CB3FCC109" name="【询问信息】有无呛咳史：无" flowable:formFieldValidation="true">
-      <documentation>【问诊结果】有无呛咳史：无</documentation>
+      <documentation>【问诊结果】有无&lt;a href="javascript:void" title="呛咳：是指异物(刺激性气体或水、食物等)进入气管引起咳嗽，突然喷出异物。"&gt;呛咳&lt;/a&gt;史：无</documentation>
     </userTask>
     <sequenceFlow id="sid-E03B2218-2631-40E1-BB7B-94B9CCD8E7D8" sourceRef="sid-ABA61F3C-C968-4092-BA7D-6B90357BFACE" targetRef="sid-FC951AA8-51FC-4A3F-80CD-43D7E4473BA7"></sequenceFlow>
     <sequenceFlow id="sid-D60EBCA0-7F21-4939-996E-925FCDB00703" sourceRef="sid-F5476FD7-ED5C-4728-AB53-8C9CB3FCC109" targetRef="sid-600BBFF1-5487-4130-8613-4FB66005F379"></sequenceFlow>
@@ -408,16 +407,16 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
       <documentation>【问诊结果】有 [心肺听诊变化、既往有心脏病史、存在面部或下肢水肿、有粉红色泡沫痰、有强迫体位] 等一种或多种症状</documentation>
     </userTask>
     <userTask id="sid-EED6283B-9313-4D10-80F0-FBDF65878BDC" name="【问诊结果】无症状" flowable:formFieldValidation="true">
-      <documentation>【问诊结果】 [无心肺听诊变化、既往无心脏病史、不存在面部或下肢水肿、无粉红色泡沫痰、无强迫体位] 等症状</documentation>
+      <documentation>【问诊结果】无 [无心肺听诊变化、既往无心脏病史、不存在面部或下肢水肿、无粉红色泡沫痰、无强迫体位] 等症状</documentation>
     </userTask>
     <sequenceFlow id="sid-BE6C8790-976F-4F69-A5A7-739EF587B3C9" name="否" sourceRef="sid-B9764B19-88C6-4276-9BBE-29CFDA1484FE" targetRef="sid-EED6283B-9313-4D10-80F0-FBDF65878BDC"></sequenceFlow>
     <sequenceFlow id="sid-9FACCEE4-FA58-4F9A-A3EE-C80827ACFAA6" sourceRef="sid-6CFE40B9-9013-4BEF-9887-17AB34D3819B" targetRef="sid-A45F7B66-5F19-4D48-A2F4-537F379F4004"></sequenceFlow>
     <sequenceFlow id="sid-DD79F848-EE90-4DE6-BF9A-20100D1D56D7" sourceRef="sid-EED6283B-9313-4D10-80F0-FBDF65878BDC" targetRef="sid-6B7CBFC7-4D40-4983-83B0-AF2559AA6527"></sequenceFlow>
     <userTask id="sid-B9D1B789-6D31-4073-B411-64990729C820" name="【检查结果】有心源性证据" flowable:formFieldValidation="true">
-      <documentation>【检查结果】有心源性证据</documentation>
+      <documentation>【检查结果】有&lt;a href="javascript:void" title="心源性就是疾病引发的根源是心脏疾病或功能改变而造成的疾病表现。比如心源性休克,心源性哮喘,心源性肺水肿"&gt;心源性&lt;/a&gt;证据</documentation>
     </userTask>
     <userTask id="sid-87C706CA-FC56-4C0F-8146-0775A46F2B4E" name="【检查结果】无心源性证据" flowable:formFieldValidation="true">
-      <documentation>【检查结果】无心源性证据</documentation>
+      <documentation>【检查结果】无&lt;a href="javascript:void" title="心源性就是疾病引发的根源是心脏疾病或功能改变而造成的疾病表现。比如心源性休克,心源性哮喘,心源性肺水肿"&gt;心源性&lt;/a&gt;证据</documentation>
     </userTask>
     <sequenceFlow id="sid-5B8D6709-0BC3-41CD-8ED2-42207072FAF8" sourceRef="sid-87C706CA-FC56-4C0F-8146-0775A46F2B4E" targetRef="sid-6B7CBFC7-4D40-4983-83B0-AF2559AA6527"></sequenceFlow>
     <sequenceFlow id="sid-43637915-CBAA-477C-A2BF-A094471D3208" sourceRef="sid-B9D1B789-6D31-4073-B411-64990729C820" targetRef="sid-B6F74E0D-7443-484B-BD17-606DDECA0004"></sequenceFlow>
@@ -439,11 +438,11 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
     <sequenceFlow id="sid-56D51C04-AB13-48A1-9180-4745AF9A3964" sourceRef="sid-B4B1F9C1-2049-4241-A325-A39AC5528C19" targetRef="sid-C5532C99-28BF-4D78-A70D-F1732378088E"></sequenceFlow>
     <sequenceFlow id="sid-A4C27AE3-076A-4B6A-8BFF-65CB14F41EB3" sourceRef="sid-C5532C99-28BF-4D78-A70D-F1732378088E" targetRef="sid-AC60B74F-0D19-4947-BD33-5AC9A4EB8DC9"></sequenceFlow>
     <userTask id="sid-9B6C901F-F286-4B5E-B9FC-D620F281C896" name="【检查结果】有胸腔积液证据" flowable:formFieldValidation="true">
-      <documentation>【检查结果】有胸腔积液证据</documentation>
+      <documentation>【检查结果】有&lt;a href="javascript:void" title="胸膜包括两层膜，分别覆盖在肺组织和胸廓上，两层胸膜之间构成了胸膜腔。正常情况下胸膜腔内存在少量的液体，起到润滑作用。胸腔积液是指胸膜腔内积聚了过多液体的现象，主要表现为胸闷、气短、呼吸困难等。"&gt;胸腔积液&lt;/a&gt;证据</documentation>
     </userTask>
     <sequenceFlow id="sid-3D91436B-1138-49EB-B391-D999ACFF55FF" sourceRef="sid-9B6C901F-F286-4B5E-B9FC-D620F281C896" targetRef="sid-6C5F6422-F766-409B-AE19-10C5899F18A2"></sequenceFlow>
     <userTask id="sid-0BA3B330-58D6-4F70-8425-42F0E9E5D3B6" name="【检查结果】无胸腔积液证据" flowable:formFieldValidation="true">
-      <documentation>【检查结果】无胸腔积液证据</documentation>
+      <documentation>【检查结果】无&lt;a href="javascript:void" title="胸膜包括两层膜，分别覆盖在肺组织和胸廓上，两层胸膜之间构成了胸膜腔。正常情况下胸膜腔内存在少量的液体，起到润滑作用。胸腔积液是指胸膜腔内积聚了过多液体的现象，主要表现为胸闷、气短、呼吸困难等。"&gt;胸腔积液&lt;/a&gt;证据</documentation>
     </userTask>
     <sequenceFlow id="sid-6B6D24AB-978B-4F23-95DD-D7FD1395AF57" sourceRef="sid-0BA3B330-58D6-4F70-8425-42F0E9E5D3B6" targetRef="sid-550D1AA1-71A9-423E-A30C-A84E80E5DDED"></sequenceFlow>
     <userTask id="sid-B9798168-EFE9-4B5E-B04E-9C25FA704AC9" name="【问诊结果】有" flowable:formFieldValidation="true">
@@ -485,7 +484,7 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
     <sequenceFlow id="sid-F6161DC4-08FC-4935-8464-9F549DD3E5B1" sourceRef="sid-44ABABFD-5C30-436A-B3F4-E0B9EC175351" targetRef="sid-8E908731-E858-4651-8FB3-FC16F0B5607B"></sequenceFlow>
     <sequenceFlow id="sid-7684C87D-C62E-4543-8984-4E29468BB640" name="缓慢" sourceRef="g1" targetRef="sid-3D653D31-A7CA-4A8D-9C76-2F1E697C5784"></sequenceFlow>
     <userTask id="sid-123EB0F7-DD77-4740-8EC7-CCCA5CC48293" name="【诊疗建议】向上级医院转诊" flowable:formFieldValidation="true">
-      <documentation>【诊疗建议】向上级医院转诊</documentation>
+      <documentation>&lt;span style="color:#BE0911"&gt;【诊疗建议】向上级医院转诊&lt;/span&gt;</documentation>
     </userTask>
     <sequenceFlow id="sid-9B75EA50-3097-4071-823C-E01B1C162350" sourceRef="sid-123EB0F7-DD77-4740-8EC7-CCCA5CC48293" targetRef="sid-8D88EE71-9275-42CE-B113-07AF596D2712"></sequenceFlow>
   </process>
@@ -675,7 +674,7 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdc:Bounds height="80.0" width="100.0" x="7219.908128714935" y="1663.1552027741548"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-9D5B8C3E-5062-4BB5-9B8F-E73574F363DE" id="BPMNShape_sid-9D5B8C3E-5062-4BB5-9B8F-E73574F363DE">
-        <omgdc:Bounds height="80.0" width="100.0" x="7849.999999999999" y="1716.0"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="7845.0" y="1710.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-B7178BB8-3A8E-40FF-A6D1-32E3706D6357" id="BPMNShape_sid-B7178BB8-3A8E-40FF-A6D1-32E3706D6357">
         <omgdc:Bounds height="80.0" width="100.0" x="7849.999999999999" y="1815.0"></omgdc:Bounds>
@@ -1091,8 +1090,8 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdi:waypoint x="4722.810129891737" y="620.7855144737308"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-E931E3A4-4A08-45EE-8E9F-342DFC5B5841" id="BPMNEdge_sid-E931E3A4-4A08-45EE-8E9F-342DFC5B5841">
-        <omgdi:waypoint x="7747.723134663886" y="1806.206301192442"></omgdi:waypoint>
-        <omgdi:waypoint x="7849.999999999999" y="1756.4619769126386"></omgdi:waypoint>
+        <omgdi:waypoint x="7747.074393032696" y="1805.5559336423769"></omgdi:waypoint>
+        <omgdi:waypoint x="7845.0" y="1750.5336861148883"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-3A124AFF-AEAE-4AF1-B45E-ACC883ADBC90" id="BPMNEdge_sid-3A124AFF-AEAE-4AF1-B45E-ACC883ADBC90">
         <omgdi:waypoint x="7316.39099255399" y="1971.806817944835"></omgdi:waypoint>
@@ -1247,8 +1246,8 @@ AECOPD抗铜绿感染用药方案3：静脉环丙沙星，静脉氨基糖苷类�
         <omgdi:waypoint x="319.99999999975887" y="878.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-C7719895-0D17-4221-B7F2-4A548FAA7556" id="BPMNEdge_sid-C7719895-0D17-4221-B7F2-4A548FAA7556">
-        <omgdi:waypoint x="7930.766091954022" y="1795.95"></omgdi:waypoint>
-        <omgdi:waypoint x="8025.457469161772" y="1918.9022584446052"></omgdi:waypoint>
+        <omgdi:waypoint x="7925.850277777778" y="1789.95"></omgdi:waypoint>
+        <omgdi:waypoint x="8025.442826708845" y="1918.9135990811315"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-F50BC90C-6338-43F2-B3C0-CD9691A1C44F" id="BPMNEdge_sid-F50BC90C-6338-43F2-B3C0-CD9691A1C44F">
         <omgdi:waypoint x="2755.486101898495" y="742.75"></omgdi:waypoint>

@@ -1,5 +1,7 @@
 package cn.dfusion.ai.controller;
 
+import cn.dfusion.ai.entity.ExamEntity;
+import cn.dfusion.ai.service.ExamService;
 import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.engine.*;
 import org.flowable.engine.history.HistoricActivityInstance;
@@ -10,6 +12,7 @@ import org.flowable.form.api.FormRepositoryService;
 import org.flowable.image.ProcessDiagramGenerator;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +31,8 @@ import java.util.*;
 @RestController
 @RequestMapping("basicDiagnosis")
 public class DiagnosisController {
-
+    @Autowired
+    private ExamService examService;
     @Autowired
     private RuntimeService runtimeService;
     @Autowired
@@ -37,6 +41,7 @@ public class DiagnosisController {
     private HistoryService historyService;
     @Autowired
     private RepositoryService repositoryService;
+    @Qualifier("processEngine")
     @Autowired
     private ProcessEngine processEngine;
     @Autowired
@@ -295,8 +300,6 @@ public class DiagnosisController {
         return tips;
     }
 
-    //assess4与5之间增加了保健问诊
-
     @GetMapping("assess5")
     public String assessChronicDisease(String processId,
                                        String normal) {
@@ -357,7 +360,7 @@ public class DiagnosisController {
             tips = "需要进一步详细问诊";
         } else if (heightPercentile > 10 && hereditaryHeightDiff < 30) {
             tips = "不需详细问诊，测量身高体重 --> 正常";
-        } else{
+        } else {
             tips = "缺省情况，不需详细问诊，测量身高体重 --> 正常";
         }
         return tips;
@@ -620,1264 +623,10 @@ public class DiagnosisController {
             variables.put("msg", "流程不存在");
             return variables;
         }
-        //缺省值
-        variables.put("checkResult", 0);
-        String tips = "0.其他情况，建议持续观察";
-        //肝功
-        tp = getStr(tp);
-        alb = getStr(alb);
-        glb = getStr(glb);
-        ag = getStr(ag);
-        alt = getStr(alt);
-        ast = getStr(ast);
-        op = getStr(op);
-        tbil = getStr(tbil);
-        ibil = getStr(ibil);
-        alp = getStr(alp);
-        y = getStr(y);
-        z = getStr(z);
-        //肾功能
-        crea = getStr(crea);
-        urea = getStr(urea);
-        ua = getStr(ua);
-        cys = getStr(cys);
-        //甲功
-        tsh = getStr(tsh);
-        t3 = getStr(t3);
-        t4 = getStr(t4);
-        ft3 = getStr(ft3);
-        ft4 = getStr(ft4);
-        //激素六项
-        e2 = getStr(e2);
-        p = getStr(p);
-        t = getStr(t);
-        prl = getStr(prl);
-        lh = getStr(lh);
-        fsh = getStr(fsh);
-        //电解质
-        ca = getStr(ca);
-        mg = getStr(mg);
-        pa = getStr(pa);
-        k = getStr(k);
-        na = getStr(na);
-        cl = getStr(cl);
-        co2 = getStr(co2);
-        //生长发育
-        bglu = getStr(bglu);
-        bc = getStr(bc);
-        igf_1 = getStr(igf_1);
-        igfbp_3 = getStr(igfbp_3);
-        //血常规
-        brbc = getStr(brbc);
-        hgb = getStr(hgb);
-        wbc = getStr(wbc);
-        neut = getStr(neut);
-        //尿常规
-        rbc = getStr(rbc);
-        pro = getStr(pro);
-        wbcc = getStr(wbcc);
 
-        if (tp.equals("降低") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "1.营养不良";
-            variables.put("checkResult", 1);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("升高") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "3.肝损害";
-            variables.put("checkResult", 3);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("升高") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "4.肾功能不全";
-            variables.put("checkResult", 4);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("升高") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "5.高尿酸血症";
-            variables.put("checkResult", 5);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("升高") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "6.常见于甲减";
-            variables.put("checkResult", 6);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("降低") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "7.常见于甲亢";
-            variables.put("checkResult", 7);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("降低") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "8.常见于甲减";
-            variables.put("checkResult", 8);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("升高") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "9.常见于甲亢";
-            variables.put("checkResult", 9);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("降低") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "10.常见于甲减";
-            variables.put("checkResult", 10);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("升高") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "11.常见于甲亢";
-            variables.put("checkResult", 11);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("升高") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "12.女孩要发育或已经发育";
-            variables.put("checkResult", 12);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("升高") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "13.男孩要发育或已经发育";
-            variables.put("checkResult", 13);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("升高") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "14.性腺轴启动";
-            variables.put("checkResult", 14);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("降低") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "15.青春期后不升高，提示垂体功能减退";
-            variables.put("checkResult", 15);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("升高") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "16.垂体疾病";
-            variables.put("checkResult", 16);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("降低") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "17.垂体疾病";
-            variables.put("checkResult", 17);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("降低") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "18.酸中毒";
-            variables.put("checkResult", 18);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("升高") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "19.糖尿病或糖尿病前期";
-            variables.put("checkResult", 19);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                (brbc.equals("升高") || brbc.equals("降低")) &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "20.贫血";
-            variables.put("checkResult", 20);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                (hgb.equals("升高") || hgb.equals("降低")) &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "21.贫血";
-            variables.put("checkResult", 21);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                (wbc.equals("升高") || wbc.equals("降低")) &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "22.有感染";
-            variables.put("checkResult", 22);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                (neut.equals("升高") || neut.equals("降低")) &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "23.有感染";
-            variables.put("checkResult", 23);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                (rbc.equals("升高") || rbc.equals("降低")) &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "24.有肾病";
-            variables.put("checkResult", 24);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                (pro.equals("升高") || pro.equals("降低")) &&
-                wbcc.equals("正常")
-                ) {
-            tips = "25.有肾病";
-            variables.put("checkResult", 25);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                (wbcc.equals("升高") || wbcc.equals("降低"))
-                ) {
-            tips = "26.尿路感染";
-            variables.put("checkResult", 26);
-        } else if (tp.equals("正常") &&
+        String tips;
+
+        if (tp.equals("正常") &&
                 alb.equals("正常") &&
                 glb.equals("正常") &&
                 ag.equals("正常") &&
@@ -1925,161 +674,122 @@ public class DiagnosisController {
                 ) {
             tips = "30.所有指标全部正常";
             variables.put("checkResult", 30);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("正常") &&
-                fsh.equals("正常") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("降低") &&
-                igfbp_3.equals("降低") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "31.IGF-1、IGFBP3降低";
-            variables.put("checkResult", 31);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                e2.equals("正常") &&
-                p.equals("正常") &&
-                t.equals("正常") &&
-                prl.equals("正常") &&
-                lh.equals("降低") &&
-                fsh.equals("降低") &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "32.LH、FSH降低";
-            variables.put("checkResult", 32);
-        } else if (tp.equals("正常") &&
-                alb.equals("正常") &&
-                glb.equals("正常") &&
-                ag.equals("正常") &&
-                alt.equals("正常") &&
-                ast.equals("正常") &&
-                op.equals("正常") &&
-                tbil.equals("正常") &&
-                ibil.equals("正常") &&
-                alp.equals("正常") &&
-                y.equals("正常") &&
-                z.equals("正常") &&
-                crea.equals("正常") &&
-                urea.equals("正常") &&
-                ua.equals("正常") &&
-                cys.equals("正常") &&
-                tsh.equals("正常") &&
-                t3.equals("正常") &&
-                t4.equals("正常") &&
-                ft3.equals("正常") &&
-                ft4.equals("正常") &&
-                (e2.equals("升高") || e2.equals("降低")) &&
-                p.equals("正常") &&
-                (t.equals("升高") || t.equals("降低")) &&
-                prl.equals("正常") &&
-                (lh.equals("升高") || lh.equals("降低")) &&
-                (fsh.equals("升高") || fsh.equals("降低")) &&
-                ca.equals("正常") &&
-                mg.equals("正常") &&
-                pa.equals("正常") &&
-                k.equals("正常") &&
-                na.equals("正常") &&
-                cl.equals("正常") &&
-                co2.equals("正常") &&
-                bglu.equals("正常") &&
-                bc.equals("正常") &&
-                igf_1.equals("正常") &&
-                igfbp_3.equals("正常") &&
-                brbc.equals("正常") &&
-                hgb.equals("正常") &&
-                wbc.equals("正常") &&
-                neut.equals("正常") &&
-                rbc.equals("正常") &&
-                pro.equals("正常") &&
-                wbcc.equals("正常")
-                ) {
-            tips = "33.激素水平异常";
-            variables.put("checkResult", 33);
+        } else {
+            //至少有一项检验检查指标不正常，提示用户，如果是与生长发育相关的4个关键指标则显示临床意义
+            tips = getAbnormalTips(tp, alb, glb, ag, alt, ast, op, tbil, ibil, alp, y, z, crea, urea, ua, cys, tsh, t3, t4, ft3, ft4, e2, p, t, prl, lh, fsh, ca, mg, pa, k, na, cl, co2, bglu, bc, igf_1, igfbp_3, brbc, hgb, wbc, neut, rbc, pro, wbcc);
+            if (
+                    igf_1.equals("降低") &&
+                    igfbp_3.equals("降低")
+                    ) {
+                tips = "31.IGF-1、IGFBP3降低";
+                variables.put("checkResult", 31);
+            } else if (
+                    lh.equals("降低") &&
+                    fsh.equals("降低")
+                    ) {
+                tips = "32.LH、FSH降低";
+                variables.put("checkResult", 32);
+            } else if (
+                    (e2.equals("升高") || e2.equals("降低")) &&
+                    (t.equals("升高") || t.equals("降低")) &&
+                    (lh.equals("升高") || lh.equals("降低")) &&
+                    (fsh.equals("升高") || fsh.equals("降低"))
+                    ) {
+                tips = "33.激素水平异常";
+                variables.put("checkResult", 33);
+            } else{
+                //其他情况
+                variables.put("checkResult", 0);
+                tips = "<br/>0.至少有一项检验检查指标不正常，建议持续观察<br/>";
+            }
         }
+
         String check1Case = tips.substring(0, tips.indexOf("."));
         variables.put("check1Case", check1Case);
-        variables.put("tips", "辅助检查1.0 --> " + tips);
+        variables.put("tips", "辅助检查1.0 --> <br/>" + tips);
         taskService.complete(task.getId(), variables);
         return variables;
+    }
+
+    private String getAbnormalTips(String tp, String alb, String glb, String ag, String alt, String ast, String op, String tbil, String ibil, String alp, String y, String z, String crea, String urea, String ua, String cys, String tsh, String t3, String t4, String ft3, String ft4, String e2, String p, String t, String prl, String lh, String fsh, String ca, String mg, String pa, String k, String na, String cl, String co2, String bglu, String bc, String igf_1, String igfbp_3, String brbc, String hgb, String wbc, String neut, String rbc, String pro, String wbcc) {
+        String tips;
+        //肝功
+        tips = getExamResultTips("TP", tp);
+        tips += getExamResultTips("ALB", alb);
+        tips += getExamResultTips("GLB", glb);
+        tips += getExamResultTips("AG", ag);
+        tips += getExamResultTips("ALT", alt);
+        tips += getExamResultTips("AST", ast);
+        tips += getExamResultTips("OP", op);
+        tips += getExamResultTips("TBIL", tbil);
+        tips += getExamResultTips("IBIL", ibil);
+        tips += getExamResultTips("ALP", alp);
+        tips += getExamResultTips("Y", y);
+        tips += getExamResultTips("Z", z);
+        //肾功能
+        tips += getExamResultTips("CREA", crea);
+        tips += getExamResultTips("UREA", urea);
+        tips += getExamResultTips("UA", ua);
+        tips += getExamResultTips("CYS", cys);
+        //甲功
+        tips += getExamResultTips("TSH", tsh);
+        tips += getExamResultTips("T3", t3);
+        tips += getExamResultTips("T4", t4);
+        tips += getExamResultTips("FT3", ft3);
+        tips += getExamResultTips("FT4", ft4);
+        //激素六项
+        tips += getExamResultTips("P", p);
+        tips += getExamResultTips("T", t);
+        tips += getExamResultTips("PRL", prl);
+        tips += getExamResultTips("LH", lh);
+        tips += getExamResultTips("E2", e2);
+        tips += getExamResultTips("FSH", fsh);
+        //电解质
+        tips += getExamResultTips("Ca", ca);
+        tips += getExamResultTips("Mg", mg);
+        tips += getExamResultTips("Pa", pa);
+        tips += getExamResultTips("K", k);
+        tips += getExamResultTips("Na", na);
+        tips += getExamResultTips("Cl", cl);
+        tips += getExamResultTips("Co2", co2);
+        //生长发育
+        tips += getExamResultTips("BGLU", bglu);
+        tips += getExamResultTips("BC", bc);
+        tips += getExamResultTips("IGF_1", igf_1);
+        tips += getExamResultTips("IGFBP_3", igfbp_3);
+        //血常规
+        tips += getExamResultTips("BRBC", brbc);
+        tips += getExamResultTips("HGB", hgb);
+        tips += getExamResultTips("WBC", wbc);
+        tips += getExamResultTips("NEUT", neut);
+        //尿常规
+        tips += getExamResultTips("RBC", rbc);
+        tips += getExamResultTips("PRO", pro);
+        tips += getExamResultTips("WBCC", wbcc);
+        return tips;
     }
 
     private String getStr(String tp) {
         tp = (tp == null ? "正常" : tp);
         return tp;
+    }
+
+    private String getExamResultTips(String abbrName, String abbrValue) {
+        String tips = "";
+        ExamEntity examEntity = examService.queryByAbbr(abbrName);
+        abbrValue = (abbrValue == null ? "正常" : abbrValue);
+        if (abbrValue.equals("升高") || abbrValue.equals("降低")) {
+            if (examEntity.getTypeName().equals("激素") ||
+                    examEntity.getTypeName().equals("电解质") ||
+                    examEntity.getTypeName().equals("生长发育") ||
+                    examEntity.getTypeName().equals("甲功")
+                    ) {
+                tips = String.format("<span style=\"color:#BE0911\">%s的%s(%s)指标: %s，临床意义为：%s</span><br/>", examEntity.getTypeName(), examEntity.getItemName(), abbrName, abbrValue, abbrValue == "升高" ? examEntity.getItemIncMeaning() : examEntity.getItemDecMeaning());
+            } else {
+                tips = String.format("%s的%s(%s)指标: <span style=\"color:#AA0911\">%s</span>，请注意观察<br/>", examEntity.getTypeName(), examEntity.getItemName(), abbrName, abbrValue);
+            }
+        }
+        return tips;
     }
 
     @GetMapping("assess15")
@@ -2700,5 +1410,4 @@ public class DiagnosisController {
         taskService.complete(task.getId(), variables);
         return variables;
     }
-
 }

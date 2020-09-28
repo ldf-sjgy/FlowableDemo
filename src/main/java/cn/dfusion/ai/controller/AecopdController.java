@@ -1,37 +1,41 @@
 package cn.dfusion.ai.controller;
 
-import org.flowable.bpmn.model.*;
-import org.flowable.engine.FormService;
+import cn.dfusion.ai.util.RedisUtils;
+import com.google.gson.internal.LinkedTreeMap;
+import org.flowable.bpmn.model.BpmnModel;
 import org.flowable.engine.*;
-import org.flowable.engine.form.FormProperty;
 import org.flowable.engine.form.StartFormData;
 import org.flowable.engine.form.TaskFormData;
 import org.flowable.engine.history.HistoricActivityInstance;
 import org.flowable.engine.history.HistoricProcessInstance;
-import org.flowable.engine.impl.persistence.entity.HistoricProcessInstanceEntity;
 import org.flowable.engine.repository.Deployment;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.runtime.Execution;
 import org.flowable.engine.runtime.ProcessInstance;
-import org.flowable.form.api.*;
+import org.flowable.form.api.FormDefinition;
+import org.flowable.form.api.FormDeployment;
+import org.flowable.form.api.FormInfo;
+import org.flowable.form.api.FormRepositoryService;
 import org.flowable.form.model.FormField;
 import org.flowable.form.model.SimpleFormModel;
 import org.flowable.image.ProcessDiagramGenerator;
 import org.flowable.task.api.Task;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * @author LDF
- * @date 2020/7/8
+ * @date 2020/9/9
  */
 @RestController
 @RequestMapping("copd")
@@ -45,13 +49,15 @@ public class AecopdController {
     private HistoryService historyService;
     @Autowired
     private RepositoryService repositoryService;
+    @Qualifier("processEngine")
     @Autowired
     private ProcessEngine processEngine;
     @Autowired
     private FormService formService;
     @Autowired
     private FormRepositoryService formRepositoryService;
-
+    @Autowired
+    private RedisUtils redisUtils;
 
     @GetMapping
     public Map<String, Object> getForm(@RequestParam(defaultValue = "fd") String processKey) {
@@ -92,6 +98,10 @@ public class AecopdController {
 
     @GetMapping("decide")
     public Map<String, Object> decide(String processId, HttpServletRequest request) {
+        List formDefinitionList = redisUtils.get("formDefinitionList", List.class);
+        if(null == formDefinitionList || formDefinitionList.size() == 0){
+            this.cachedFormDefinitions();
+        }
         int i = 0;
         Map<String, Object> map = new LinkedHashMap<>();
         String tips = "";
@@ -100,7 +110,7 @@ public class AecopdController {
             if (null != this.getTaskForm(processId) && this.getTaskForm(processId).size() > 0) {
                 //带表单任务自动推进
                 if (null != request && null != request.getParameter("choice")) {
-                    this.push(processId, request);
+                    this.push(processId, request, formDefinitionList);
                     request = null;
                 } else {
                     map.putAll(this.getTaskForm(processId));
@@ -108,7 +118,7 @@ public class AecopdController {
                 }
             } else {
                 //不带表单任务自动推进
-                Map<String, Object> retMap = this.push(processId, request);
+                Map<String, Object> retMap = this.push(processId, request, formDefinitionList);
                 if (null != retMap) {
                     System.out.println("---->" + retMap);
                     tips += retMap.get("tips") + "<br/>";
@@ -124,14 +134,7 @@ public class AecopdController {
     }
 
     @GetMapping("push")
-    public Map<String, Object> push(String processId, HttpServletRequest request) {
-
-//        ProcessDefinition pd = repositoryService.createProcessDefinitionQuery().processDefinitionKey("fd")
-//                .latestVersion().singleResult();
-        List<FormDefinition> formDefinitionList = getFormDefinitions();
-
-        //StartFormData form = formService.getStartFormData(pd.getId());
-        //result.put("isApprove",true);
+    public Map<String, Object> push(String processId, HttpServletRequest request, List<FormDefinition> formDefinitionList) {
         Map<String, Object> variables = new HashMap<>();
         Task task = taskService.createTaskQuery().processInstanceId(processId).active().singleResult();
         if (task == null) {
@@ -148,11 +151,14 @@ public class AecopdController {
 
             System.err.println("=====>" + runtimeService.getVariable(processId, "name"));
             System.err.println("=====>" + runtimeService.getVariable(processId, "message1"));
-            ///////
-            for (FormDefinition formDefinition : formDefinitionList) {
-                if (task.getFormKey().equals(formDefinition.getKey())) {
+            //遍历表单定义列表
+            for (Object formDefinition : formDefinitionList) {
+                Object formKey = ((LinkedTreeMap)formDefinition).get("key");
+                Object formId = ((LinkedTreeMap)formDefinition).get("id");
+                //判断任务节点的表单Key与表单定义列表中的Key相等，则处理带表单的审批
+                if (task.getFormKey().equals(formKey.toString())) {
                     //带表单的完成审批
-                    taskService.completeTaskWithForm(task.getId(), formDefinition.getId(), "outcome", variables);
+                    taskService.completeTaskWithForm(task.getId(), formId.toString(), "outcome", variables);
                     System.out.println("带表单的完成审批");
                 }
             }
@@ -172,12 +178,12 @@ public class AecopdController {
         return variables;
     }
 
-    private List<FormDefinition> getFormDefinitions() {
+    private void cachedFormDefinitions() {
         Deployment deployment = repositoryService.createDeployment()
                 .name("慢阻肺AI诊疗流程")
                 .addClasspathResource("processes/copd.bpmn20.xml")
                 .deploy();
-        FormDeployment formDeploymentg = formRepositoryService.createDeployment()
+        FormDeployment formDeployment = formRepositoryService.createDeployment()
                 .name("all")
                 .addClasspathResource("forms/g1.form")
                 .addClasspathResource("forms/g2.form")
@@ -201,7 +207,8 @@ public class AecopdController {
                 .addClasspathResource("forms/g20.form")
                 .parentDeploymentId(deployment.getId())
                 .deploy();
-        return formRepositoryService.createFormDefinitionQuery().deploymentId(formDeploymentg.getId()).list();
+        List<FormDefinition> formDefinitionList = formRepositoryService.createFormDefinitionQuery().deploymentId(formDeployment.getId()).list();
+        redisUtils.set("formDefinitionList", formDefinitionList);
     }
 
     /**
@@ -333,7 +340,6 @@ public class AecopdController {
         }
         return true;
     }
-
 
     /**
      * 我发起的流程实例列表
