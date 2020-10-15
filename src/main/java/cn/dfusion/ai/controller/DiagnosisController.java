@@ -625,6 +625,60 @@ public class DiagnosisController {
         }
 
         String tips;
+        //肝功
+        tp = getStr(tp);
+        alb = getStr(alb);
+        glb = getStr(glb);
+        ag = getStr(ag);
+        alt = getStr(alt);
+        ast = getStr(ast);
+        op = getStr(op);
+        tbil = getStr(tbil);
+        dbil = getStr(dbil);
+        ibil = getStr(ibil);
+        alp = getStr(alp);
+        y = getStr(y);
+        z = getStr(z);
+        //肾功能
+        crea = getStr(crea);
+        urea = getStr(urea);
+        ua = getStr(ua);
+        cys = getStr(cys);
+        //甲功
+        tsh = getStr(tsh);
+        t3 = getStr(t3);
+        t4 = getStr(t4);
+        ft3 = getStr(ft3);
+        ft4 = getStr(ft4);
+        //激素六项
+        e2 = getStr(e2);
+        p = getStr(p);
+        t = getStr(t);
+        prl = getStr(prl);
+        lh = getStr(lh);
+        fsh = getStr(fsh);
+        //电解质
+        ca = getStr(ca);
+        mg = getStr(mg);
+        pa = getStr(pa);
+        k = getStr(k);
+        na = getStr(na);
+        cl = getStr(cl);
+        co2 = getStr(co2);
+        //生长发育
+        bglu = getStr(bglu);
+        bc = getStr(bc);
+        igf_1 = getStr(igf_1);
+        igfbp_3 = getStr(igfbp_3);
+        //血常规
+        brbc = getStr(brbc);
+        hgb = getStr(hgb);
+        wbc = getStr(wbc);
+        neut = getStr(neut);
+        //尿常规
+        rbc = getStr(rbc);
+        pro = getStr(pro);
+        wbcc = getStr(wbcc);
 
         if (tp.equals("正常") &&
                 alb.equals("正常") &&
@@ -634,6 +688,7 @@ public class DiagnosisController {
                 ast.equals("正常") &&
                 op.equals("正常") &&
                 tbil.equals("正常") &&
+                dbil.equals("正常") &&
                 ibil.equals("正常") &&
                 alp.equals("正常") &&
                 y.equals("正常") &&
@@ -675,11 +730,9 @@ public class DiagnosisController {
             tips = "30.所有指标全部正常";
             variables.put("checkResult", 30);
         } else {
-            //至少有一项检验检查指标不正常，提示用户，如果是与生长发育相关的4个关键指标则显示临床意义
-            tips = getAbnormalTips(tp, alb, glb, ag, alt, ast, op, tbil, ibil, alp, y, z, crea, urea, ua, cys, tsh, t3, t4, ft3, ft4, e2, p, t, prl, lh, fsh, ca, mg, pa, k, na, cl, co2, bglu, bc, igf_1, igfbp_3, brbc, hgb, wbc, neut, rbc, pro, wbcc);
             if (
-                    igf_1.equals("降低") &&
-                    igfbp_3.equals("降低")
+                igf_1.equals("降低") &&
+                igfbp_3.equals("降低")
                     ) {
                 tips = "31.IGF-1、IGFBP3降低";
                 variables.put("checkResult", 31);
@@ -701,62 +754,51 @@ public class DiagnosisController {
                 //其他情况
                 variables.put("checkResult", 0);
                 tips = "<br/>0.至少有一项检验检查指标不正常，建议持续观察<br/>";
+
             }
         }
 
         String check1Case = tips.substring(0, tips.indexOf("."));
         variables.put("check1Case", check1Case);
+        //至少有一项检验检查指标不正常，提示用户，如果是与生长发育相关的4个关键指标则显示临床意义
+        tips += "<br/>" + getAbnormalTips(tp, alb, glb, alt, tbil, dbil, ibil, crea, tsh, ft3, ft4, e2, t, lh, fsh, ca, mg, pa, k, co2, bglu, bc, igf_1, igfbp_3, brbc, hgb, wbc, neut, rbc, pro, wbcc);
         variables.put("tips", "辅助检查1.0 --> <br/>" + tips);
         taskService.complete(task.getId(), variables);
         return variables;
     }
 
-    private String getAbnormalTips(String tp, String alb, String glb, String ag, String alt, String ast, String op, String tbil, String ibil, String alp, String y, String z, String crea, String urea, String ua, String cys, String tsh, String t3, String t4, String ft3, String ft4, String e2, String p, String t, String prl, String lh, String fsh, String ca, String mg, String pa, String k, String na, String cl, String co2, String bglu, String bc, String igf_1, String igfbp_3, String brbc, String hgb, String wbc, String neut, String rbc, String pro, String wbcc) {
+    private String getAbnormalTips(String tp, String alb, String glb, String alt, String tbil, String dbil, String ibil, String crea, String tsh, String ft3, String ft4, String e2, String t, String lh, String fsh, String ca, String mg, String pa, String k, String co2, String bglu, String bc, String igf_1, String igfbp_3, String brbc, String hgb, String wbc, String neut, String rbc, String pro, String wbcc) {
         String tips;
         //肝功
         tips = getExamResultTips("TP", tp);
         tips += getExamResultTips("ALB", alb);
         tips += getExamResultTips("GLB", glb);
-        tips += getExamResultTips("AG", ag);
         tips += getExamResultTips("ALT", alt);
-        tips += getExamResultTips("AST", ast);
-        tips += getExamResultTips("OP", op);
         tips += getExamResultTips("TBIL", tbil);
+        tips += getExamResultTips("DBIL", dbil);
         tips += getExamResultTips("IBIL", ibil);
-        tips += getExamResultTips("ALP", alp);
-        tips += getExamResultTips("Y", y);
-        tips += getExamResultTips("Z", z);
         //肾功能
         tips += getExamResultTips("CREA", crea);
-        tips += getExamResultTips("UREA", urea);
-        tips += getExamResultTips("UA", ua);
-        tips += getExamResultTips("CYS", cys);
         //甲功
         tips += getExamResultTips("TSH", tsh);
-        tips += getExamResultTips("T3", t3);
-        tips += getExamResultTips("T4", t4);
         tips += getExamResultTips("FT3", ft3);
         tips += getExamResultTips("FT4", ft4);
         //激素六项
-        tips += getExamResultTips("P", p);
-        tips += getExamResultTips("T", t);
-        tips += getExamResultTips("PRL", prl);
+        tips += getExamResultTips("TESTO", t);
         tips += getExamResultTips("LH", lh);
         tips += getExamResultTips("E2", e2);
         tips += getExamResultTips("FSH", fsh);
         //电解质
         tips += getExamResultTips("Ca", ca);
         tips += getExamResultTips("Mg", mg);
-        tips += getExamResultTips("Pa", pa);
+        tips += getExamResultTips("P", pa);
         tips += getExamResultTips("K", k);
-        tips += getExamResultTips("Na", na);
-        tips += getExamResultTips("Cl", cl);
-        tips += getExamResultTips("Co2", co2);
+        tips += getExamResultTips("CO2", co2);
         //生长发育
         tips += getExamResultTips("BGLU", bglu);
         tips += getExamResultTips("BC", bc);
-        tips += getExamResultTips("IGF_1", igf_1);
-        tips += getExamResultTips("IGFBP_3", igfbp_3);
+        tips += getExamResultTips("IGF-1", igf_1);
+        tips += getExamResultTips("IGFBP-3", igfbp_3);
         //血常规
         tips += getExamResultTips("BRBC", brbc);
         tips += getExamResultTips("HGB", hgb);
@@ -779,14 +821,14 @@ public class DiagnosisController {
         ExamEntity examEntity = examService.queryByAbbr(abbrName);
         abbrValue = (abbrValue == null ? "正常" : abbrValue);
         if (abbrValue.equals("升高") || abbrValue.equals("降低")) {
-            if (examEntity.getTypeName().equals("激素") ||
-                    examEntity.getTypeName().equals("电解质") ||
-                    examEntity.getTypeName().equals("生长发育") ||
-                    examEntity.getTypeName().equals("甲功")
+            if (examEntity.getType_name().equals("激素") ||
+                    examEntity.getType_name().equals("电解质") ||
+                    examEntity.getType_name().equals("生长发育") ||
+                    examEntity.getType_name().equals("甲功")
                     ) {
-                tips = String.format("<span style=\"color:#BE0911\">%s的%s(%s)指标: %s，临床意义为：%s</span><br/>", examEntity.getTypeName(), examEntity.getItemName(), abbrName, abbrValue, abbrValue == "升高" ? examEntity.getItemIncMeaning() : examEntity.getItemDecMeaning());
+                tips = String.format("<span style=\"color:#BE0911\">%s的%s(%s)指标: %s，临床意义为：%s</span><br/>", examEntity.getType_name(), examEntity.getItem_name(), abbrName, abbrValue, abbrValue == "升高" ? examEntity.getItem_inc_meaning() : examEntity.getItem_dec_meaning());
             } else {
-                tips = String.format("%s的%s(%s)指标: <span style=\"color:#AA0911\">%s</span>，请注意观察<br/>", examEntity.getTypeName(), examEntity.getItemName(), abbrName, abbrValue);
+                tips = String.format("%s的%s(%s)指标: <span style=\"color:#AA0911\">%s</span>，请注意观察<br/>", examEntity.getType_name(), examEntity.getItem_name(), abbrName, abbrValue);
             }
         }
         return tips;
@@ -808,8 +850,8 @@ public class DiagnosisController {
         }
 
         boolean isFamilyShortHistory = familyShortHistory.equals("是") ? true : false;//家族矮小史
-        variables.put("illnessResult", 0);
-        String illnessDiagnosis = "其他疾病，建议持续跟踪";
+
+        String illnessDiagnosis;
         if (check1Case.equals("30") && chromosomeExam.equals("正常") && ghTest.equals("正常") && boneAgePercentile < 3) {
             illnessDiagnosis = "1. 特发性矮小ISS";
             treatmentPlan = getTreatmentPlan(1);
@@ -838,6 +880,9 @@ public class DiagnosisController {
             illnessDiagnosis = "7. 中枢性性早熟CPP";
             treatmentPlan = getTreatmentPlan(7);
             variables.put("illnessResult", 7);
+        } else {
+            variables.put("illnessResult", 0);
+            illnessDiagnosis = "0. 其他疾病，建议持续跟踪";
         }
         variables.put("illnessDiagnosis", "疾病诊断 --> " + illnessDiagnosis);
         variables.put("treatmentPlan", treatmentPlan);

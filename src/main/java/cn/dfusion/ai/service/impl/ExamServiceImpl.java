@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class ExamServiceImpl implements ExamService {
     public ExamEntity queryByAbbr(String itemAbbr) {
         ExamEntity examEntity = new ExamEntity();
-        ExamEntity examEntity1 = examEntity.selectOne(new EntityWrapper().eq("item_abbr", itemAbbr));
+        ExamEntity examEntity1 = examEntity.selectOne(new EntityWrapper<ExamEntity>().eq("item_abbr", itemAbbr));
         return examEntity1;
     }
 }

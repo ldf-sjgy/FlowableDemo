@@ -185,6 +185,7 @@ public class AecopdController {
                 .deploy();
         FormDeployment formDeployment = formRepositoryService.createDeployment()
                 .name("all")
+                .addClasspathResource("forms/ag0.form")
                 .addClasspathResource("forms/g1.form")
                 .addClasspathResource("forms/g2.form")
                 .addClasspathResource("forms/g3.form")
@@ -205,6 +206,7 @@ public class AecopdController {
                 .addClasspathResource("forms/g18.form")
                 .addClasspathResource("forms/g19.form")
                 .addClasspathResource("forms/g20.form")
+                .addClasspathResource("forms/ag_efficacy_access.form")
                 .parentDeploymentId(deployment.getId())
                 .deploy();
         List<FormDefinition> formDefinitionList = formRepositoryService.createFormDefinitionQuery().deploymentId(formDeployment.getId()).list();
