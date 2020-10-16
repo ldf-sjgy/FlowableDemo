@@ -1,9 +1,14 @@
 server:
   port: 8080
 
-mybatis:
+#mybatis
+mybatis-plus:
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: cn.dfusion.ai.entity
   configuration:
     map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
 
 spring:
   jmx:

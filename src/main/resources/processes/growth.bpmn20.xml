@@ -255,7 +255,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ SSS=='落后' }]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-0CCFFB42-A0D9-4618-90AA-0E2F4E3BB4CD" name="第二性征与年龄相符" sourceRef="g12" targetRef="u12">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ SSS=='相符' }]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ SSS=='正常' }]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-4ACBF03D-0FD4-418D-BDBC-5A890EBB4B49" name="第二性征提前年龄" sourceRef="g12" targetRef="sid-E4FBB33D-44F4-4A18-9709-00CF1E24D69C">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${ SSS=='提前' }]]></conditionExpression>

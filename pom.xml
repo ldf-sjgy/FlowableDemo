@@ -15,7 +15,7 @@
     <description>打war包</description>
 
     <properties>
-        <swagger.version>2.8.0</swagger.version>
+        <swagger.version>2.9.2</swagger.version>
         <java.version>1.8</java.version>
     </properties>
 

@@ -16,15 +16,15 @@ import java.io.Serializable;
 public class ExamEntity extends Model<ExamEntity>{
     private Integer id;
     private String gender;
-    private String type_name;
-    private String item_name;
-    private String item_abbr;
-    private String item_unit;
-    private Double item_lower;
-    private Double item_upper;
-    private String item_description;
-    private String item_inc_meaning;
-    private String item_dec_meaning;
+    private String typeName;
+    private String itemName;
+    private String itemAbbr;
+    private String itemUnit;
+    private Double itemLower;
+    private Double itemUpper;
+    private String itemDescription;
+    private String itemIncMeaning;
+    private String itemDecMeaning;
 
     @Override
     protected Serializable pkVal() {
