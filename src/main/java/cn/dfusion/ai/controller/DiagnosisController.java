@@ -835,15 +835,15 @@ public class DiagnosisController {
         String tips = "";
         ExamEntity examEntity = examService.queryByAbbr(abbrName);
         abbrValue = (abbrValue == null ? "正常" : abbrValue);
-        if (abbrValue.equals("升高") || abbrValue.equals("降低")) {
+        if (abbrValue.equals("升高") || abbrValue.equals("降低") || abbrValue.equals("异常")) {
             if (examEntity.getTypeName().equals("激素") ||
                     examEntity.getTypeName().equals("电解质") ||
                     examEntity.getTypeName().equals("生长发育") ||
                     examEntity.getTypeName().equals("甲功")
                     ) {
-                tips = String.format("<span style=\"color:#BE0911\">%s的%s(%s)指标: %s，临床意义为：%s</span><br/>", examEntity.getTypeName(), examEntity.getItemName(), abbrName, abbrValue, abbrValue == "升高" ? examEntity.getItemIncMeaning() : examEntity.getItemDecMeaning());
+                tips = String.format("<span style='color:#BE0911'>%s的%s(%s)指标: %s，临床意义为：%s</span><br/>", examEntity.getTypeName(), examEntity.getItemName(), abbrName, abbrValue, abbrValue == "升高" ? examEntity.getItemIncMeaning() : examEntity.getItemDecMeaning());
             } else {
-                tips = String.format("%s的%s(%s)指标: <span style=\"color:#AA0911\">%s</span>，请注意观察<br/>", examEntity.getTypeName(), examEntity.getItemName(), abbrName, abbrValue);
+                tips = String.format("%s的%s(%s)指标: %s，请注意观察<br/>", examEntity.getTypeName(), examEntity.getItemName(), abbrName, abbrValue);
             }
         }
         return tips;
@@ -997,7 +997,7 @@ public class DiagnosisController {
                 healthPlan = "饮食情况：目前饮食情况尚可，继续保持。<br/>";
                 break;
             case 2:
-                healthPlan = "饮食情况：家保证每天一个鸡蛋、500ml牛奶（不能用酸奶代替）、50g肉。<br/>";
+                healthPlan = "饮食情况：保证每天一个鸡蛋、500ml牛奶（不能用酸奶代替）、50g肉。<br/>";
                 break;
             case 3:
                 healthPlan = "适量水果，每天低于150g，限制碳水化合物的摄入（例如米饭、面食等等）<br/>";
