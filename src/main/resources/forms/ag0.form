@@ -1,33 +1,29 @@
 {
-  "name": "【提示信息】问诊：是否有以下症状一种或多种？[（1）咳嗽、咳痰、憋喘（气促）加重；（2）胸痛，用力屏气，发热，咽痛、咯血、心悸]",
-  "key": "ag0",
-  "version": 0,
-  "fields": [
-    {
-      "fieldType": "OptionFormField",
-      "id": "choice",
-      "name": "【提示信息】问诊：是否有以下症状一种或多种？[（1）咳嗽、咳痰、憋喘（气促）加重；（2）胸痛，用力屏气，发热，咽痛、咯血、心悸  ]",
-      "type": "radio-buttons",
-      "value": null,
-      "required": false,
-      "readOnly": false,
-      "overrideId": false,
-      "placeholder": null,
-      "layout": null,
-      "optionType": null,
-      "hasEmptyValue": null,
-      "options": [
+    "name": "【提示信息】问诊：是否有以下症状一种或多种？[（1）咳嗽、咳痰、憋喘（气促）加重；（2）胸痛，用力屏气，发热，咽痛、咯血、心悸]",
+    "key": "ag0",
+    "version": 0,
+    "fields": [
         {
-          "id": null,
-          "name": "提示信息已读"
-        },
-        {
-          "id": null,
-          "name": "跳过"
+            "fieldType": "OptionFormField",
+            "id": "choice",
+            "name": "【提示信息】问诊：是否有以下症状一种或多种？[（1）咳嗽、咳痰、憋喘（气促）加重；（2）胸痛，用力屏气，发热，咽痛、咯血、心悸  ]",
+            "type": "radio-buttons",
+            "value": null,
+            "required": false,
+            "readOnly": false,
+            "overrideId": false,
+            "placeholder": null,
+            "layout": null,
+            "optionType": null,
+            "hasEmptyValue": null,
+            "options": [
+                {
+                    "id": null,
+                    "name": "提示信息已读"
+                }
+            ],
+            "optionsExpression": null
         }
-      ],
-      "optionsExpression": null
-    }
-  ],
-  "outcomes": []
+    ],
+    "outcomes": []
 }

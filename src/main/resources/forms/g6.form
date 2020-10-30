@@ -3,31 +3,31 @@
     "key": "g6",
     "version": 0,
     "fields": [
-      {
-        "fieldType": "OptionFormField",
-        "id": "choice",
-        "name": "是否有后面括号中描述的一种或多种症状（伴有胸痛、晕厥、烦躁不安、呼吸困难）？",
-        "type": "radio-buttons",
-        "value": "是",
-        "required": true,
-        "readOnly": false,
-        "overrideId": true,
-        "placeholder": null,
-        "layout": null,
-        "optionType": null,
-        "hasEmptyValue": null,
-        "options": [
-          {
-            "id": "result",
-            "name": "是"
-          },
-          {
-            "id": "result",
-            "name": "否"
-          }
-        ],
-        "optionsExpression": null
-      }
+        {
+            "fieldType": "OptionFormField",
+            "id": "choice",
+            "name": "是否有后面括号中描述的一种或多种症状（伴有胸痛、晕厥、烦躁不安、呼吸困难）？",
+            "type": "radio-buttons",
+            "value": "是",
+            "required": true,
+            "readOnly": false,
+            "overrideId": false,
+            "placeholder": null,
+            "layout": null,
+            "optionType": null,
+            "hasEmptyValue": null,
+            "options": [
+                {
+                    "id": null,
+                    "name": "是"
+                },
+                {
+                    "id": null,
+                    "name": "否"
+                }
+            ],
+            "optionsExpression": null
+        }
     ],
     "outcomes": []
 }

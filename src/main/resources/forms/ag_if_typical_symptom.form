@@ -1,15 +1,15 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "患者有呼吸道症状，是否为典型哮喘慢阻肺症状",
+    "key": "ag_if_typical_symptom",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "患者有呼吸道症状，是否为典型哮喘/慢阻肺症状?",
             "type": "radio-buttons",
             "value": "是",
-            "required": true,
+            "required": false,
             "readOnly": false,
             "overrideId": false,
             "placeholder": null,

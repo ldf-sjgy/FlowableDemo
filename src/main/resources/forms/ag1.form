@@ -1,17 +1,17 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "是否有哮喘病史？（有无经过严格的的肺功能检查、舒张试验、激发试验、PEF确诊）",
+    "key": "ag1",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "是否有哮喘病史？（有无经过严格的的肺功能检查、舒张试验、激发试验、PEF确诊）",
             "type": "radio-buttons",
             "value": "是",
             "required": true,
             "readOnly": false,
-            "overrideId": false,
+            "overrideId": true,
             "placeholder": null,
             "layout": null,
             "optionType": null,

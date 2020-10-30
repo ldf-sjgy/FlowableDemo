@@ -3,31 +3,31 @@
     "key": "g20",
     "version": 0,
     "fields": [
-      {
-        "fieldType": "OptionFormField",
-        "id": "choice",
-        "name": "判断患者是否规律用药？",
-        "type": "radio-buttons",
-        "value": "是",
-        "required": true,
-        "readOnly": false,
-        "overrideId": false,
-        "placeholder": null,
-        "layout": null,
-        "optionType": null,
-        "hasEmptyValue": null,
-        "options": [
-          {
-            "id": null,
-            "name": "是"
-          },
-          {
-            "id": null,
-            "name": "否"
-          }
-        ],
-        "optionsExpression": null
-      }
+        {
+            "fieldType": "OptionFormField",
+            "id": "choice",
+            "name": "判断患者是否规律用药？",
+            "type": "radio-buttons",
+            "value": "是",
+            "required": true,
+            "readOnly": false,
+            "overrideId": false,
+            "placeholder": null,
+            "layout": null,
+            "optionType": null,
+            "hasEmptyValue": null,
+            "options": [
+                {
+                    "id": null,
+                    "name": "是"
+                },
+                {
+                    "id": null,
+                    "name": "否"
+                }
+            ],
+            "optionsExpression": null
+        }
     ],
     "outcomes": []
 }

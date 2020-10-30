@@ -3,31 +3,31 @@
     "key": "g1",
     "version": 0,
     "fields": [
-      {
-        "fieldType": "OptionFormField",
-        "id": "choice",
-        "name": "憋喘加重速度判断",
-        "type": "radio-buttons",
-        "value": "突然",
-        "required": false,
-        "readOnly": false,
-        "overrideId": true,
-        "placeholder": null,
-        "layout": null,
-        "optionType": null,
-        "hasEmptyValue": null,
-        "options": [
-          {
-            "id": "result",
-            "name": "突然"
-          },
-          {
-            "id": "result",
-            "name": "缓慢"
-          }
-        ],
-        "optionsExpression": null
-      }
+        {
+            "fieldType": "OptionFormField",
+            "id": "choice",
+            "name": "憋喘加重速度判断?",
+            "type": "radio-buttons",
+            "value": "突然",
+            "required": true,
+            "readOnly": false,
+            "overrideId": false,
+            "placeholder": null,
+            "layout": null,
+            "optionType": null,
+            "hasEmptyValue": null,
+            "options": [
+                {
+                    "id": null,
+                    "name": "突然（数小时甚至数分钟之内发生）"
+                },
+                {
+                    "id": null,
+                    "name": "缓慢（非数小时甚至数分钟之内发生）"
+                }
+            ],
+            "optionsExpression": null
+        }
     ],
     "outcomes": []
 }

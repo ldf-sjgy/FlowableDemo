@@ -1,15 +1,15 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "所在医疗机构是否设置有呼吸专科？",
+    "key": "ag_if_breath_specialty",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "所在医疗机构是否设置有呼吸专科？",
             "type": "radio-buttons",
             "value": "是",
-            "required": true,
+            "required": false,
             "readOnly": false,
             "overrideId": false,
             "placeholder": null,

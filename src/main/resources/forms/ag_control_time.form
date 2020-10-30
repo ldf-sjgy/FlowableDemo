@@ -1,15 +1,15 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "哮喘症状控制且肺功能稳定的持续时间",
+    "key": "ag_control_time",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "哮喘症状控制且肺功能稳定的持续时间：",
             "type": "radio-buttons",
-            "value": "是",
-            "required": true,
+            "value": "选项 1",
+            "required": false,
             "readOnly": false,
             "overrideId": false,
             "placeholder": null,
@@ -19,11 +19,11 @@
             "options": [
                 {
                     "id": null,
-                    "name": "是"
+                    "name": "三个月以上"
                 },
                 {
                     "id": null,
-                    "name": "否"
+                    "name": "三个月以内"
                 }
             ],
             "optionsExpression": null

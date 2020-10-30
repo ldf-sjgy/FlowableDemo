@@ -1,33 +1,34 @@
 {
-    "name": "【影像学检查结果】是否存在肺部浸润证据？",
-    "key": "g18",
-    "version": 0,
-    "fields": [
-      {
-        "fieldType": "OptionFormField",
-        "id": "choice",
+
         "name": "【影像学检查结果】是否存在肺部浸润证据？",
-        "type": "radio-buttons",
-        "value": "是",
-        "required": true,
-        "readOnly": false,
-        "overrideId": true,
-        "placeholder": null,
-        "layout": null,
-        "optionType": null,
-        "hasEmptyValue": null,
-        "options": [
-          {
-            "id": null,
-            "name": "是"
-          },
-          {
-            "id": null,
-            "name": "否"
-          }
+        "key": "g18",
+        "version": 0,
+        "fields": [
+            {
+                "fieldType": "OptionFormField",
+                "id": "choice",
+                "name": "【影像学检查结果】是否存在肺部浸润证据？",
+                "type": "radio-buttons",
+                "value": "是",
+                "required": true,
+                "readOnly": false,
+                "overrideId": false,
+                "placeholder": null,
+                "layout": null,
+                "optionType": null,
+                "hasEmptyValue": null,
+                "options": [
+                    {
+                        "id": null,
+                        "name": "是"
+                    },
+                    {
+                        "id": null,
+                        "name": "否"
+                    }
+                ],
+                "optionsExpression": null
+            }
         ],
-        "optionsExpression": null
-      }
-    ],
-    "outcomes": []
-}
+        "outcomes": []
+    }

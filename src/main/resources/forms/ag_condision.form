@@ -1,15 +1,15 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "评估患者属于部分控制的什么情况？",
+    "key": "ag_condision",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "评估患者属于部分控制的什么情况？",
             "type": "radio-buttons",
-            "value": "是",
-            "required": true,
+            "value": "符合1项",
+            "required": false,
             "readOnly": false,
             "overrideId": false,
             "placeholder": null,
@@ -19,11 +19,11 @@
             "options": [
                 {
                     "id": null,
-                    "name": "是"
+                    "name": "符合1项"
                 },
                 {
                     "id": null,
-                    "name": "否"
+                    "name": "符合2项"
                 }
             ],
             "optionsExpression": null

@@ -1,33 +1,33 @@
 {
-    "name": "是否有哮喘病史？",
+    "name": "是否有哮喘或慢阻肺病史？",
     "key": "g4",
     "version": 0,
     "fields": [
-      {
-        "fieldType": "OptionFormField",
-        "id": "choice",
-        "name": "是否有哮喘病史",
-        "type": "radio-buttons",
-        "value": "是",
-        "required": false,
-        "readOnly": false,
-        "overrideId": true,
-        "placeholder": null,
-        "layout": null,
-        "optionType": null,
-        "hasEmptyValue": null,
-        "options": [
-          {
+        {
+            "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "是"
-          },
-          {
-            "id": "choice",
-            "name": "否"
-          }
-        ],
-        "optionsExpression": null
-      }
+            "name": "是否有哮喘病史",
+            "type": "radio-buttons",
+            "value": "是",
+            "required": true,
+            "readOnly": false,
+            "overrideId": true,
+            "placeholder": null,
+            "layout": null,
+            "optionType": null,
+            "hasEmptyValue": null,
+            "options": [
+                {
+                    "id": null,
+                    "name": "是"
+                },
+                {
+                    "id": null,
+                    "name": "否"
+                }
+            ],
+            "optionsExpression": null
+        }
     ],
     "outcomes": []
 }

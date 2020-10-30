@@ -1,0 +1,45 @@
+{
+    "name": "症状发生频率？",
+    "key": "ag_symptoms_freq",
+    "version": 0,
+    "fields": [
+        {
+            "fieldType": "OptionFormField",
+            "id": "choice",
+            "name": "症状发生频率？",
+            "type": "radio-buttons",
+            "value": "选项 1",
+            "required": false,
+            "readOnly": false,
+            "overrideId": true,
+            "placeholder": null,
+            "layout": null,
+            "optionType": null,
+            "hasEmptyValue": null,
+            "options": [
+                {
+                    "id": null,
+                    "name": "症状少于一个月两次"
+                },
+                {
+                    "id": null,
+                    "name": "每个月至少有2次症状发作"
+                },
+                {
+                    "id": null,
+                    "name": "多数时间有症状，每周至少1次夜醒"
+                },
+                {
+                    "id": null,
+                    "name": "多数时间有症状，每周至少1次夜醒且肺功能差"
+                },
+                {
+                    "id": null,
+                    "name": "严重难治性哮喘患者也可能需要应用短期OCS"
+                }
+            ],
+            "optionsExpression": null
+        }
+    ],
+    "outcomes": []
+}

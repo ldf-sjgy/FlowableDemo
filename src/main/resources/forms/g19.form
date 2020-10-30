@@ -1,41 +1,41 @@
 {
-  "name": "AECOPD病情严重程度评估级别？",
-  "key": "g19",
-  "version": 0,
-  "fields": [
-    {
-      "fieldType": "OptionFormField",
-      "id": "choice",
-      "name": "AECOPD病情严重程度评估级别？",
-      "type": "radio-buttons",
-      "value": "轻度   症状: 步行或上楼时气短可有焦虑； 呼吸频率: 轻度增快； 胸部体征: 散在哮鸣音； 肺功能: 正常； PaO2: 正常； PaCO2: < 45mmHg； SaO2: >95%",
-      "required": true,
-      "readOnly": false,
-      "overrideId": true,
-      "placeholder": null,
-      "layout": null,
-      "optionType": null,
-      "hasEmptyValue": null,
-      "options": [
+    "name": "病情严重程度评估级别？",
+    "key": "g19",
+    "version": 0,
+    "fields": [
         {
-          "id": null,
-          "name": "轻度   症状: 步行或上楼时气短可有焦虑； 呼吸频率: 轻度增快； 胸部体征: 散在哮鸣音； 肺功能: 正常； PaO2: 正常； PaCO2: < 45mmHg； SaO2: >95%"
-        },
-        {
-          "id": null,
-          "name": "中度   症状:  稍事活动感气短、讲话常正常,时有焦虑； 呼吸频率: 增加； 胸部体征:  三凹征响亮弥漫哮鸣音、心率增快，奇脉； 肺功能:  舒张支气管后PEF占、预计值60% -80%； PaO2: 60 ~ 80mmHg； PaCO2: ≤45mmHg； SaO2: 91%~ 95%；"
-        },
-        {
-          "id": null,
-          "name": "重度   症状:  休息时气短,端坐呼吸、单字表达,常有焦虑烦躁； 呼吸频率: > 30次/分； 胸部体征:  三凹征响亮弥漫哮鸣音、心率增快 奇脉； 肺功能:  舒张支气管后PEF占预计值<60%； PaO2: <60mmHg； PaCO2: > 45mmHg； SaO2: ≤90% ,pH可降低；"
-        },
-        {
-          "id": null,
-          "name": "危重   症状:  不能讲话、嗜睡或意识模糊； 呼吸频率: —； 胸部体征:  胸腹矛盾运动、哮鸣音减弱或消失、脉率不规则； 肺功能: 不可测量； PaO2: 严重低氧血症； PaCO2: 严重高碳酸血症； SaO2: pH降低；"
+            "fieldType": "OptionFormField",
+            "id": "choice",
+            "name": "病情严重程度评估级别？",
+            "type": "radio-buttons",
+            "value": "<b>轻度</b><br/> 症状: 步行或上楼时气短可有焦虑<br/> 呼吸频率: 轻度增快<br/> 胸部体征: 散在哮鸣音<br/> 肺功能: 正常<br/> PaO2: 正常<br/> PaCO2: < 45mmHg<br/> SaO2: >95%",
+            "required": true,
+            "readOnly": false,
+            "overrideId": false,
+            "placeholder": null,
+            "layout": null,
+            "optionType": null,
+            "hasEmptyValue": null,
+            "options": [
+                {
+                    "id": null,
+                    "name": "轻度  症状: 步行或上楼时气短可有焦虑; 呼吸频率: 轻度增快; 胸部体征: 散在哮鸣音; 肺功能: 正常; PaO2: 正常; PaCO2: < 45mmHg; SaO2: >95%"
+                },
+                {
+                    "id": null,
+                    "name": "中度  症状: 稍事活动感气短、讲话常正常,时有焦虑; 呼吸频率: 增加; 胸部体征: \t三凹征响亮弥漫哮鸣音、心率增快，奇脉; 肺功能: 舒张支气管后PEF占、预计值60% -80%; PaO2: 60 ~ 80mmHg; PaCO2: ≤45mmHg; SaO2: 91%~ 95%;"
+                },
+                {
+                    "id": null,
+                    "name": "重度  症状: 休息时气短,端坐呼吸、单字表达,常有焦虑烦躁; 呼吸频率: > 30次/分; 胸部体征: 三凹征响亮弥漫哮鸣音、心率增快，奇脉; 肺功能: 舒张支气管后PEF占预计值<60%; PaO2: <60mmHg<br/> PaCO2: > 45mmHg; SaO2: ≤90% ,pH可降低;"
+                },
+                {
+                    "id": null,
+                    "name": "危重度  症状: 不能讲话、嗜睡或意识模糊; 呼吸频率: —; 胸部体征: 胸腹矛盾运动、哮鸣音减弱或消失、脉率不规则; 肺功能: 不可测量; PaO2: 严重低氧血症; PaCO2: 严重高碳酸血症; SaO2: pH降低;"
+                }
+            ],
+            "optionsExpression": null
         }
-      ],
-      "optionsExpression": null
-    }
-  ],
-  "outcomes": []
+    ],
+    "outcomes": []
 }

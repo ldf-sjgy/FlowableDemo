@@ -1,15 +1,15 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "评估结果属于以下哪种情况？",
+    "key": "ag_assess_result_condision",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "评估结果属于以下哪种情况？",
             "type": "radio-buttons",
-            "value": "是",
-            "required": true,
+            "value": "1.症状稳定",
+            "required": false,
             "readOnly": false,
             "overrideId": false,
             "placeholder": null,
@@ -19,11 +19,15 @@
             "options": [
                 {
                     "id": null,
-                    "name": "是"
+                    "name": "1.症状稳定"
                 },
                 {
                     "id": null,
-                    "name": "否"
+                    "name": "2.症状明显缓解"
+                },
+                {
+                    "id": null,
+                    "name": "3.症状无明显缓解，需要住院或行机械通气治疗"
                 }
             ],
             "optionsExpression": null

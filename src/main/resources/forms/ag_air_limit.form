@@ -1,17 +1,17 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "气流受限程度情况？",
+    "key": "ag_air_limit",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "气流受限程度情况？哮喘未控制状态或哮喘急性发作",
             "type": "radio-buttons",
-            "value": "是",
-            "required": true,
+            "value": "不危急（哮喘未控制状态）",
+            "required": false,
             "readOnly": false,
-            "overrideId": false,
+            "overrideId": true,
             "placeholder": null,
             "layout": null,
             "optionType": null,
@@ -19,11 +19,11 @@
             "options": [
                 {
                     "id": null,
-                    "name": "是"
+                    "name": "不危急（哮喘未控制状态）"
                 },
                 {
                     "id": null,
-                    "name": "否"
+                    "name": "危急（急性发作）"
                 }
             ],
             "optionsExpression": null

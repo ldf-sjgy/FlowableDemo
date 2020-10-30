@@ -1,17 +1,17 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "是否处于哮喘急性发作状态？",
+    "key": "ag_acute_attack",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "是否处于哮喘急性发作状态？",
             "type": "radio-buttons",
             "value": "是",
-            "required": true,
+            "required": false,
             "readOnly": false,
-            "overrideId": false,
+            "overrideId": true,
             "placeholder": null,
             "layout": null,
             "optionType": null,

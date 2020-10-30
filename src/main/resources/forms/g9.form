@@ -3,31 +3,31 @@
     "key": "g9",
     "version": 0,
     "fields": [
-      {
-        "fieldType": "OptionFormField",
-        "id": "choice",
-        "name": "有用力屏气史吗？",
-        "type": "radio-buttons",
-        "value": "有",
-        "required": true,
-        "readOnly": false,
-        "overrideId": true,
-        "placeholder": null,
-        "layout": null,
-        "optionType": null,
-        "hasEmptyValue": null,
-        "options": [
-          {
-            "id": null,
-            "name": "有"
-          },
-          {
-            "id": null,
-            "name": "没有"
-          }
-        ],
-        "optionsExpression": null
-      }
+        {
+            "fieldType": "OptionFormField",
+            "id": "choice",
+            "name": "有用力屏气史吗？",
+            "type": "radio-buttons",
+            "value": "有",
+            "required": true,
+            "readOnly": false,
+            "overrideId": false,
+            "placeholder": null,
+            "layout": null,
+            "optionType": null,
+            "hasEmptyValue": null,
+            "options": [
+                {
+                    "id": null,
+                    "name": "有"
+                },
+                {
+                    "id": null,
+                    "name": "没有"
+                }
+            ],
+            "optionsExpression": null
+        }
     ],
     "outcomes": []
 }

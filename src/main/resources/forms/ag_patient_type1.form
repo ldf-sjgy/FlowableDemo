@@ -1,15 +1,15 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "判断是哮喘患者还是慢阻肺患者？",
+    "key": "ag_patient_type1",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "判断患者类型：哮喘患者or慢阻肺患者？",
             "type": "radio-buttons",
-            "value": "是",
-            "required": true,
+            "value": "哮喘患者",
+            "required": false,
             "readOnly": false,
             "overrideId": false,
             "placeholder": null,
@@ -19,11 +19,11 @@
             "options": [
                 {
                     "id": null,
-                    "name": "是"
+                    "name": "哮喘患者"
                 },
                 {
                     "id": null,
-                    "name": "否"
+                    "name": "慢阻肺患者"
                 }
             ],
             "optionsExpression": null

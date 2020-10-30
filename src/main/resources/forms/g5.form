@@ -3,31 +3,31 @@
     "key": "g5",
     "version": 0,
     "fields": [
-      {
-        "fieldType": "OptionFormField",
-        "id": "choice",
-        "name": "【检查结果】是否有气道异物证据？",
-        "type": "radio-buttons",
-        "value": "是",
-        "required": false,
-        "readOnly": false,
-        "overrideId": true,
-        "placeholder": null,
-        "layout": null,
-        "optionType": null,
-        "hasEmptyValue": null,
-        "options": [
-          {
-            "id": "result",
-            "name": "是"
-          },
-          {
-            "id": "result",
-            "name": "否"
-          }
-        ],
-        "optionsExpression": null
-      }
+        {
+            "fieldType": "OptionFormField",
+            "id": "choice",
+            "name": "【检查结果】是否有气道异物证据？",
+            "type": "radio-buttons",
+            "value": "是",
+            "required": true,
+            "readOnly": false,
+            "overrideId": false,
+            "placeholder": null,
+            "layout": null,
+            "optionType": null,
+            "hasEmptyValue": null,
+            "options": [
+                {
+                    "id": null,
+                    "name": "是"
+                },
+                {
+                    "id": null,
+                    "name": "否"
+                }
+            ],
+            "optionsExpression": null
+        }
     ],
     "outcomes": []
 }

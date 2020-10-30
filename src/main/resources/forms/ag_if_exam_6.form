@@ -1,12 +1,12 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "是否有呼吸专科医师是否可以完成下列检查？",
+    "key": "ag_if_exam_6",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "是否有呼吸专科医师,是否可以完成下列检查：[ D-二聚体 、动脉血气分析、心电图、心脏超声、CT、肺动脉造影 ]？",
             "type": "radio-buttons",
             "value": "是",
             "required": true,

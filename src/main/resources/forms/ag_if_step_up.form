@@ -1,15 +1,15 @@
 {
-    "name": "【检查结果】是否有心源性证据？",
-    "key": "g12",
+    "name": "评估患者治疗方案是否还有升阶梯的可能？",
+    "key": "ag_if_step_up",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "【检查结果】是否有心源性证据？",
+            "name": "评估患者治疗方案是否还有升阶梯的可能？",
             "type": "radio-buttons",
             "value": "是",
-            "required": true,
+            "required": false,
             "readOnly": false,
             "overrideId": false,
             "placeholder": null,
