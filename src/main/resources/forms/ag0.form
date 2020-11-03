@@ -19,7 +19,7 @@
             "options": [
                 {
                     "id": null,
-                    "name": "提示信息已读"
+                    "name": "已按提示信息完成问诊"
                 }
             ],
             "optionsExpression": null
