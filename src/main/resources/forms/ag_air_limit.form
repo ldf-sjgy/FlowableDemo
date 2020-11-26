@@ -6,7 +6,7 @@
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "气流受限程度情况？哮喘未控制状态或哮喘急性发作",
+            "name": "气流受限程度情况？",
             "type": "radio-buttons",
             "value": "不危急（哮喘未控制状态）",
             "required": false,

@@ -1,0 +1,45 @@
+{
+    "name": "mMRC评分，询问过去一年中急性加重次数？",
+    "key": "ag_last_year_ae_num",
+    "version": 0,
+    "fields": [
+        {
+            "fieldType": "OptionFormField",
+            "id": "choice",
+            "name": "mMRC评分，询问过去一年中急性加重次数？",
+            "type": "radio-buttons",
+            "value": "0级只有在剧烈活动时感到呼吸困难",
+            "required": false,
+            "readOnly": false,
+            "overrideId": true,
+            "placeholder": null,
+            "layout": null,
+            "optionType": null,
+            "hasEmptyValue": null,
+            "options": [
+                {
+                    "id": null,
+                    "name": "0级只有在剧烈活动时感到呼吸困难"
+                },
+                {
+                    "id": null,
+                    "name": "1级在平地快步行走或步行爬小坡时出现气短"
+                },
+                {
+                    "id": null,
+                    "name": "2级由于气短，平地行走时比同龄人慢或者需要停下来休息"
+                },
+                {
+                    "id": null,
+                    "name": "3级在平地行走约100米或数分钟后需要停下来喘气"
+                },
+                {
+                    "id": null,
+                    "name": "4级因为严重呼吸困难而不能离开家，或在穿脱衣服时出现呼吸困难"
+                }
+            ],
+            "optionsExpression": null
+        }
+    ],
+    "outcomes": []
+}

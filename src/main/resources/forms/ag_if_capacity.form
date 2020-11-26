@@ -1,12 +1,12 @@
 {
-    "name": "本医疗机构能否完成肺功能检查、支气管舒张试验、激发试验？",
+    "name": "本医疗机构能否完成肺功能检查、支气管舒张试验？",
     "key": "ag_if_capacity",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "本医疗机构能否完成肺功能检查、支气管舒张试验、激发试验？",
+            "name": "本医疗机构能否完成肺功能检查、支气管舒张试验？",
             "type": "radio-buttons",
             "value": "能",
             "required": false,

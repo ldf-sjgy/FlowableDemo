@@ -1,17 +1,17 @@
 {
-    "name": "判断患者是否规范用药？",
-    "key": "g20",
+    "name": "治疗方案评估？",
+    "key": "ag_treatment_assess",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "判断患者是否规范用药？",
+            "name": "治疗方案评估？",
             "type": "radio-buttons",
-            "value": "是",
-            "required": true,
+            "value": "过度治疗",
+            "required": false,
             "readOnly": false,
-            "overrideId": false,
+            "overrideId": true,
             "placeholder": null,
             "layout": null,
             "optionType": null,
@@ -19,11 +19,11 @@
             "options": [
                 {
                     "id": null,
-                    "name": "是"
+                    "name": "过度治疗"
                 },
                 {
                     "id": null,
-                    "name": "否"
+                    "name": "治疗不足"
                 }
             ],
             "optionsExpression": null

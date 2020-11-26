@@ -603,12 +603,22 @@ public class DiagnosisController {
         if (task == null) {
             return "流程不存在";
         }
+        //入口参数的骨龄与年龄的差值是以月为单位的，转为以年为单位
+        boneAgeDiff = boneAgeDiff / 12;
         //骨龄初步诊断
         Map<String, Object> variables = new HashMap<>();
         variables.put("SSS", SSS);
         variables.put("boneAgePercentile", boneAgePercentile);
         variables.put("boneAgeDiff", boneAgeDiff);
         String firstDiagnosis;
+        //  实际年龄5岁0个月   骨龄年龄3岁0个月
+        //  boneAgeDiff = 骨龄年龄 - 实际年龄   实际7岁   骨龄9岁 <3% 12.7.15   147  175
+        //  boneAgeDiff = 3岁3月 - 4岁0月 = -9月
+        //  boneAgeDiff = 39 - 48 = -9月
+        //  -9/12 = -0.75岁
+        //  家族性矮小——祖父：男<1.60米   女<1.50米
+        //          ——父母：男<1.60米   女<1.50米
+        //  早产：SGA
         if (boneAgePercentile < 6 || boneAgeDiff <= -2) { //骨龄落后2岁及以上
             firstDiagnosis = "【 考虑矮小，建议进一步检查 】";
         } else if (SSS.equals("提前") && boneAgeDiff >= 2) {//骨龄提前2岁及以上

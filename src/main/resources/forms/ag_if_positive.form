@@ -1,17 +1,17 @@
 {
-    "name": "判断患者是否规范用药？",
-    "key": "g20",
+    "name": "舒张试验是否阳性？",
+    "key": "ag_if_positive",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "判断患者是否规范用药？",
+            "name": "舒张试验是否阳性？",
             "type": "radio-buttons",
             "value": "是",
-            "required": true,
+            "required": false,
             "readOnly": false,
-            "overrideId": false,
+            "overrideId": true,
             "placeholder": null,
             "layout": null,
             "optionType": null,
