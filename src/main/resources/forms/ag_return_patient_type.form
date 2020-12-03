@@ -1,17 +1,17 @@
 {
-    "name": "是否处于慢阻肺/哮喘急性发作状态？",
-    "key": "ag_acute_attack",
+    "name": "判断复诊患者类型？",
+    "key": "ag_return_patient_type",
     "version": 0,
     "fields": [
         {
             "fieldType": "OptionFormField",
             "id": "choice",
-            "name": "是否处于慢阻肺/哮喘急性发作状态？",
+            "name": "判断复诊患者类型？",
             "type": "radio-buttons",
-            "value": "是",
+            "value": "慢阻肺复诊患者",
             "required": false,
             "readOnly": false,
-            "overrideId": true,
+            "overrideId": false,
             "placeholder": null,
             "layout": null,
             "optionType": null,
@@ -19,11 +19,11 @@
             "options": [
                 {
                     "id": null,
-                    "name": "是"
+                    "name": "慢阻肺复诊患者"
                 },
                 {
                     "id": null,
-                    "name": "否"
+                    "name": "哮喘复诊患者"
                 }
             ],
             "optionsExpression": null

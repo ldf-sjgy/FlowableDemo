@@ -1,5 +1,5 @@
 {
-    "name": "气流受限程度情况？",
+    "name": "气流受限程度情况？（根据症状判断）",
     "key": "ag_air_limit",
     "version": 0,
     "fields": [
@@ -8,7 +8,7 @@
             "id": "choice",
             "name": "气流受限程度情况？",
             "type": "radio-buttons",
-            "value": "不危急（哮喘未控制状态）",
+            "value": "不危急",
             "required": false,
             "readOnly": false,
             "overrideId": true,
@@ -19,11 +19,11 @@
             "options": [
                 {
                     "id": null,
-                    "name": "不危急（哮喘未控制状态）"
+                    "name": "不危急"
                 },
                 {
                     "id": null,
-                    "name": "危急（急性发作）"
+                    "name": "危急"
                 }
             ],
             "optionsExpression": null

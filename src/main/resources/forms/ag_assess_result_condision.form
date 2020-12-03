@@ -8,7 +8,7 @@
             "id": "choice",
             "name": "评估结果属于以下哪种情况？",
             "type": "radio-buttons",
-            "value": "1.症状稳定",
+            "value": "1.症状相对稳定，保持[中度]严重程度",
             "required": false,
             "readOnly": false,
             "overrideId": false,
@@ -19,15 +19,15 @@
             "options": [
                 {
                     "id": null,
-                    "name": "1.症状稳定"
+                    "name": "1.症状相对稳定，保持[中度]严重程度"
                 },
                 {
                     "id": null,
-                    "name": "2.症状明显缓解"
+                    "name": "2.症状明显缓解，严重程度降低为[轻度]"
                 },
                 {
                     "id": null,
-                    "name": "3.症状无明显缓解，需要住院或行机械通气治疗"
+                    "name": "3.症状无明显缓解，严重程度达到或持续为[重度][危重度]，需要住院或行机械通气治疗"
                 }
             ],
             "optionsExpression": null

@@ -22,7 +22,7 @@
     <userTask id="sid-48609FDB-49C0-4F02-90FB-1A261AEA7B79" name="【检查结果】有危急值：进行处理" flowable:formFieldValidation="true">
       <documentation>【检查结果】有危急值：进行处理</documentation>
     </userTask>
-    <userTask id="sid-3141006F-15D2-4B12-BAB1-DF3C1E16CE88" name="是否有呛咳误吸高危因素？" flowable:formKey="g3" flowable:formFieldValidation="true"></userTask>
+    <userTask id="sid-3141006F-15D2-4B12-BAB1-DF3C1E16CE88" name="是否有呛咳误吸高危因素？ [ 患者醉酒、脑血管病变（脑卒中、颅内占位等）]" flowable:formKey="g3" flowable:formFieldValidation="true"></userTask>
     <exclusiveGateway id="g3" default="sid-DCF02E50-72C7-41B9-95F1-7FA7D82C972D"></exclusiveGateway>
     <sequenceFlow id="sid-D5F8B96F-2B4E-4684-BA15-ADC7CA9D322F" sourceRef="sid-3141006F-15D2-4B12-BAB1-DF3C1E16CE88" targetRef="g3"></sequenceFlow>
     <userTask id="sid-76732FD4-3D21-4CBD-B939-19ED11E2E45D" name="【检查判断】
@@ -109,10 +109,6 @@
     </sequenceFlow>
     <sequenceFlow id="sid-BCD11AEF-179B-48CE-BAE1-AD42E385C915" name="否" sourceRef="sid-54C35DF9-5E5F-472C-A2CE-A6AC36F01C8B" targetRef="sid-D7AC1159-845A-4440-B195-7C20D4167B02"></sequenceFlow>
     <sequenceFlow id="sid-05429670-508F-4BD3-9C19-AEABF99FC435" sourceRef="sid-02B4E5EE-6B0A-4A10-9CB6-E9738557F523" targetRef="sid-8E908731-E858-4651-8FB3-FC16F0B5607B"></sequenceFlow>
-    <sequenceFlow id="sid-4AD23D07-DC33-4B61-ADD2-9041B0C4CEE5" name="是 " sourceRef="sid-906A3A89-4F55-4844-8934-A3C1601BC37F" targetRef="sid-5EF6AB91-68D7-46C8-BC9B-F0002146C155">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-EE4C3467-BE6C-4FAB-BF12-C5BBF50FBB13" name="否" sourceRef="sid-906A3A89-4F55-4844-8934-A3C1601BC37F" targetRef="sid-A472EF51-CBFD-43A4-BAD9-F7B65ED6E77F"></sequenceFlow>
     <sequenceFlow id="sid-4E2992A7-DBD1-483D-88C8-E190BFBCE7CC" name="是" sourceRef="sid-F0ADD511-737A-4672-A453-EA26FAD11159" targetRef="sid-A7014B5B-58BE-46E0-B25C-9CDE6ECA8691">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
@@ -190,7 +186,8 @@
     <sequenceFlow id="sid-DF80F839-6FB1-402C-9F29-5BBA782C8AFC" sourceRef="sid-B7178BB8-3A8E-40FF-A6D1-32E3706D6357" targetRef="sid-C20246FB-2C0C-49AD-B1E9-CDCAB52DB930"></sequenceFlow>
     <userTask id="sid-26B3B58F-75D4-4F05-9FF3-D75F0F8CE9B3" name="生命体征监测（血压、心率、血氧饱和度、血气分析等）、氧疗、短效支气管扩张剂、抗生素、糖皮质激素" flowable:formFieldValidation="true">
       <documentation>【诊疗建议】&lt;br/&gt;
-生命体征监测（血压、心率、血氧饱和度、血气分析等）、氧疗、短效支气管扩张剂、抗生素、糖皮质激素</documentation>
+1.【生命体征监测】血压、心率、血氧饱和度、血气分析等&lt;br/&gt;
+2.【推荐治疗】氧疗、短效支气管扩张剂、抗生素、糖皮质激素</documentation>
     </userTask>
     <userTask id="sid-02B4E5EE-6B0A-4A10-9CB6-E9738557F523" name="【推荐处理方案】生命体征监测、原发疾病诊断治疗" flowable:formFieldValidation="true">
       <documentation>【推荐处理方案】生命体征监测、原发疾病诊断治疗</documentation>
@@ -200,8 +197,8 @@
 -推荐胸部CT检查" flowable:formFieldValidation="true">
       <documentation>【推荐检查】胸部x线检查、推荐胸部CT检查</documentation>
     </userTask>
-    <userTask id="sid-727A58F2-35E8-4589-8F45-35BF7F955A24" name="【推荐处理方案】对症支持、气管镜、手术" flowable:formFieldValidation="true">
-      <documentation>【推荐处理方案】对症支持、气管镜、手术</documentation>
+    <userTask id="sid-727A58F2-35E8-4589-8F45-35BF7F955A24" name="【推荐处理方案】对症支持（生命体征监测、吸氧等）、气管镜、手术（需要转诊到上一级医院）" flowable:formFieldValidation="true">
+      <documentation>【推荐处理方案】对症支持（生命体征监测、吸氧等）、气管镜、手术（需要转诊到上一级医院）</documentation>
     </userTask>
     <userTask id="sid-3BA6BDA0-9AFA-4C01-81ED-C5A048CEF0D8" name="本医疗机构能否完成肺功能检查、支气管舒张试验？" flowable:formKey="ag_if_capacity" flowable:formFieldValidation="true"></userTask>
     <userTask id="sid-F4ADA085-3598-4BA4-89F9-9187E781CF62" name="1.4.1.1.2推荐检查 -D-二聚体 -动脉血气分析 -心电图 -心脏超声 -强化CT、 -肺动脉造影" flowable:formFieldValidation="true">
@@ -314,7 +311,6 @@
     </sequenceFlow>
     <sequenceFlow id="sid-CDBF7C9B-39F4-453F-A68B-AE51B0197FBA" sourceRef="sid-E930AE5B-0248-4AE9-B206-6A39CFBBEFD3" targetRef="sid-5D681D4B-D329-47BC-9A88-AF465D7BAAA7"></sequenceFlow>
     <sequenceFlow id="sid-9387C3A7-F3FB-484A-A16C-205C742EDAF4" name="否" sourceRef="sid-7B4FFCD8-592C-4195-A787-423A0BB46C0B" targetRef="sid-963E2C81-4B56-443B-A68B-30B7E553DABE"></sequenceFlow>
-    <sequenceFlow id="sid-F5D76C82-77EE-476A-8FD6-DC39C27F7CCB" sourceRef="sid-2D49DB77-690F-4468-BCA7-B7B69A581D48" targetRef="sid-FA8B3F75-863E-405D-8BE6-D7FCA1D87073"></sequenceFlow>
     <sequenceFlow id="sid-6F9B2ABF-195F-4571-8453-9A01B4E7C60B" name="否" sourceRef="sid-12E18DC7-EDD6-4347-88E8-5BC93F1D1CDB" targetRef="sid-C65D19E9-839B-4A1C-8C8D-2683F4BFC8AF"></sequenceFlow>
     <sequenceFlow id="sid-C2EA0824-E2FB-4BD6-8B12-5ABE355B83F5" sourceRef="sid-62399B8E-1125-40E3-B7F6-581CBB767876" targetRef="sid-7B4FFCD8-592C-4195-A787-423A0BB46C0B"></sequenceFlow>
     <userTask id="sid-6CFE40B9-9013-4BEF-9887-17AB34D3819B" name="【问诊结果】有一种或多种症状" flowable:formFieldValidation="true">
@@ -375,7 +371,7 @@
     </userTask>
     <sequenceFlow id="sid-FC28F1D1-557F-4897-94D3-982D5A73F7E0" sourceRef="sid-D7AC1159-845A-4440-B195-7C20D4167B02" targetRef="sid-8E908731-E858-4651-8FB3-FC16F0B5607B"></sequenceFlow>
     <userTask id="sid-5EF6AB91-68D7-46C8-BC9B-F0002146C155" name="【检查结果】白细胞总数、中性粒细胞百分比、CRP、PCT指标升高" flowable:formFieldValidation="true">
-      <documentation>【检查结果】白细胞总数、中性粒细胞百分比、CRP、PCT指标升高</documentation>
+      <documentation>【检查结果】白细胞总数、中性粒细胞百分比、CRP、PCT指标异常（升高）</documentation>
     </userTask>
     <userTask id="sid-A472EF51-CBFD-43A4-BAD9-F7B65ED6E77F" name="【检查结果】白细胞总数、中性粒细胞百分比、CRP、PCT指标无明显异常" flowable:formFieldValidation="true">
       <documentation>【检查结果】白细胞总数、中性粒细胞百分比、CRP、PCT指标无明显异常</documentation>
@@ -397,14 +393,11 @@
     <sequenceFlow id="sid-00D36210-2093-4CC4-B24B-B6FBB8AB84D4" sourceRef="sid-C65D19E9-839B-4A1C-8C8D-2683F4BFC8AF" targetRef="sid-A4CC0D6F-68DF-4C55-B8E1-9828ECF4FB78"></sequenceFlow>
     <exclusiveGateway id="sid-3A7F6904-EBCA-45CA-8745-92246B4C1F8F" default="sid-D1D7E5F6-4430-4A0A-8E59-743C2D9E888F"></exclusiveGateway>
     <sequenceFlow id="sid-278D24F8-47F2-4C83-9082-FD7CA83C1A97" sourceRef="sid-A4CC0D6F-68DF-4C55-B8E1-9828ECF4FB78" targetRef="sid-3A7F6904-EBCA-45CA-8745-92246B4C1F8F"></sequenceFlow>
-    <userTask id="sid-4D1D6559-F554-4292-B9D1-BD5BB8EB5974" name="气流受限程度情况？" flowable:formKey="ag_air_limit" flowable:formFieldValidation="true"></userTask>
+    <userTask id="sid-4D1D6559-F554-4292-B9D1-BD5BB8EB5974" name="气流受限程度情况？（根据症状判断）" flowable:formKey="ag_air_limit" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-6E91470A-5704-48FE-B945-8F79C83EF260" sourceRef="sid-13913D34-40AD-4CDA-BC92-84D63A812E26" targetRef="sid-4D1D6559-F554-4292-B9D1-BD5BB8EB5974"></sequenceFlow>
-    <sequenceFlow id="sid-27B2A77A-547E-4EF7-AC32-46D46D29D692" name="是" sourceRef="sid-12E18DC7-EDD6-4347-88E8-5BC93F1D1CDB" targetRef="sid-13913D34-40AD-4CDA-BC92-84D63A812E26">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
-    </sequenceFlow>
     <exclusiveGateway id="sid-FCB088DC-809E-4A77-9338-FEC53177E288" default="sid-BCD2FDB8-8814-447A-8B57-081784EB9930"></exclusiveGateway>
     <sequenceFlow id="sid-B3BA7CF3-35AE-411B-9DB5-1A7584B235B8" sourceRef="sid-4D1D6559-F554-4292-B9D1-BD5BB8EB5974" targetRef="sid-FCB088DC-809E-4A77-9338-FEC53177E288"></sequenceFlow>
-    <userTask id="sid-2681CAD0-AA47-48ED-98C7-117556772605" name="是否有哮喘病史？（有无经过严格的肺功能检查、舒张试验、激发试验、PEF并确诊）" flowable:formKey="ag1" flowable:formFieldValidation="true"></userTask>
+    <userTask id="sid-2681CAD0-AA47-48ED-98C7-117556772605" name="是否有慢阻肺/哮喘病史？（有无经过严格的肺功能检查、舒张试验、激发试验、PEF并确诊）" flowable:formKey="ag1" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-C6795AE1-82C0-464D-9017-CC97B3BF3873" sourceRef="sid-647EFA5A-E3F9-445E-B470-899298149BB2" targetRef="sid-2681CAD0-AA47-48ED-98C7-117556772605"></sequenceFlow>
     <exclusiveGateway id="sid-F359FC96-6981-4973-9F44-D785CE1F00F9" default="sid-1C8D0154-C047-4D68-9AC2-490DD306BBBB"></exclusiveGateway>
     <sequenceFlow id="sid-6745E5DB-4D62-464C-8E6D-B6AF9C88894F" sourceRef="sid-2681CAD0-AA47-48ED-98C7-117556772605" targetRef="sid-F359FC96-6981-4973-9F44-D785CE1F00F9"></sequenceFlow>
@@ -450,22 +443,18 @@
     <exclusiveGateway id="sid-45D1DB6F-30C0-4913-8BE9-1E5C67597408" default="sid-AA8A5F2E-5EE9-442E-B2A2-153A1AD86284"></exclusiveGateway>
     <sequenceFlow id="sid-352057AD-73C0-4278-BE6F-2E9C9E35AE8D" sourceRef="sid-6AEBAEBF-2A51-4B85-A684-5E6EE3F8B394" targetRef="sid-45D1DB6F-30C0-4913-8BE9-1E5C67597408"></sequenceFlow>
     <sequenceFlow id="sid-11BBC0C0-ACF6-41FE-8DAD-6C5FD261E765" sourceRef="sid-608B37E0-5ABC-4212-8117-213D0BCF33C8" targetRef="sid-6AEBAEBF-2A51-4B85-A684-5E6EE3F8B394"></sequenceFlow>
-    <userTask id="sid-CC332D92-367A-4E96-8318-9FA5E380C59A" name="是否处于哮喘急性发作状态？" flowable:formKey="ag_acute_attack" flowable:formFieldValidation="true"></userTask>
+    <userTask id="sid-CC332D92-367A-4E96-8318-9FA5E380C59A" name="是否处于慢阻肺/哮喘急性发作状态？" flowable:formKey="ag_acute_attack" flowable:formFieldValidation="true"></userTask>
     <exclusiveGateway id="sid-A6FBF498-BD26-4FAC-B5B2-DDEA1BC48FAE" default="sid-4CD671AD-25F1-448D-BA51-181F7A890B5C"></exclusiveGateway>
     <sequenceFlow id="sid-3E213D77-0F5C-4F50-8674-F74B86EF44D1" sourceRef="sid-CC332D92-367A-4E96-8318-9FA5E380C59A" targetRef="sid-A6FBF498-BD26-4FAC-B5B2-DDEA1BC48FAE"></sequenceFlow>
-    <userTask id="sid-16973CD3-94F8-41D6-9DD0-A8089F8AFBBA" name="【问诊结果】复诊患者处于哮喘急症发作状态：进行干预" flowable:formFieldValidation="true">
-      <documentation>【问诊结果】复诊患者处于哮喘急症发作状态：进行干预</documentation>
+    <userTask id="sid-16973CD3-94F8-41D6-9DD0-A8089F8AFBBA" name="【问诊结果】复诊患者处于慢阻肺/哮喘急症发作状态：需要进行干预" flowable:formFieldValidation="true">
+      <documentation>【问诊结果】复诊患者处于慢阻肺/哮喘急症发作状态：需要进行干预</documentation>
     </userTask>
     <userTask id="sid-1F9A0376-F00B-46BC-954C-3210CED50285" name="【诊疗建议】进行疗效评估" flowable:formFieldValidation="true">
       <documentation>【诊疗建议】进行疗效评估</documentation>
     </userTask>
     <sequenceFlow id="sid-19680821-642D-460C-8543-44510368E5DE" sourceRef="sid-26B3B58F-75D4-4F05-9FF3-D75F0F8CE9B3" targetRef="sid-1F9A0376-F00B-46BC-954C-3210CED50285"></sequenceFlow>
     <sequenceFlow id="sid-A5249D1C-7936-488B-A813-262F31DD1FE5" sourceRef="sid-19FB70CB-B1D0-4E5A-BA31-85B7A103F8EE" targetRef="sid-60616C9F-2591-4B0E-9436-BC9F45B2C813"></sequenceFlow>
-    <userTask id="sid-4A5F0D30-660F-4294-84F8-6AFD57D4E55B" name="评估结果属于以下哪种情况？
-1.症状稳定
-2.症状明显缓解
-3.无明显缓解，需要住
-院或行机械通气治疗" flowable:formKey="ag_assess_result_condision" flowable:formFieldValidation="true"></userTask>
+    <userTask id="sid-4A5F0D30-660F-4294-84F8-6AFD57D4E55B" name="评估结果属于以下哪种情况？1.症状相对稳定，保持[中度]严重程度2.症状明显缓解，严重程度降低为[轻度]3.症状无明显缓解，严重程度达到或持续为[重度][危重度]，需要住院或行机械通气治疗" flowable:formKey="ag_assess_result_condision" flowable:formFieldValidation="true"></userTask>
     <sequenceFlow id="sid-0EC794A5-8FD3-4DCE-9603-BDBA1CA0ECB9" sourceRef="sid-1F9A0376-F00B-46BC-954C-3210CED50285" targetRef="sid-4A5F0D30-660F-4294-84F8-6AFD57D4E55B"></sequenceFlow>
     <exclusiveGateway id="sid-56076FBF-8B72-4387-A495-3C8A4D5C7717" default="sid-B4BD5590-1527-4B9C-A4E0-C0EECF4BFBD0"></exclusiveGateway>
     <sequenceFlow id="sid-E57839BB-9748-4CFE-80DC-A1820A100F92" sourceRef="sid-4A5F0D30-660F-4294-84F8-6AFD57D4E55B" targetRef="sid-56076FBF-8B72-4387-A495-3C8A4D5C7717"></sequenceFlow>
@@ -514,18 +503,15 @@ FENO
     <userTask id="sid-588619F0-CC0C-49B4-933F-D0EFC453EE1C" name="哮喘患者" flowable:formFieldValidation="true">
       <documentation>【患者类型】哮喘患者</documentation>
     </userTask>
-    <userTask id="sid-2FEC9963-EF6E-4E0A-ADD4-975D8758B27A" name="慢阻肺患者" flowable:formFieldValidation="true">
-      <documentation>【患者类型】慢阻肺患者</documentation>
+    <userTask id="sid-2FEC9963-EF6E-4E0A-ADD4-975D8758B27A" name="慢阻肺首诊患者" flowable:formFieldValidation="true">
+      <documentation>【患者类型】慢阻肺首诊患者</documentation>
     </userTask>
     <sequenceFlow id="sid-AB02EC8E-0549-4F89-BCBC-2938F4174E73" sourceRef="sid-588619F0-CC0C-49B4-933F-D0EFC453EE1C" targetRef="sid-D23EAC73-C93E-41A8-96AB-06E3CB2A0810"></sequenceFlow>
     <sequenceFlow id="sid-42E2EB91-1C9B-4BF6-A7D3-C69E8F40E677" name="突然" sourceRef="g1" targetRef="sid-97F18054-0853-46B6-9C21-74213F310B96">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="sid-4CD671AD-25F1-448D-BA51-181F7A890B5C" name="否" sourceRef="sid-A6FBF498-BD26-4FAC-B5B2-DDEA1BC48FAE" targetRef="sid-BBB28FFF-A683-4C40-B64F-F850B9B6591F"></sequenceFlow>
+    <sequenceFlow id="sid-4CD671AD-25F1-448D-BA51-181F7A890B5C" name="否" sourceRef="sid-A6FBF498-BD26-4FAC-B5B2-DDEA1BC48FAE" targetRef="sid-E911CD9D-37A6-421C-86E2-B2C421091DE0"></sequenceFlow>
     <sequenceFlow id="sid-D1D7E5F6-4430-4A0A-8E59-743C2D9E888F" name="否" sourceRef="sid-3A7F6904-EBCA-45CA-8745-92246B4C1F8F" targetRef="sid-6D31545A-5E26-4747-8CD5-8154D12E3A25"></sequenceFlow>
-    <sequenceFlow id="sid-D75621F7-5116-489C-ACB3-68D3905511CB" name="是" sourceRef="sid-A6FBF498-BD26-4FAC-B5B2-DDEA1BC48FAE" targetRef="sid-16973CD3-94F8-41D6-9DD0-A8089F8AFBBA">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
-    </sequenceFlow>
     <userTask id="sid-C07056E7-77BB-4FF3-BA79-C15B79823696" name="【治疗方案】高剂量ICS-LABA 参考表型评估加用：噻托溴铵、抗IgE药物、抗IL-5/5R药物、抗IG4R药物" flowable:formFieldValidation="true">
       <documentation>【症状频率】严重难治性哮喘患者也可能需要应用短期OCS
 【治疗方案】高剂量ICS-LABA 参考表型评估加用：噻托溴铵、抗IgE药物、抗IL-5/5R药物、抗IG4R药物</documentation>
@@ -539,8 +525,8 @@ FENO
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-DCF02E50-72C7-41B9-95F1-7FA7D82C972D" name="否" sourceRef="g3" targetRef="sid-F5476FD7-ED5C-4728-AB53-8C9CB3FCC109"></sequenceFlow>
-    <userTask id="sid-D07F4F7D-C285-4A77-8B7B-C650C0B8992B" name="【患者类型】首诊患者" flowable:formFieldValidation="true">
-      <documentation>【患者类型】首诊患者</documentation>
+    <userTask id="sid-D07F4F7D-C285-4A77-8B7B-C650C0B8992B" name="【患者类型】哮喘首诊患者" flowable:formFieldValidation="true">
+      <documentation>【患者类型】哮喘首诊患者</documentation>
     </userTask>
     <userTask id="sid-50DBF78E-0DD7-4817-A5D6-AC4CF6FEFF12" name="【患者类型】复诊患者" flowable:formFieldValidation="true">
       <documentation>【患者类型】复诊患者</documentation>
@@ -587,11 +573,10 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
     <sequenceFlow id="sid-528F2B1B-7410-4B5C-850A-7161302CCEA6" sourceRef="sid-60616C9F-2591-4B0E-9436-BC9F45B2C813" targetRef="sid-719CC9E0-3A51-4AA2-BDE2-57270AD50A8B"></sequenceFlow>
     <userTask id="sid-91715A10-0F10-4B38-BB7E-36463056981F" name="生命体征监测（血压、心率、血氧饱和度、血气分析等）、氧疗、短效支气管扩张剂、抗生素、糖皮质激素，必要时行机械通气等高级生命支持" flowable:formFieldValidation="true">
       <documentation>【诊疗建议】&lt;br/&gt;
-生命体征监测（血压、心率、血氧饱和度、血气分析等）、氧疗、短效支气管扩张剂、抗生素、糖皮质激素，必要时行机械通气等高级生命支持</documentation>
+1.【生命体征监测】血压、心率、血氧饱和度、血气分析等&lt;br/&gt;
+2.【推荐治疗】氧疗、短效支气管扩张剂、抗生素、糖皮质激素、必要时行机械通气等高级生命支持</documentation>
     </userTask>
     <sequenceFlow id="sid-EF291D4D-1E1A-4301-A676-9B6B7713CBFA" sourceRef="sid-B549AB46-DE32-49AA-A737-ECEEEF00DCCC" targetRef="sid-60616C9F-2591-4B0E-9436-BC9F45B2C813"></sequenceFlow>
-    <sequenceFlow id="sid-6630EFF3-B7C1-4FE4-B1BD-A95C3B09D71C" sourceRef="sid-DBC17AFE-85C9-4C8E-B0FC-4FEAD085F063" targetRef="sid-F97F3535-FF4E-44CA-B6C4-1D6AB3DCE781"></sequenceFlow>
-    <sequenceFlow id="sid-83B44988-7DD2-492F-BA4A-4C9A2A5F40CD" sourceRef="sid-50DBF78E-0DD7-4817-A5D6-AC4CF6FEFF12" targetRef="sid-AF15237F-8AB1-499B-9D9D-AEB3DC9A56F5"></sequenceFlow>
     <sequenceFlow id="sid-92C8E24A-D9C8-41A1-856D-E9BE56D2A39E" name="3 符合3-4项-未控制" sourceRef="sid-88E0FBC3-7A99-447E-8A22-EAD5A9F99A1C" targetRef="sid-608B37E0-5ABC-4212-8117-213D0BCF33C8"></sequenceFlow>
     <sequenceFlow id="sid-4A111F57-4E62-4E86-95DB-B15F380E205A" name="三个月以内" sourceRef="sid-2FC03AEC-DADF-49D0-BD69-1E9A4BCAE260" targetRef="sid-2618FFE5-9A41-4B6F-957F-66E3BE591BEA"></sequenceFlow>
     <sequenceFlow id="sid-8E294922-2EBA-46D8-8E63-06E52DF4D507" name="符合2项" sourceRef="sid-CB708B1E-F089-470B-9947-D951190EC8C6" targetRef="sid-31A04DAB-A5D7-4BC8-AF0C-C494714433ED"></sequenceFlow>
@@ -606,9 +591,6 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-FA09E614-1350-4837-ABA9-208BDDDAEFE5" name="否" sourceRef="g2" targetRef="sid-FE9784E2-6E20-4C1A-A7DC-BD647E646E6D"></sequenceFlow>
-    <sequenceFlow id="sid-8A60404B-5B4F-4AAF-90AA-7BCD9899AF53" name="不危急（哮喘未控制状态）" sourceRef="sid-FCB088DC-809E-4A77-9338-FEC53177E288" targetRef="sid-3BA6BDA0-9AFA-4C01-81ED-C5A048CEF0D8">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="sid-FA867F6E-6846-4C19-88E6-BA3EB7B6CCCC" name="是" sourceRef="sid-2D49DB77-690F-4468-BCA7-B7B69A581D48" targetRef="sid-0EDE369A-0A8F-40A2-8958-C7867C2D00E1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
@@ -637,19 +619,15 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
     <sequenceFlow id="sid-16B3BE2A-3575-4BB1-9427-F92CFADD2EB6" sourceRef="sid-B8B6EB88-7506-4659-B6DC-AF0FCE24E1BD" targetRef="sid-BC399FCF-6F00-410F-90E3-41FEE11A3793">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="sid-0A015BA4-7075-44BA-A6E2-8F24AF085925" sourceRef="sid-91715A10-0F10-4B38-BB7E-36463056981F" targetRef="sid-1F9A0376-F00B-46BC-954C-3210CED50285"></sequenceFlow>
     <sequenceFlow id="sid-2D8CDA66-24BA-4BF6-859C-06DF763D248C" name="1" sourceRef="sid-56076FBF-8B72-4387-A495-3C8A4D5C7717" targetRef="sid-26B3B58F-75D4-4F05-9FF3-D75F0F8CE9B3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="sid-AF4D1DE8-E6BE-4332-82F4-3A56D7DF1DFD" name="2" sourceRef="sid-56076FBF-8B72-4387-A495-3C8A4D5C7717" targetRef="sid-5E15A651-C5B8-4AF7-A1C8-FCADF23CA743">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==2}]]></conditionExpression>
     </sequenceFlow>
     <userTask id="sid-0F32F285-D8BE-495A-AC7C-7685514B0354" name="【问诊结果】无哮喘病史（没有经过严格的肺功能检查、舒张试验、激发试验、PEF确诊）" flowable:formFieldValidation="true">
       <documentation>【问诊结果】无哮喘病史（没有经过严格的肺功能检查、舒张试验、激发试验、PEF确诊）</documentation>
     </userTask>
     <sequenceFlow id="sid-DD281A0E-9B71-4846-A0B2-3F2E90046EC6" sourceRef="sid-0F32F285-D8BE-495A-AC7C-7685514B0354" targetRef="sid-4E9A2C42-6095-4D15-AD6F-F1D1E84CBA29"></sequenceFlow>
-    <userTask id="sid-024D5C8A-1C5A-42B6-94E2-5ACE4ACD1A35" name="【问诊结果】有哮喘病史（已经过严格的肺功能检查、舒张试验、激发试验、PEF确诊等至少一种检查）" flowable:formFieldValidation="true">
-      <documentation>【问诊结果】有哮喘病史（已经过严格的肺功能检查、舒张试验、激发试验、PEF确诊等至少一种检查）</documentation>
+    <userTask id="sid-024D5C8A-1C5A-42B6-94E2-5ACE4ACD1A35" name="【问诊结果】有慢阻肺/哮喘病史（已经过严格的肺功能检查、舒张试验、激发试验、PEF等的至少一种检查并确诊）" flowable:formFieldValidation="true">
+      <documentation>【问诊结果】有慢阻肺/哮喘病史（已确认经过严格的肺功能检查、舒张试验、激发试验、PEF等的至少一种检查并确诊）</documentation>
     </userTask>
     <sequenceFlow id="sid-C330E5E0-83F4-4CE2-BCE0-56E4F427B895" sourceRef="sid-024D5C8A-1C5A-42B6-94E2-5ACE4ACD1A35" targetRef="sid-CC332D92-367A-4E96-8318-9FA5E380C59A"></sequenceFlow>
     <userTask id="sid-BBB28FFF-A683-4C40-B64F-F850B9B6591F" name="【问诊结果】复诊患者没有处于哮喘急症发作状态：进行哮喘控制情况评估" flowable:formFieldValidation="true">
@@ -696,11 +674,10 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
       <documentation>【问诊结果】  患者有慢性气道疾病的典型症状</documentation>
     </userTask>
     <sequenceFlow id="sid-A0910CAD-54E6-4117-8EF0-7D8E661A703B" sourceRef="sid-B0588679-DCDD-4BB8-8B22-AD759BF23357" targetRef="sid-C20246FB-2C0C-49AD-B1E9-CDCAB52DB930"></sequenceFlow>
-    <sequenceFlow id="sid-B4BD5590-1527-4B9C-A4E0-C0EECF4BFBD0" name="3" sourceRef="sid-56076FBF-8B72-4387-A495-3C8A4D5C7717" targetRef="sid-B0588679-DCDD-4BB8-8B22-AD759BF23357"></sequenceFlow>
+    <sequenceFlow id="sid-B4BD5590-1527-4B9C-A4E0-C0EECF4BFBD0" name="3" sourceRef="sid-56076FBF-8B72-4387-A495-3C8A4D5C7717" targetRef="sid-60616C9F-2591-4B0E-9436-BC9F45B2C813"></sequenceFlow>
     <sequenceFlow id="sid-5CC5AE30-0E1F-41C3-AE59-9C2ABC716534" name="是" sourceRef="sid-719CC9E0-3A51-4AA2-BDE2-57270AD50A8B" targetRef="sid-91715A10-0F10-4B38-BB7E-36463056981F">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="sid-4979807C-F80D-4B9F-9B6C-64F764FE44CB" name="否" sourceRef="sid-719CC9E0-3A51-4AA2-BDE2-57270AD50A8B" targetRef="sid-B0588679-DCDD-4BB8-8B22-AD759BF23357"></sequenceFlow>
     <sequenceFlow id="sid-B92EECAE-D717-45BC-83B7-D9E5F4309F06" name="三个月以上" sourceRef="sid-2FC03AEC-DADF-49D0-BD69-1E9A4BCAE260" targetRef="sid-4CD0A242-3569-4370-A6EA-AF3041EF8670">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
@@ -736,7 +713,6 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
       <documentation>【检查结果】***激发试验阳性（待完善）</documentation>
     </userTask>
     <endEvent id="sid-68CD716D-CBC7-4F78-985E-F4B43CE8911F"></endEvent>
-    <sequenceFlow id="sid-BCD2FDB8-8814-447A-8B57-081784EB9930" name="危急（急性发作）" sourceRef="sid-FCB088DC-809E-4A77-9338-FEC53177E288" targetRef="sid-F13DDC83-DA72-474A-880A-06E31F85D567"></sequenceFlow>
     <userTask id="sid-826B126D-AF16-4B46-83B7-9419F223B853" name="mMRC评分，询问过去一年中急性加重次数？
 0级只有在剧烈活动时感到呼吸困难
 1级在平地快步行走或步行爬小坡时出现气短
@@ -787,10 +763,6 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
     </userTask>
     <sequenceFlow id="sid-D7D4675F-E545-4F3D-8D93-78DD47922248" sourceRef="sid-006AE413-76EC-40D2-B892-43518CB638DE" targetRef="sid-9D5B8C3E-5062-4BB5-9B8F-E73574F363DE"></sequenceFlow>
     <sequenceFlow id="sid-4ADA806E-4DCF-4274-931A-0D417AF34126" sourceRef="sid-0FBA71E6-B965-4444-A86F-4B8F9FD089F7" targetRef="sid-B7178BB8-3A8E-40FF-A6D1-32E3706D6357"></sequenceFlow>
-    <sequenceFlow id="sid-B756B118-687F-4DF2-9E3B-F356C906991C" sourceRef="sid-16973CD3-94F8-41D6-9DD0-A8089F8AFBBA" targetRef="sid-F13DDC83-DA72-474A-880A-06E31F85D567"></sequenceFlow>
-    <sequenceFlow id="sid-0BAE50AF-E278-43F8-8619-D10532A1FC50" name="是（复诊患者）" sourceRef="sid-F359FC96-6981-4973-9F44-D785CE1F00F9" targetRef="sid-024D5C8A-1C5A-42B6-94E2-5ACE4ACD1A35">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="sid-1C8D0154-C047-4D68-9AC2-490DD306BBBB" name="否（首诊患者）" sourceRef="sid-F359FC96-6981-4973-9F44-D785CE1F00F9" targetRef="sid-0F32F285-D8BE-495A-AC7C-7685514B0354"></sequenceFlow>
     <sequenceFlow id="sid-2C8CF1D2-9C18-4C35-9FE8-67107AD05D0E" name="无" sourceRef="sid-F2CA3D5D-D5D3-445A-96A9-888DF78D2A22" targetRef="sid-9352FAA8-F340-4880-89A3-0E21D6CC22F6"></sequenceFlow>
     <sequenceFlow id="sid-B90987C5-E659-47E7-8D42-DC94826B014E" name="是" sourceRef="sid-F2CA3D5D-D5D3-445A-96A9-888DF78D2A22" targetRef="sid-5E6B438A-DF58-4105-A4DA-AEEC0DB756F2">
@@ -834,12 +806,7 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-EA5E237D-180D-4E43-A904-64FE96A32EB7" name="治疗不足" sourceRef="sid-A359A6A8-6618-487C-AAA7-5852EAE31A66" targetRef="sid-006AE413-76EC-40D2-B892-43518CB638DE"></sequenceFlow>
-    <sequenceFlow id="sid-EF0CBF22-444C-4172-BD9C-E1016A73E164" sourceRef="sid-5E15A651-C5B8-4AF7-A1C8-FCADF23CA743" targetRef="sid-3BA6BDA0-9AFA-4C01-81ED-C5A048CEF0D8"></sequenceFlow>
     <sequenceFlow id="sid-7D2F3EA2-EC87-47D2-9580-A7151688F765" sourceRef="sid-A05D71BB-0471-417C-BDE7-EE047C0103E9" targetRef="sid-CB4218BC-FD62-45BA-8869-E86DDF671505"></sequenceFlow>
-    <sequenceFlow id="sid-532DE817-0B13-4181-A6D9-6FD2E1A86B72" name="否（指向慢阻肺患者）" sourceRef="sid-CB4218BC-FD62-45BA-8869-E86DDF671505" targetRef="sid-2FEC9963-EF6E-4E0A-ADD4-975D8758B27A"></sequenceFlow>
-    <sequenceFlow id="sid-C5069B75-C894-4842-AB3A-A6AC8BFDAE98" name="是（指向症状发生频率）" sourceRef="sid-CB4218BC-FD62-45BA-8869-E86DDF671505" targetRef="sid-588619F0-CC0C-49B4-933F-D0EFC453EE1C">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="sid-9622B0CA-29A4-4CE7-8442-C6EB9DCADAF1" sourceRef="sid-37F4653B-6FA8-4FDF-920C-2F2C5AE7A4D5" targetRef="sid-E2B5A16D-2942-4DC8-B13B-7A96BE667A9C"></sequenceFlow>
     <sequenceFlow id="sid-DE18BC72-4AC5-4FB6-823A-F4E6DD0430AC" name="是" sourceRef="sid-E2B5A16D-2942-4DC8-B13B-7A96BE667A9C" targetRef="sid-825F041E-C3FA-40F0-B9AA-DEA406141D3C">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
@@ -870,6 +837,52 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-CAA630E5-B8C9-40E0-ADC3-150B99414E66" name="否（复诊）" sourceRef="sid-F531FBE6-0561-4597-9C27-5A5136EB9407" targetRef="sid-50DBF78E-0DD7-4817-A5D6-AC4CF6FEFF12"></sequenceFlow>
+    <sequenceFlow id="sid-EF0CBF22-444C-4172-BD9C-E1016A73E164" sourceRef="sid-5E15A651-C5B8-4AF7-A1C8-FCADF23CA743" targetRef="sid-3BA6BDA0-9AFA-4C01-81ED-C5A048CEF0D8"></sequenceFlow>
+    <sequenceFlow id="sid-4979807C-F80D-4B9F-9B6C-64F764FE44CB" name="否" sourceRef="sid-719CC9E0-3A51-4AA2-BDE2-57270AD50A8B" targetRef="sid-B0588679-DCDD-4BB8-8B22-AD759BF23357"></sequenceFlow>
+    <sequenceFlow id="sid-AF4D1DE8-E6BE-4332-82F4-3A56D7DF1DFD" name="2" sourceRef="sid-56076FBF-8B72-4387-A495-3C8A4D5C7717" targetRef="sid-5E15A651-C5B8-4AF7-A1C8-FCADF23CA743">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==2}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-EE4C3467-BE6C-4FAB-BF12-C5BBF50FBB13" name="否（正常）" sourceRef="sid-906A3A89-4F55-4844-8934-A3C1601BC37F" targetRef="sid-A472EF51-CBFD-43A4-BAD9-F7B65ED6E77F"></sequenceFlow>
+    <sequenceFlow id="sid-4AD23D07-DC33-4B61-ADD2-9041B0C4CEE5" name="是 （异常）" sourceRef="sid-906A3A89-4F55-4844-8934-A3C1601BC37F" targetRef="sid-5EF6AB91-68D7-46C8-BC9B-F0002146C155">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-F5D76C82-77EE-476A-8FD6-DC39C27F7CCB" name="否" sourceRef="sid-2D49DB77-690F-4468-BCA7-B7B69A581D48" targetRef="sid-FA8B3F75-863E-405D-8BE6-D7FCA1D87073"></sequenceFlow>
+    <sequenceFlow id="sid-27B2A77A-547E-4EF7-AC32-46D46D29D692" name="是（复诊患者）" sourceRef="sid-12E18DC7-EDD6-4347-88E8-5BC93F1D1CDB" targetRef="sid-13913D34-40AD-4CDA-BC92-84D63A812E26">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-8A60404B-5B4F-4AAF-90AA-7BCD9899AF53" name="不危急（哮喘未控制状态）" sourceRef="sid-FCB088DC-809E-4A77-9338-FEC53177E288" targetRef="sid-3BA6BDA0-9AFA-4C01-81ED-C5A048CEF0D8">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-532DE817-0B13-4181-A6D9-6FD2E1A86B72" name="否（指向慢阻肺患者）" sourceRef="sid-CB4218BC-FD62-45BA-8869-E86DDF671505" targetRef="sid-2FEC9963-EF6E-4E0A-ADD4-975D8758B27A"></sequenceFlow>
+    <sequenceFlow id="sid-83B44988-7DD2-492F-BA4A-4C9A2A5F40CD" sourceRef="sid-50DBF78E-0DD7-4817-A5D6-AC4CF6FEFF12" targetRef="sid-AF15237F-8AB1-499B-9D9D-AEB3DC9A56F5"></sequenceFlow>
+    <sequenceFlow id="sid-C5069B75-C894-4842-AB3A-A6AC8BFDAE98" name="是（指向哮喘患者）" sourceRef="sid-CB4218BC-FD62-45BA-8869-E86DDF671505" targetRef="sid-588619F0-CC0C-49B4-933F-D0EFC453EE1C">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-BCD2FDB8-8814-447A-8B57-081784EB9930" name="危急（急性发作）" sourceRef="sid-FCB088DC-809E-4A77-9338-FEC53177E288" targetRef="sid-F13DDC83-DA72-474A-880A-06E31F85D567"></sequenceFlow>
+    <sequenceFlow id="sid-6630EFF3-B7C1-4FE4-B1BD-A95C3B09D71C" sourceRef="sid-DBC17AFE-85C9-4C8E-B0FC-4FEAD085F063" targetRef="sid-F97F3535-FF4E-44CA-B6C4-1D6AB3DCE781"></sequenceFlow>
+    <userTask id="sid-E911CD9D-37A6-421C-86E2-B2C421091DE0" name="判断复诊患者类型？" flowable:formKey="ag_return_patient_type" flowable:formFieldValidation="true"></userTask>
+    <exclusiveGateway id="sid-6A068735-58E1-412F-9B0D-4A3AD14FCD7E" default="sid-E7855F57-4356-48C5-81E5-AE0AACCE1CC1"></exclusiveGateway>
+    <userTask id="sid-367559FB-0327-4815-8117-DF51ED698ED0" name="【患者类型】哮喘复诊患者" flowable:formFieldValidation="true">
+      <documentation>【患者类型】哮喘复诊患者</documentation>
+    </userTask>
+    <userTask id="sid-38D52B69-36A7-44EE-A284-D7905276779D" name="【患者类型】慢阻肺复诊患者" flowable:formFieldValidation="true">
+      <documentation>【患者类型】慢阻肺复诊患者</documentation>
+    </userTask>
+    <sequenceFlow id="sid-437613C7-4A9B-4EF8-A0EC-F3C6C54DF5E6" sourceRef="sid-367559FB-0327-4815-8117-DF51ED698ED0" targetRef="sid-BBB28FFF-A683-4C40-B64F-F850B9B6591F"></sequenceFlow>
+    <sequenceFlow id="sid-B756B118-687F-4DF2-9E3B-F356C906991C" name="指向（AECOPD/哮喘急性发作）" sourceRef="sid-16973CD3-94F8-41D6-9DD0-A8089F8AFBBA" targetRef="sid-F13DDC83-DA72-474A-880A-06E31F85D567"></sequenceFlow>
+    <sequenceFlow id="sid-0BAE50AF-E278-43F8-8619-D10532A1FC50" name="是（复诊患者）" sourceRef="sid-F359FC96-6981-4973-9F44-D785CE1F00F9" targetRef="sid-024D5C8A-1C5A-42B6-94E2-5ACE4ACD1A35">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-3E6565A5-EC58-4027-B94A-9F3A4B755BAB" name="指向mmRC评分" sourceRef="sid-38D52B69-36A7-44EE-A284-D7905276779D" targetRef="sid-826B126D-AF16-4B46-83B7-9419F223B853"></sequenceFlow>
+    <sequenceFlow id="sid-D75621F7-5116-489C-ACB3-68D3905511CB" name="是" sourceRef="sid-A6FBF498-BD26-4FAC-B5B2-DDEA1BC48FAE" targetRef="sid-16973CD3-94F8-41D6-9DD0-A8089F8AFBBA">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-9560140C-72CC-48D9-BB0B-21CEEE2A9854" sourceRef="sid-91715A10-0F10-4B38-BB7E-36463056981F" targetRef="sid-1F9A0376-F00B-46BC-954C-3210CED50285"></sequenceFlow>
+    <sequenceFlow id="sid-894451C6-5DA2-47AA-96C4-5D7C4759AF51" name="慢阻肺患者" sourceRef="sid-6A068735-58E1-412F-9B0D-4A3AD14FCD7E" targetRef="sid-38D52B69-36A7-44EE-A284-D7905276779D">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${choice==1}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="sid-E7855F57-4356-48C5-81E5-AE0AACCE1CC1" name="哮喘患者" sourceRef="sid-6A068735-58E1-412F-9B0D-4A3AD14FCD7E" targetRef="sid-367559FB-0327-4815-8117-DF51ED698ED0"></sequenceFlow>
+    <sequenceFlow id="sid-F7F212C3-37B3-4B92-862A-7794FADE57F7" sourceRef="sid-E911CD9D-37A6-421C-86E2-B2C421091DE0" targetRef="sid-6A068735-58E1-412F-9B0D-4A3AD14FCD7E"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_asthma1">
     <bpmndi:BPMNPlane bpmnElement="asthma1" id="BPMNPlane_asthma1">
@@ -925,13 +938,13 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdc:Bounds height="40.0" width="40.0" x="4836.172136651315" y="945.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-DB3EC19E-88BE-4E34-B31B-0E55CF443994" id="BPMNShape_sid-DB3EC19E-88BE-4E34-B31B-0E55CF443994">
-        <omgdc:Bounds height="80.0" width="100.0" x="5396.666463348609" y="823.3333022064645"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="5385.0" y="810.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-62399B8E-1125-40E3-B7F6-581CBB767876" id="BPMNShape_sid-62399B8E-1125-40E3-B7F6-581CBB767876">
         <omgdc:Bounds height="80.0" width="100.0" x="6347.066003373973" y="700.294046937578"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-7AAB0B59-ABED-4C59-AF07-A1EFD8A67C6C" id="BPMNShape_sid-7AAB0B59-ABED-4C59-AF07-A1EFD8A67C6C">
-        <omgdc:Bounds height="40.0" width="40.0" x="5575.0" y="843.3333022064645"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="5575.0" y="830.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-BB2268F3-630A-4EAC-8F16-F8C07AA60A2F" id="BPMNShape_sid-BB2268F3-630A-4EAC-8F16-F8C07AA60A2F">
         <omgdc:Bounds height="80.0" width="100.0" x="5878.430282719527" y="722.8311137651302"></omgdc:Bounds>
@@ -1033,10 +1046,10 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdc:Bounds height="80.00000000000045" width="100.0" x="9107.195446333251" y="2131.888678937771"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-B549AB46-DE32-49AA-A737-ECEEEF00DCCC" id="BPMNShape_sid-B549AB46-DE32-49AA-A737-ECEEEF00DCCC">
-        <omgdc:Bounds height="80.0" width="100.0" x="9107.195446333251" y="2377.7499905191366"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="9107.195446333251" y="2417.7499905191366"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-19FB70CB-B1D0-4E5A-BA31-85B7A103F8EE" id="BPMNShape_sid-19FB70CB-B1D0-4E5A-BA31-85B7A103F8EE">
-        <omgdc:Bounds height="80.0" width="100.0" x="9107.195446333251" y="2256.7499905191366"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="9105.0" y="2270.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-07F382F6-C94E-4A4B-8B79-DAAFC495A277" id="BPMNShape_sid-07F382F6-C94E-4A4B-8B79-DAAFC495A277">
         <omgdc:Bounds height="80.0" width="100.0" x="8919.908128714935" y="1625.9894179453738"></omgdc:Bounds>
@@ -1267,13 +1280,13 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdc:Bounds height="80.0" width="100.0" x="9891.31908290102" y="2153.374995259569"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-4A5F0D30-660F-4294-84F8-6AFD57D4E55B" id="BPMNShape_sid-4A5F0D30-660F-4294-84F8-6AFD57D4E55B">
-        <omgdc:Bounds height="156.31646518543357" width="111.39573694330466" x="10075.325293523221" y="2114.6468514255375"></omgdc:Bounds>
+        <omgdc:Bounds height="157.31646518543357" width="119.39573694330466" x="10067.325293523221" y="2113.6468514255375"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-56076FBF-8B72-4387-A495-3C8A4D5C7717" id="BPMNShape_sid-56076FBF-8B72-4387-A495-3C8A4D5C7717">
         <omgdc:Bounds height="40.0" width="40.0" x="10223.098497990248" y="2173.3749952595685"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-D23EAC73-C93E-41A8-96AB-06E3CB2A0810" id="BPMNShape_sid-D23EAC73-C93E-41A8-96AB-06E3CB2A0810">
-        <omgdc:Bounds height="80.0" width="100.0" x="9620.0" y="1671.458271184111"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="9620.0" y="1611.458271184111"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-E4EF4255-6D57-4F77-B60E-B9F6D2845332" id="BPMNShape_sid-E4EF4255-6D57-4F77-B60E-B9F6D2845332">
         <omgdc:Bounds height="80.0" width="100.0" x="9953.398962757514" y="1503.1250047404326"></omgdc:Bounds>
@@ -1303,7 +1316,7 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdc:Bounds height="80.0" width="100.0" x="10378.39896275751" y="1598.125004740432"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-588619F0-CC0C-49B4-933F-D0EFC453EE1C" id="BPMNShape_sid-588619F0-CC0C-49B4-933F-D0EFC453EE1C">
-        <omgdc:Bounds height="80.0" width="100.0" x="9620.0" y="1788.125004740432"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="9620.0" y="1728.125004740432"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-2FEC9963-EF6E-4E0A-ADD4-975D8758B27A" id="BPMNShape_sid-2FEC9963-EF6E-4E0A-ADD4-975D8758B27A">
         <omgdc:Bounds height="80.0" width="100.0" x="9620.0" y="1875.0"></omgdc:Bounds>
@@ -1357,16 +1370,16 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdc:Bounds height="28.0" width="28.0" x="7082.283611689518" y="964.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-719CC9E0-3A51-4AA2-BDE2-57270AD50A8B" id="BPMNShape_sid-719CC9E0-3A51-4AA2-BDE2-57270AD50A8B">
-        <omgdc:Bounds height="40.0" width="40.0" x="9544.079492106202" y="2359.6366804309982"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="9544.079492106202" y="2399.6366804309982"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-60616C9F-2591-4B0E-9436-BC9F45B2C813" id="BPMNShape_sid-60616C9F-2591-4B0E-9436-BC9F45B2C813">
-        <omgdc:Bounds height="120.69644457187223" width="134.3316579666589" x="9360.0" y="2319.4678346315645"></omgdc:Bounds>
+        <omgdc:Bounds height="120.69644457187223" width="134.3316579666589" x="9360.0" y="2359.4678346315645"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-B0588679-DCDD-4BB8-8B22-AD759BF23357" id="BPMNShape_sid-B0588679-DCDD-4BB8-8B22-AD759BF23357">
-        <omgdc:Bounds height="94.27831424010719" width="106.51805946123932" x="10197.764132264254" y="2332.6768997974473"></omgdc:Bounds>
+        <omgdc:Bounds height="94.27831424010719" width="106.51805946123932" x="10397.764132264254" y="2372.6768997974473"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-91715A10-0F10-4B38-BB7E-36463056981F" id="BPMNShape_sid-91715A10-0F10-4B38-BB7E-36463056981F">
-        <omgdc:Bounds height="109.480533302823" width="137.1568992304583" x="9702.15802606518" y="2267.075391958281"></omgdc:Bounds>
+        <omgdc:Bounds height="109.480533302823" width="137.1568992304583" x="9842.15802606518" y="2287.075391958281"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-0F32F285-D8BE-495A-AC7C-7685514B0354" id="BPMNShape_sid-0F32F285-D8BE-495A-AC7C-7685514B0354">
         <omgdc:Bounds height="105.0" width="101.0" x="589.0" y="925.5"></omgdc:Bounds>
@@ -1414,7 +1427,7 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdc:Bounds height="40.0" width="40.0" x="5930.0" y="586.2894470984634"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-1E60AECD-89AC-461E-A16E-DDBA1BCBD458" id="BPMNShape_sid-1E60AECD-89AC-461E-A16E-DDBA1BCBD458">
-        <omgdc:Bounds height="80.0" width="100.0" x="5565.0" y="390.0"></omgdc:Bounds>
+        <omgdc:Bounds height="80.0" width="100.0" x="5550.0" y="390.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-68CD716D-CBC7-4F78-985E-F4B43CE8911F" id="BPMNShape_sid-68CD716D-CBC7-4F78-985E-F4B43CE8911F">
         <omgdc:Bounds height="28.0" width="28.0" x="5805.0" y="416.0"></omgdc:Bounds>
@@ -1469,6 +1482,18 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="sid-A25E9D2C-D5FC-4036-BF3E-4CBEB28DABA5" id="BPMNShape_sid-A25E9D2C-D5FC-4036-BF3E-4CBEB28DABA5">
         <omgdc:Bounds height="79.99999999999977" width="100.0" x="10615.0" y="1972.1250047404321"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-E911CD9D-37A6-421C-86E2-B2C421091DE0" id="BPMNShape_sid-E911CD9D-37A6-421C-86E2-B2C421091DE0">
+        <omgdc:Bounds height="80.0" width="100.0" x="737.0000022758136" y="480.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-6A068735-58E1-412F-9B0D-4A3AD14FCD7E" id="BPMNShape_sid-6A068735-58E1-412F-9B0D-4A3AD14FCD7E">
+        <omgdc:Bounds height="40.0" width="40.0" x="767.0000022758136" y="356.5739028246927"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-367559FB-0327-4815-8117-DF51ED698ED0" id="BPMNShape_sid-367559FB-0327-4815-8117-DF51ED698ED0">
+        <omgdc:Bounds height="80.0" width="100.0" x="900.0" y="439.9999999999999"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-38D52B69-36A7-44EE-A284-D7905276779D" id="BPMNShape_sid-38D52B69-36A7-44EE-A284-D7905276779D">
+        <omgdc:Bounds height="80.0" width="100.0" x="900.0" y="255.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="sid-A4C27AE3-076A-4B6A-8BFF-65CB14F41EB3" id="BPMNEdge_sid-A4C27AE3-076A-4B6A-8BFF-65CB14F41EB3">
         <omgdi:waypoint x="7608.586174949391" y="1412.7610044429778"></omgdi:waypoint>
@@ -1531,8 +1556,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="7226.339795502895" y="1145.3763687290098"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-E57839BB-9748-4CFE-80DC-A1820A100F92" id="BPMNEdge_sid-E57839BB-9748-4CFE-80DC-A1820A100F92">
-        <omgdi:waypoint x="10186.671030466516" y="2193.3339590112228"></omgdi:waypoint>
-        <omgdi:waypoint x="10223.406594996512" y="2193.6830922658487"></omgdi:waypoint>
+        <omgdi:waypoint x="10186.671030466492" y="2193.108357355916"></omgdi:waypoint>
+        <omgdi:waypoint x="10223.325482826891" y="2193.601980096211"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-187197AB-BCBB-483B-AF3C-6166A0A22024" id="BPMNEdge_sid-187197AB-BCBB-483B-AF3C-6166A0A22024">
         <omgdi:waypoint x="7977.424736581109" y="1237.477786245758"></omgdi:waypoint>
@@ -1543,8 +1568,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="6033.776561312901" y="1295.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-EF291D4D-1E1A-4301-A676-9B6B7713CBFA" id="BPMNEdge_sid-EF291D4D-1E1A-4301-A676-9B6B7713CBFA">
-        <omgdi:waypoint x="9207.14544633325" y="2410.724417337873"></omgdi:waypoint>
-        <omgdi:waypoint x="9360.0" y="2389.2466002803717"></omgdi:waypoint>
+        <omgdi:waypoint x="9207.14544633325" y="2450.7244173378735"></omgdi:waypoint>
+        <omgdi:waypoint x="9359.999999999998" y="2429.2466002803717"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-416792A5-C328-49C8-8880-C9671865AF12" id="BPMNEdge_sid-416792A5-C328-49C8-8880-C9671865AF12">
         <omgdi:waypoint x="4967.047478684868" y="537.0764197342043"></omgdi:waypoint>
@@ -1558,9 +1583,13 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="1699.479395036174" y="978.4672413793104"></omgdi:waypoint>
         <omgdi:waypoint x="1969.9999999999936" y="978.0016351118761"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-437613C7-4A9B-4EF8-A0EC-F3C6C54DF5E6" id="BPMNEdge_sid-437613C7-4A9B-4EF8-A0EC-F3C6C54DF5E6">
+        <omgdi:waypoint x="971.3818176190913" y="519.9499999999999"></omgdi:waypoint>
+        <omgdi:waypoint x="999.4647855414495" y="572.4204956559204"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-8A60404B-5B4F-4AAF-90AA-7BCD9899AF53" id="BPMNEdge_sid-8A60404B-5B4F-4AAF-90AA-7BCD9899AF53">
-        <omgdi:waypoint x="4672.136924475071" y="703.1106976838075"></omgdi:waypoint>
-        <omgdi:waypoint x="4798.656955445977" y="596.6166461361787"></omgdi:waypoint>
+        <omgdi:waypoint x="4672.166200461865" y="703.1400470440013"></omgdi:waypoint>
+        <omgdi:waypoint x="4799.471837490206" y="596.6166461361787"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-1AA5E41F-AC0C-4B25-A169-FB2EA356F4A9" id="BPMNEdge_sid-1AA5E41F-AC0C-4B25-A169-FB2EA356F4A9">
         <omgdi:waypoint x="1999.260541580188" y="671.75"></omgdi:waypoint>
@@ -1574,13 +1603,17 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="1609.9499999999846" y="778.5473475313638"></omgdi:waypoint>
         <omgdi:waypoint x="1655.413043478261" y="778.744157243391"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3E6565A5-EC58-4027-B94A-9F3A4B755BAB" id="BPMNEdge_sid-3E6565A5-EC58-4027-B94A-9F3A4B755BAB">
+        <omgdi:waypoint x="999.9499999999997" y="303.76550569323507"></omgdi:waypoint>
+        <omgdi:waypoint x="9907.0" y="1866.824514400536"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-27B2A77A-547E-4EF7-AC32-46D46D29D692" id="BPMNEdge_sid-27B2A77A-547E-4EF7-AC32-46D46D29D692">
         <omgdi:waypoint x="4301.503405428181" y="771.329663669395"></omgdi:waypoint>
         <omgdi:waypoint x="4350.803378535474" y="741.729272407762"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-AA7C1FC4-E6A1-436F-AC16-3BCBDDC7E4B7" id="BPMNEdge_sid-AA7C1FC4-E6A1-436F-AC16-3BCBDDC7E4B7">
-        <omgdi:waypoint x="5604.587628637509" y="852.9437068555958"></omgdi:waypoint>
-        <omgdi:waypoint x="5646.535378567928" y="802.7811137651302"></omgdi:waypoint>
+        <omgdi:waypoint x="5605.291403295136" y="840.3159431530185"></omgdi:waypoint>
+        <omgdi:waypoint x="5641.445843044648" y="802.7811137651302"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-6E91470A-5704-48FE-B945-8F79C83EF260" id="BPMNEdge_sid-6E91470A-5704-48FE-B945-8F79C83EF260">
         <omgdi:waypoint x="4450.753378535274" y="711.75"></omgdi:waypoint>
@@ -1615,8 +1648,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="5878.430282719527" y="762.8311137651302"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-528F2B1B-7410-4B5C-850A-7161302CCEA6" id="BPMNEdge_sid-528F2B1B-7410-4B5C-850A-7161302CCEA6">
-        <omgdi:waypoint x="9494.28165796661" y="2379.9726564317766"></omgdi:waypoint>
-        <omgdi:waypoint x="9544.532717519418" y="2380.089905844278"></omgdi:waypoint>
+        <omgdi:waypoint x="9494.28165796661" y="2419.9726564317766"></omgdi:waypoint>
+        <omgdi:waypoint x="9544.532717519418" y="2420.089905844278"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-5F553D15-FDCB-468F-8E5E-B0D7EA92458C" id="BPMNEdge_sid-5F553D15-FDCB-468F-8E5E-B0D7EA92458C">
         <omgdi:waypoint x="1869.95" y="548.9285714285714"></omgdi:waypoint>
@@ -1651,8 +1684,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="1655.4166666666667" y="610.4166666666667"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-A0910CAD-54E6-4117-8EF0-7D8E661A703B" id="BPMNEdge_sid-A0910CAD-54E6-4117-8EF0-7D8E661A703B">
-        <omgdi:waypoint x="10304.232191725492" y="2362.7336406046707"></omgdi:waypoint>
-        <omgdi:waypoint x="11384.064310606156" y="2016.3867149479256"></omgdi:waypoint>
+        <omgdi:waypoint x="10504.232191725492" y="2396.8724970216235"></omgdi:waypoint>
+        <omgdi:waypoint x="11384.538007264897" y="2017.6456133772242"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-022E15D1-6D9A-497D-B01E-71BF03F1E68E" id="BPMNEdge_sid-022E15D1-6D9A-497D-B01E-71BF03F1E68E">
         <omgdi:waypoint x="7837.021420546346" y="1461.9535771111719"></omgdi:waypoint>
@@ -1687,16 +1720,16 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="6077.810129891737" y="733.616628238861"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-532DE817-0B13-4181-A6D9-6FD2E1A86B72" id="BPMNEdge_sid-532DE817-0B13-4181-A6D9-6FD2E1A86B72">
-        <omgdi:waypoint x="5964.526936854706" y="611.7124184469725"></omgdi:waypoint>
-        <omgdi:waypoint x="9620.0" y="1894.6490367653178"></omgdi:waypoint>
+        <omgdi:waypoint x="5964.470590316891" y="611.7687664852947"></omgdi:waypoint>
+        <omgdi:waypoint x="9620.0" y="1914.643587916387"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-9B4101F5-CFB7-4711-BCBF-BA742B6C5FA6" id="BPMNEdge_sid-9B4101F5-CFB7-4711-BCBF-BA742B6C5FA6">
         <omgdi:waypoint x="4947.188394660917" y="757.2235512652715"></omgdi:waypoint>
         <omgdi:waypoint x="5056.235552226415" y="768.2242796684178"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-3A124AFF-AEAE-4AF1-B45E-ACC883ADBC90" id="BPMNEdge_sid-3A124AFF-AEAE-4AF1-B45E-ACC883ADBC90">
-        <omgdi:waypoint x="9016.39099255399" y="2251.806817944835"></omgdi:waypoint>
-        <omgdi:waypoint x="9107.195446333251" y="2296.2604256016893"></omgdi:waypoint>
+        <omgdi:waypoint x="9015.24812263257" y="2252.9505128209876"></omgdi:waypoint>
+        <omgdi:waypoint x="9105.0" y="2309.3713591312535"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-2A198872-F4D9-40FB-B9E8-06D5FC24F7FB" id="BPMNEdge_sid-2A198872-F4D9-40FB-B9E8-06D5FC24F7FB">
         <omgdi:waypoint x="10478.348962757509" y="1528.624787349127"></omgdi:waypoint>
@@ -1714,6 +1747,10 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="10929.021412551772" y="2021.926210700633"></omgdi:waypoint>
         <omgdi:waypoint x="10987.0" y="2045.1882660256645"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-E7855F57-4356-48C5-81E5-AE0AACCE1CC1" id="BPMNEdge_sid-E7855F57-4356-48C5-81E5-AE0AACCE1CC1">
+        <omgdi:waypoint x="798.9635202992656" y="384.55969827870604"></omgdi:waypoint>
+        <omgdi:waypoint x="900.0" y="450.533161874205"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-B756B118-687F-4DF2-9E3B-F356C906991C" id="BPMNEdge_sid-B756B118-687F-4DF2-9E3B-F356C906991C">
         <omgdi:waypoint x="1049.9499999999998" y="846.6782407716414"></omgdi:waypoint>
         <omgdi:waypoint x="8695.698091846903" y="2243.893900355056"></omgdi:waypoint>
@@ -1727,8 +1764,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="2575.5345911949685" y="699.9499999999999"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-0BAE50AF-E278-43F8-8619-D10532A1FC50" id="BPMNEdge_sid-0BAE50AF-E278-43F8-8619-D10532A1FC50">
-        <omgdi:waypoint x="508.4889258413566" y="846.0089482118864"></omgdi:waypoint>
-        <omgdi:waypoint x="589.0" y="725.4223371476437"></omgdi:waypoint>
+        <omgdi:waypoint x="511.08360537506076" y="848.6101307018155"></omgdi:waypoint>
+        <omgdi:waypoint x="592.5913511811651" y="776.4499906800012"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-0C0ECD3C-02C0-40DD-A437-42F43C76109A" id="BPMNEdge_sid-0C0ECD3C-02C0-40DD-A437-42F43C76109A">
         <omgdi:waypoint x="10152.118261600872" y="1917.8286986627304"></omgdi:waypoint>
@@ -1783,8 +1820,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="8246.548821373646" y="1761.6630344058367"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-439F06D2-0CAB-4545-873C-80D295020E95" id="BPMNEdge_sid-439F06D2-0CAB-4545-873C-80D295020E95">
-        <omgdi:waypoint x="5491.500098814229" y="551.5276679841897"></omgdi:waypoint>
-        <omgdi:waypoint x="5591.731277533039" y="469.95000000000005"></omgdi:waypoint>
+        <omgdi:waypoint x="5490.936029411764" y="550.9621848739496"></omgdi:waypoint>
+        <omgdi:waypoint x="5579.770925110132" y="469.95000000000005"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-9622B0CA-29A4-4CE7-8442-C6EB9DCADAF1" id="BPMNEdge_sid-9622B0CA-29A4-4CE7-8442-C6EB9DCADAF1">
         <omgdi:waypoint x="5419.95" y="562.9638009049773"></omgdi:waypoint>
@@ -1839,8 +1876,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="6823.080107297577" y="694.0000000000002"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-6DE51FD6-7891-4313-B6AF-9B8104D130A4" id="BPMNEdge_sid-6DE51FD6-7891-4313-B6AF-9B8104D130A4">
-        <omgdi:waypoint x="9011.14391245251" y="2257.0553677796242"></omgdi:waypoint>
-        <omgdi:waypoint x="9107.195446333251" y="2396.2780481873738"></omgdi:waypoint>
+        <omgdi:waypoint x="9010.049651515325" y="2258.149356668951"></omgdi:waypoint>
+        <omgdi:waypoint x="9107.195446333251" y="2435.8789810404023"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-7FB885C7-8A2A-4262-9EF4-DC7DEF282B6B" id="BPMNEdge_sid-7FB885C7-8A2A-4262-9EF4-DC7DEF282B6B">
         <omgdi:waypoint x="1691.097862779557" y="774.4680689326059"></omgdi:waypoint>
@@ -1883,8 +1920,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="7869.757252036728" y="1435.3137642237389"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-4CD671AD-25F1-448D-BA51-181F7A890B5C" id="BPMNEdge_sid-4CD671AD-25F1-448D-BA51-181F7A890B5C">
-        <omgdi:waypoint x="911.7810866466679" y="713.8043359139403"></omgdi:waypoint>
-        <omgdi:waypoint x="965.2032701599028" y="652.3704956559203"></omgdi:waypoint>
+        <omgdi:waypoint x="895.03525989645" y="710.9636690115236"></omgdi:waypoint>
+        <omgdi:waypoint x="811.7501012853713" y="559.95"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-C5B05008-EA3B-423A-AAA3-DE0D1E8EDFA8" id="BPMNEdge_sid-C5B05008-EA3B-423A-AAA3-DE0D1E8EDFA8">
         <omgdi:waypoint x="7775.553937415649" y="1243.8861843102015"></omgdi:waypoint>
@@ -1962,6 +1999,10 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="301.94999999981457" y="857.5"></omgdi:waypoint>
         <omgdi:waypoint x="334.99999999968816" y="857.5"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-9560140C-72CC-48D9-BB0B-21CEEE2A9854" id="BPMNEdge_sid-9560140C-72CC-48D9-BB0B-21CEEE2A9854">
+        <omgdi:waypoint x="9922.00408191473" y="2287.075391958281"></omgdi:waypoint>
+        <omgdi:waypoint x="9933.078050685077" y="2233.3249952595693"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-7D2F3EA2-EC87-47D2-9580-A7151688F765" id="BPMNEdge_sid-7D2F3EA2-EC87-47D2-9580-A7151688F765">
         <omgdi:waypoint x="5864.949999999997" y="608.625721147579"></omgdi:waypoint>
         <omgdi:waypoint x="5930.535006576489" y="606.823116158511"></omgdi:waypoint>
@@ -1979,8 +2020,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="3090.0" y="614.7478260869563"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-B4BD5590-1527-4B9C-A4E0-C0EECF4BFBD0" id="BPMNEdge_sid-B4BD5590-1527-4B9C-A4E0-C0EECF4BFBD0">
-        <omgdi:waypoint x="10244.554150113914" y="2211.8635605075824"></omgdi:waypoint>
-        <omgdi:waypoint x="10250.970053533803" y="2332.6768997974473"></omgdi:waypoint>
+        <omgdi:waypoint x="10227.368775512148" y="2197.6358470876635"></omgdi:waypoint>
+        <omgdi:waypoint x="9494.281657966658" y="2367.9348985424444"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-7EA93AE8-CD21-4FCF-A647-7DE85F8E419D" id="BPMNEdge_sid-7EA93AE8-CD21-4FCF-A647-7DE85F8E419D">
         <omgdi:waypoint x="3827.949999999873" y="536.0"></omgdi:waypoint>
@@ -2026,6 +2067,10 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="8882.692343886152" y="1803.1552027741548"></omgdi:waypoint>
         <omgdi:waypoint x="8919.908128714178" y="1803.1552027741548"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-F7F212C3-37B3-4B92-862A-7794FADE57F7" id="BPMNEdge_sid-F7F212C3-37B3-4B92-862A-7794FADE57F7">
+        <omgdi:waypoint x="787.0000022758136" y="480.0"></omgdi:waypoint>
+        <omgdi:waypoint x="787.0000022758136" y="396.4808275928931"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-DF80F839-6FB1-402C-9F29-5BBA782C8AFC" id="BPMNEdge_sid-DF80F839-6FB1-402C-9F29-5BBA782C8AFC">
         <omgdi:waypoint x="10709.949999999999" y="1801.5186165778625"></omgdi:waypoint>
         <omgdi:waypoint x="11384.00000986665" y="2008.023018256451"></omgdi:waypoint>
@@ -2063,8 +2108,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="7485.78417961244" y="1373.1094012997871"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-AB02EC8E-0549-4F89-BCBC-2938F4174E73" id="BPMNEdge_sid-AB02EC8E-0549-4F89-BCBC-2938F4174E73">
-        <omgdi:waypoint x="9670.0" y="1788.125004740432"></omgdi:waypoint>
-        <omgdi:waypoint x="9670.0" y="1751.408271184111"></omgdi:waypoint>
+        <omgdi:waypoint x="9670.0" y="1728.125004740432"></omgdi:waypoint>
+        <omgdi:waypoint x="9670.0" y="1691.408271184111"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-278D24F8-47F2-4C83-9082-FD7CA83C1A97" id="BPMNEdge_sid-278D24F8-47F2-4C83-9082-FD7CA83C1A97">
         <omgdi:waypoint x="4596.976422346658" y="838.7972818850271"></omgdi:waypoint>
@@ -2083,16 +2128,16 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="11386.274526938807" y="2003.6166789261106"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-CF693083-EC41-4459-A311-F898ADACA211" id="BPMNEdge_sid-CF693083-EC41-4459-A311-F898ADACA211">
-        <omgdi:waypoint x="5605.623702538726" y="872.6591895234717"></omgdi:waypoint>
-        <omgdi:waypoint x="5634.112925201086" y="897.4977804317969"></omgdi:waypoint>
+        <omgdi:waypoint x="5604.837001306771" y="860.1129182733699"></omgdi:waypoint>
+        <omgdi:waypoint x="5641.148434095398" y="897.4977804317969"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-92C8E24A-D9C8-41A1-856D-E9BE56D2A39E" id="BPMNEdge_sid-92C8E24A-D9C8-41A1-856D-E9BE56D2A39E">
         <omgdi:waypoint x="1308.0777992038163" y="625.3731176299932"></omgdi:waypoint>
         <omgdi:waypoint x="1383.3462349473837" y="738.3311137651301"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-5CC5AE30-0E1F-41C3-AE59-9C2ABC716534" id="BPMNEdge_sid-5CC5AE30-0E1F-41C3-AE59-9C2ABC716534">
-        <omgdi:waypoint x="9578.629642833046" y="2374.2220445681846"></omgdi:waypoint>
-        <omgdi:waypoint x="9702.15802606518" y="2322.3445882442475"></omgdi:waypoint>
+        <omgdi:waypoint x="9580.155292025875" y="2415.7515174432015"></omgdi:waypoint>
+        <omgdi:waypoint x="9842.15802606518" y="2342.169400303663"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-38D1CF40-9578-4176-AC84-3BE16B998183" id="BPMNEdge_sid-38D1CF40-9578-4176-AC84-3BE16B998183">
         <omgdi:waypoint x="10494.949999999999" y="1908.7499905191362"></omgdi:waypoint>
@@ -2167,12 +2212,12 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="6058.782892343542" y="1207.5"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-A5249D1C-7936-488B-A813-262F31DD1FE5" id="BPMNEdge_sid-A5249D1C-7936-488B-A813-262F31DD1FE5">
-        <omgdi:waypoint x="9207.14544633325" y="2314.289359582867"></omgdi:waypoint>
-        <omgdi:waypoint x="9359.999999999998" y="2367.962481301245"></omgdi:waypoint>
+        <omgdi:waypoint x="9204.949999999999" y="2332.5656754068523"></omgdi:waypoint>
+        <omgdi:waypoint x="9360.0" y="2402.6118810491457"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-A5ACFE10-3599-4250-90D1-30E3BBCBCEFE" id="BPMNEdge_sid-A5ACFE10-3599-4250-90D1-30E3BBCBCEFE">
-        <omgdi:waypoint x="5496.616463348601" y="863.3333022064645"></omgdi:waypoint>
-        <omgdi:waypoint x="5575.0" y="863.3333022064645"></omgdi:waypoint>
+        <omgdi:waypoint x="5484.949999999535" y="850.0"></omgdi:waypoint>
+        <omgdi:waypoint x="5575.0" y="850.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-C4EF1A59-9D38-44F7-8702-867FE8E2F8FF" id="BPMNEdge_sid-C4EF1A59-9D38-44F7-8702-867FE8E2F8FF">
         <omgdi:waypoint x="1687.5906626506023" y="965.6084337349398"></omgdi:waypoint>
@@ -2204,12 +2249,12 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="6347.066003373973" y="725.6453658654583"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-76DB17A8-E765-4D53-BA36-5228DF05907D" id="BPMNEdge_sid-76DB17A8-E765-4D53-BA36-5228DF05907D">
-        <omgdi:waypoint x="9670.0" y="1671.458271184111"></omgdi:waypoint>
-        <omgdi:waypoint x="9670.0" y="1574.9063476015224"></omgdi:waypoint>
+        <omgdi:waypoint x="9670.0" y="1611.458271184111"></omgdi:waypoint>
+        <omgdi:waypoint x="9670.0" y="1574.9103001017754"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-FB170BC7-CEF3-47BF-BAD1-C32C439D0591" id="BPMNEdge_sid-FB170BC7-CEF3-47BF-BAD1-C32C439D0591">
-        <omgdi:waypoint x="5268.925333106099" y="781.5905519204288"></omgdi:waypoint>
-        <omgdi:waypoint x="5396.666463348609" y="842.0912756145141"></omgdi:waypoint>
+        <omgdi:waypoint x="5269.3609727444145" y="781.1545792668096"></omgdi:waypoint>
+        <omgdi:waypoint x="5385.0" y="830.3354726551933"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-BF8ED5C9-3A3E-43D4-8DC1-4CDD97539866" id="BPMNEdge_sid-BF8ED5C9-3A3E-43D4-8DC1-4CDD97539866">
         <omgdi:waypoint x="2289.949999999881" y="839.9999682108573"></omgdi:waypoint>
@@ -2245,10 +2290,6 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="7977.445181858318" y="1250.2557857091824"></omgdi:waypoint>
         <omgdi:waypoint x="8019.114886972213" y="1269.798994720262"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sid-0A015BA4-7075-44BA-A6E2-8F24AF085925" id="BPMNEdge_sid-0A015BA4-7075-44BA-A6E2-8F24AF085925">
-        <omgdi:waypoint x="9839.264925295638" y="2320.1418767900886"></omgdi:waypoint>
-        <omgdi:waypoint x="9909.132708550296" y="2233.3249952595693"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-A30F33F7-5B99-47CE-9532-6A91B3BA3F12" id="BPMNEdge_sid-A30F33F7-5B99-47CE-9532-6A91B3BA3F12">
         <omgdi:waypoint x="1869.9499999999998" y="737.7436533234724"></omgdi:waypoint>
         <omgdi:waypoint x="1910.0" y="726.1764775945273"></omgdi:waypoint>
@@ -2278,9 +2319,9 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="1650.413043478261" y="449.49415724339104"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-AF4D1DE8-E6BE-4332-82F4-3A56D7DF1DFD" id="BPMNEdge_sid-AF4D1DE8-E6BE-4332-82F4-3A56D7DF1DFD">
-        <omgdi:waypoint x="10250.714972630321" y="2181.0093056756828"></omgdi:waypoint>
-        <omgdi:waypoint x="10289.0" y="2112.0"></omgdi:waypoint>
-        <omgdi:waypoint x="9477.115828983327" y="1987.6504276828823"></omgdi:waypoint>
+        <omgdi:waypoint x="10250.346164050206" y="2180.639572763287"></omgdi:waypoint>
+        <omgdi:waypoint x="10288.0" y="2107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="9477.115828983324" y="1987.3691893439911"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-DCF02E50-72C7-41B9-95F1-7FA7D82C972D" id="BPMNEdge_sid-DCF02E50-72C7-41B9-95F1-7FA7D82C972D">
         <omgdi:waypoint x="3423.7508539060227" y="666.1986480626252"></omgdi:waypoint>
@@ -2375,8 +2416,10 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="11383.795973780172" y="2015.437245348587"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-0EC794A5-8FD3-4DCE-9603-BDBA1CA0ECB9" id="BPMNEdge_sid-0EC794A5-8FD3-4DCE-9603-BDBA1CA0ECB9">
-        <omgdi:waypoint x="9991.269082900986" y="2193.2247846673567"></omgdi:waypoint>
-        <omgdi:waypoint x="10075.325293523214" y="2192.9722620038237"></omgdi:waypoint>
+        <omgdi:waypoint x="9991.269082901019" y="2193.374995259569"></omgdi:waypoint>
+        <omgdi:waypoint x="10029.322188212122" y="2193.374995259569"></omgdi:waypoint>
+        <omgdi:waypoint x="10029.322188212122" y="2192.305084018254"></omgdi:waypoint>
+        <omgdi:waypoint x="10067.325293523036" y="2192.305084018254"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-3F9CD7B6-58A8-4590-A6A3-B0248BA355A0" id="BPMNEdge_sid-3F9CD7B6-58A8-4590-A6A3-B0248BA355A0">
         <omgdi:waypoint x="10353.048497990247" y="1935.465266788357"></omgdi:waypoint>
@@ -2391,8 +2434,8 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="5767.174100267505" y="802.7811137651302"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-4979807C-F80D-4B9F-9B6C-64F764FE44CB" id="BPMNEdge_sid-4979807C-F80D-4B9F-9B6C-64F764FE44CB">
-        <omgdi:waypoint x="9583.537581391058" y="2380.127069778561"></omgdi:waypoint>
-        <omgdi:waypoint x="10197.764132263881" y="2379.8165372071803"></omgdi:waypoint>
+        <omgdi:waypoint x="9583.535641430333" y="2420.12937486722"></omgdi:waypoint>
+        <omgdi:waypoint x="10397.764132263697" y="2419.816422055293"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-5A3F0495-AA0F-49BB-8693-306A3FEE24F1" id="BPMNEdge_sid-5A3F0495-AA0F-49BB-8693-306A3FEE24F1">
         <omgdi:waypoint x="7211.416259905729" y="1192.6811830497975"></omgdi:waypoint>
@@ -2405,7 +2448,11 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
       <bpmndi:BPMNEdge bpmnElement="sid-C5069B75-C894-4842-AB3A-A6AC8BFDAE98" id="BPMNEdge_sid-C5069B75-C894-4842-AB3A-A6AC8BFDAE98">
         <omgdi:waypoint x="5953.44439593045" y="589.7499496642326"></omgdi:waypoint>
         <omgdi:waypoint x="6027.0" y="435.0"></omgdi:waypoint>
-        <omgdi:waypoint x="9620.0" y="1809.0044309723776"></omgdi:waypoint>
+        <omgdi:waypoint x="9620.0" y="1749.8279280901377"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-894451C6-5DA2-47AA-96C4-5D7C4759AF51" id="BPMNEdge_sid-894451C6-5DA2-47AA-96C4-5D7C4759AF51">
+        <omgdi:waypoint x="800.7551981381766" y="370.36231972931745"></omgdi:waypoint>
+        <omgdi:waypoint x="900.0" y="320.22825540620437"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-D7D4675F-E545-4F3D-8D93-78DD47922248" id="BPMNEdge_sid-D7D4675F-E545-4F3D-8D93-78DD47922248">
         <omgdi:waypoint x="11086.949999999555" y="2065.249990519136"></omgdi:waypoint>
@@ -2427,13 +2474,13 @@ D-二聚体 、动脉血气分析、心电图、心脏超声、CT" flowable:form
         <omgdi:waypoint x="10987.0" y="1923.941109969353"></omgdi:waypoint>
         <omgdi:waypoint x="10709.949999999999" y="1807.2538003095374"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-60962369-5CA3-4F72-8F65-05201134D5F7" id="BPMNEdge_sid-60962369-5CA3-4F72-8F65-05201134D5F7">
+        <omgdi:waypoint x="5649.949999999743" y="430.0"></omgdi:waypoint>
+        <omgdi:waypoint x="5805.0" y="430.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-83B44988-7DD2-492F-BA4A-4C9A2A5F40CD" id="BPMNEdge_sid-83B44988-7DD2-492F-BA4A-4C9A2A5F40CD">
         <omgdi:waypoint x="9419.999666214002" y="1549.6010765937883"></omgdi:waypoint>
         <omgdi:waypoint x="1223.9499999999994" y="664.6041889657685"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="sid-60962369-5CA3-4F72-8F65-05201134D5F7" id="BPMNEdge_sid-60962369-5CA3-4F72-8F65-05201134D5F7">
-        <omgdi:waypoint x="5664.949999999698" y="430.0"></omgdi:waypoint>
-        <omgdi:waypoint x="5805.0" y="430.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="sid-EE4C3467-BE6C-4FAB-BF12-C5BBF50FBB13" id="BPMNEdge_sid-EE4C3467-BE6C-4FAB-BF12-C5BBF50FBB13">
         <omgdi:waypoint x="8193.290238241818" y="1793.9372839861987"></omgdi:waypoint>

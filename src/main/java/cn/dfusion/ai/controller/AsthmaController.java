@@ -229,6 +229,7 @@ public class AsthmaController {
                 .addClasspathResource("forms/ag_last_year_ae_num.form")
                 .addClasspathResource("forms/ag_result_if_block.form")
                 .addClasspathResource("forms/ag_treatment_assess.form")
+                .addClasspathResource("forms/ag_return_patient_type.form")
                 .parentDeploymentId(deployment.getId())
                 .deploy();
         List<FormDefinition> formDefinitionList = formRepositoryService.createFormDefinitionQuery().deploymentId(formDeployment.getId()).list();
