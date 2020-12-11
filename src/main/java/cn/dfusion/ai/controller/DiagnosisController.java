@@ -259,9 +259,9 @@ public class DiagnosisController {
             isSGA = true;
         } else if (pregnantWeek == 36 && weight <= 2.224) {
             isSGA = true;
-        } else if (pregnantWeek >= 37 && height <= 46.6 && weight <= 0.257 && gender.equals('女')) {
+        } else if (pregnantWeek >= 37 && height <= 46.6 && weight <= 0.257 && gender.equals("女")) {
             isSGA = true;
-        } else if (pregnantWeek >= 37 && height <= 47.1 && weight <= 0.262 && gender.equals('男')) {
+        } else if (pregnantWeek >= 37 && height <= 47.1 && weight <= 0.262 && gender.equals("男")) {
             isSGA = true;
         }
         variables.put("isSGA", isSGA);
